@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Register – LionSec Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="40" height="40"><defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#FFC857"/><stop offset="1" stop-color="#FF6B6B"/>
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="12" fill="url(#g)"/>
+          <path d="M18 42c6-6 12-6 18 0" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M22 28c4-6 14-6 18 0" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <span class="brand-text">LionSec Hub</span>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html#courses">Courses</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html" class="btn btn-ghost">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- REGISTER FORM (DOPE DESIGN) -->
+    <section class="register-section">
+      <div class="container">
+        <h2 class="section-title">Register for a Course</h2>
+        <p class="section-intro">Fill your details and choose a course. We'll follow up with payment and onboarding steps.</p>
+
+        <form id="registrationForm" class="form-grid" aria-labelledby="register">
+          <div class="form-row">
+            <label for="fullname">Full name</label>
+            <input id="fullname" name="fullname" type="text" placeholder="Adebayo Alade" title="Full name" required />
+          </div>
+
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" title="Email" required />
+          </div>
+
+          <div class="form-row">
+            <label for="phone">Phone (WhatsApp)</label>
+            <input id="phone" name="phone" type="tel" placeholder="+2348116089070" title="Phone" required />
+          </div>
+
+          <div class="form-row">
+            <label for="location">Location</label>
+            <input id="location" name="location" type="text" placeholder="Lagos, Nigeria" title="Location" />
+          </div>
+
+          <div class="form-row">
+            <label for="course">Select course</label>
+            <select id="course" name="course" title="Select course" required>
+              <option value="">-- Choose a course --</option>
+              <option>Cybersecurity Foundations — ₦220,000 (3 months)</option>
+              <option>Ethical Hacking & Pentesting — ₦380,000 (4 months)</option>
+              <option>Cloud Security & DevSecOps — ₦300,000 (3 months)</option>
+              <option>Web & App Secure Development — ₦220,000 (2.5 months)</option>
+              <option>Digital Forensics & Malware Analysis — ₦320,000 (3 months)</option>
+              <option>Full-stack Web Development — ₦200,000 (4 months)</option>
+              <option>Mobile App Development — ₦230,000 (3 months)</option>
+              <option>UI/UX & Product Design — ₦150,000 (2 months)</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="paymentPlan">Payment preference</label>
+            <select id="paymentPlan" name="paymentPlan" title="Payment preference" required>
+              <option value="full">Full payment</option>
+              <option value="installment">Installment plan</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="notes">Short note (optional)</label>
+            <textarea id="notes" name="notes" placeholder="Tell us your goals or background (optional)" title="Short note" rows="4"></textarea>
+          </div>
+
+          <div class="form-cta">
+            <button type="submit" class="btn btn-primary">Submit registration</button>
+            <button type="reset" class="btn btn-ghost">Reset</button>
+          </div>
+
+          <div id="formMessage" class="form-message" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <!-- ... (your original footer) -->
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
