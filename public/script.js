@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animate();
   }
 
-  // 6. FORM SUBMISSION - FIXED VERSION
+  // 6. FORM SUBMISSION - WITH LIVE BACKEND
   const form = document.getElementById('registrationForm');
   const msg = document.getElementById('formMessage');
 
@@ -116,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('📤 Sending registration:', payload);
 
       try {
-        // FIXED: Changed to localhost:5000
-        const res = await fetch('http://localhost:5000/api/register', {
+        // LIVE BACKEND URL - Change this to your Render URL
+        const res = await fetch('https://lionsechub-backend.onrender.com/api/register', {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
@@ -143,13 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } catch (err) {
         console.error('❌ Fetch error:', err);
-        msg.textContent = '❌ SYSTEM FAILURE: Make sure server is running on http://localhost:5000';
+        msg.textContent = '❌ SYSTEM FAILURE: Unable to connect to server. Please try again.';
         msg.style.color = '#FF8A8A';
       }
     });
   }
 
-  // 7. MOBILE MENU TOGGLE (if you want to add this later)
+  // 7. MOBILE MENU TOGGLE
   const mobileToggle = document.querySelector('.mobile-toggle');
   const nav = document.querySelector('.nav');
   
