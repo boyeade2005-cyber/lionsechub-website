@@ -1,161 +1,233 @@
-document.addEventListener('DOMContentLoaded', () => {
-  
-  // 1. LOADER DISMISSAL
-  setTimeout(() => {
-    const loader = document.getElementById('loader');
-    if (loader) {
-      loader.style.opacity = '0';
-      setTimeout(() => { loader.style.display = 'none'; }, 500);
-    }
-  }, 1500);
+// ========================================
+// KODJO'S FURNITURE - FRONTEND (FINAL FIX)
+// Linked to Render Backend for Vercel Deployment
+// ========================================
 
-  // 2. YEAR UPDATE
-  const yearElement = document.getElementById('year');
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-  }
+// THE KEY FIX: Directly point to your Render service
+const API_BASE_URL = 'https://kodjo-s-furniture-interior-design.onrender.com/api';
 
-  // 3. SCROLL REVEAL ANIMATION
-  const observerOptions = { threshold: 0.1 };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, observerOptions);
+// Gallery Data Management
+const galleryData = {
+    bedroom: [
+        { path: "Kodjo_s Furniture Photos/Bedroom Design/Bedroom Design", count: 88, name: "MASTER SUITE" },
+        { path: "Kodjo_s Furniture Photos/Bedroom Dressing Table/Bedroom Dressing Table", count: 36, name: "DRESSING ATELIER" }
+    ],
+    office: [
+        { path: "Kodjo_s Furniture Photos/Office Tables/Office Tables", count: 7, name: "EXECUTIVE DESK" },
+        { path: "Kodjo_s Furniture Photos/Reading table/Reading table", count: 34, name: "SCHOLAR DESK" }
+    ],
+    sitting: [
+        { path: "Kodjo_s Furniture Photos/Sitting Room Sofas/Sitting Room Sofas", count: 50, name: "GRAND LOUNGE" }
+    ],
+    institutional: [
+        { path: "Kodjo_s Furniture Photos/Teacher_s Tables/Teacher Table", count: 8, name: "ACADEMIC SERIES" }
+    ]
+};
 
-  const elementsToReveal = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
-  elementsToReveal.forEach(el => observer.observe(el));
+// ========================================
+// VAULT/GALLERY FUNCTIONS
+// ========================================
 
-  // 4. ACCORDION LOGIC (For Policy)
-  const accHeaders = document.querySelectorAll('.accordion-header');
-  accHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const item = header.parentElement;
-      item.classList.toggle('active');
-    });
-  });
-
-  // 5. PARTICLE BACKGROUND
-  const canvas = document.getElementById('neuro');
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.size = Math.random() * 2;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.x < 0 || this.x > width) this.vx *= -1;
-        if (this.y < 0 || this.y > height) this.vy *= -1;
-      }
-      draw() {
-        ctx.fillStyle = 'rgba(0, 240, 255, 0.4)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
+function filterVault(category, clickedButton) {
+    const grid = document.getElementById('vault-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    
+    // Update active tab
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    if (clickedButton) {
+        clickedButton.classList.add('active');
     }
 
-    for (let i = 0; i < 60; i++) particles.push(new Particle());
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-        for (let j = i; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.strokeStyle = `rgba(0, 240, 255, ${1 - dist / 120})`;
-            ctx.lineWidth = 0.3;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
+    // Load images for selected category
+    galleryData[category].forEach(sub => {
+        for (let i = 1; i <= sub.count; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'vault-cell';
+            const src = `${sub.path} (${i}).jpg`;
+            
+            cell.innerHTML = `
+                <div class="cell-inner">
+                    <img src="/${src}" loading="lazy" alt="${sub.name} ${i}" onerror="this.parentElement.parentElement.remove()">
+                    <div class="cell-overlay">
+                        <span class="serial">KDJ-${category.toUpperCase()}-${i.toString().padStart(3, '0')}</span>
+                        <span class="label">${sub.name}</span>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(cell);
         }
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-  }
+    });
 
-  // 6. FORM SUBMISSION - WITH LIVE BACKEND
-  const form = document.getElementById('registrationForm');
-  const msg = document.getElementById('formMessage');
-
-  if (form && msg) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      msg.textContent = '⏳ ESTABLISHING SECURE UPLINK...';
-      msg.style.color = '#00f0ff';
-
-      const formData = new FormData(form);
-      const payload = Object.fromEntries(formData.entries());
-
-      console.log('📤 Sending registration:', payload);
-
-      try {
-        // LIVE BACKEND URL - Change this to your Render URL
-        const res = await fetch('https://lionsechub-backend.onrender.com/api/register', {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload)
+    // Add smooth scroll reveal animation
+    setTimeout(() => {
+        document.querySelectorAll('.vault-cell').forEach((cell, index) => {
+            cell.style.opacity = '0';
+            cell.style.transform = 'translateY(30px)';
+            setTimeout(() => {
+                cell.style.transition = 'all 0.6s ease';
+                cell.style.opacity = '1';
+                cell.style.transform = 'translateY(0)';
+            }, index * 30);
         });
+    }, 50);
+}
 
-        console.log('📥 Response status:', res.status);
+// ========================================
+// FORM SUBMISSION WITH BACKEND (FIXED CONNECTION)
+// ========================================
 
-        const data = await res.json();
-        console.log('📥 Response data:', data);
+function handleFormSubmission() {
+    const form = document.querySelector('.luxe-form');
+    
+    if (!form) {
+        console.error('Form not found');
+        return;
+    }
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); 
+        
+        console.log('Attempting transmission to Render...'); 
+        
+        // Get form elements
+        const inputs = form.querySelectorAll('input[type="text"]');
+        const fullName = inputs[0].value.trim();
+        const location = inputs[1].value.trim();
+        const phone = form.querySelector('input[type="tel"]').value.trim();
+        const emailField = form.querySelector('input[type="email"]');
+        const email = emailField ? emailField.value.trim() : '';
+        const category = form.querySelector('select').value;
+        const description = form.querySelector('textarea').value.trim();
+        const fileInput = form.querySelector('input[type="file"]');
 
-        if (res.ok) {
-          msg.textContent = '✅ ACCESS GRANTED. CHECK EMAIL FOR ONBOARDING.';
-          msg.style.color = '#6EE7B7';
-          form.reset();
-          
-          // Scroll to message
-          msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-          msg.textContent = '❌ ERROR: ' + (data.message || data.error || 'TRANSMISSION FAILED');
-          msg.style.color = '#FF8A8A';
+        // Validation
+        if (!fullName || !phone || !location || !category || !description) {
+            showNotification('Please fill in all required fields', 'error');
+            return;
         }
-      } catch (err) {
-        console.error('❌ Fetch error:', err);
-        msg.textContent = '❌ SYSTEM FAILURE: Unable to connect to server. Please try again.';
-        msg.style.color = '#FF8A8A';
-      }
-    });
-  }
 
-  // 7. MOBILE MENU TOGGLE
-  const mobileToggle = document.querySelector('.mobile-toggle');
-  const nav = document.querySelector('.nav');
-  
-  if (mobileToggle && nav) {
-    mobileToggle.addEventListener('click', () => {
-      nav.classList.toggle('active');
+        // Disable submit button
+        const submitBtn = form.querySelector('.gold-submit');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'TRANSMITTING...';
+        submitBtn.disabled = true;
+
+        try {
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('fullName', fullName);
+            formData.append('phone', phone);
+            formData.append('email', email);
+            formData.append('location', location);
+            formData.append('category', category);
+            formData.append('description', description);
+            
+            if (fileInput.files.length > 0) {
+                formData.append('referenceImage', fileInput.files[0]);
+            }
+
+            // Send to Render Backend
+            const response = await fetch(`${API_BASE_URL}/quote`, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('✅ Quote request submitted successfully!', 'success');
+                form.reset();
+            } else {
+                throw new Error(result.message || 'Failed to submit quote');
+            }
+
+        } catch (error) {
+            console.error('Submission error:', error);
+            showNotification('❌ Transmission failed. Check your connection.', 'error');
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     });
-  }
+}
+
+// ========================================
+// NOTIFICATION SYSTEM
+// ========================================
+
+function showNotification(message, type = 'info') {
+    const existing = document.querySelector('.luxury-notification');
+    if (existing) existing.remove();
+
+    const notification = document.createElement('div');
+    notification.className = `luxury-notification ${type}`;
+    
+    const icons = { success: '✓', error: '✕', info: 'ℹ' };
+    
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-icon">${icons[type]}</span>
+            <p>${message}</p>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+
+    if (!document.getElementById('notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            .luxury-notification {
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: rgba(10, 10, 10, 0.98);
+                border: 2px solid #c5a059;
+                padding: 25px 35px;
+                border-radius: 5px;
+                z-index: 10000;
+                backdrop-filter: blur(10px);
+                animation: slideIn 0.5s ease;
+                max-width: 400px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            }
+            .notification-content { display: flex; align-items: center; gap: 15px; }
+            .notification-icon { font-size: 1.5rem; color: #c5a059; font-weight: bold; }
+            .luxury-notification p { margin: 0; font-family: serif; font-size: 0.95rem; color: white; }
+            @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+            @keyframes slideOut { to { transform: translateX(400px); opacity: 0; } }
+        `;
+        document.head.appendChild(style);
+    }
+
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.5s ease forwards';
+        setTimeout(() => notification.remove(), 500);
+    }, 6000);
+}
+
+// ========================================
+// INITIALIZATION
+// ========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    handleFormSubmission();
+    
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Header Color Change
+    const header = document.querySelector('.atelier-header');
+    window.addEventListener('scroll', () => {
+        if (header) {
+            header.style.background = window.pageYOffset > 100 ? 'rgba(0,0,0,0.98)' : 'transparent';
+        }
+    });
 });
