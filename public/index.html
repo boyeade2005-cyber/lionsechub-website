@@ -2,31 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <!-- Google Site Verification -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+
   <meta name="google-site-verification" content="G6KuonRqARCP776v5rH4Qm9IH05ECjT2hUBQAc0b8_w" />
-  
-  <title>LionSec Hub — The Apex of African Cybersecurity</title>
-  <meta name="description" content="LionSec Hub. We train the guardians of the African digital economy. Elite Cybersecurity Training & Corporate Defense." />
-  <link rel="stylesheet" href="./Style.css" />
+  <title>LionSec Hub — Elite Cybersecurity Training & Security Engineering</title>
+  <meta name="description" content="LionSec Hub builds and teaches security. Hands-on cybersecurity cohorts, live labs, incident response simulations, and secure systems engineering." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="LionSec Hub — Elite Cybersecurity Training & Security Engineering" />
+  <meta property="og:description" content="Hands-on cybersecurity cohorts, live labs, and secure systems engineering built for African realities." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lionsechub.vercel.app/" />
+
+  <link rel="stylesheet" href="./style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  
-  <div id="loader">
+  <div id="loader" aria-hidden="true">
     <div class="loader-text">INITIALIZING LIONSEC PROTOCOLS...</div>
     <div class="loader-bar"><div class="bar-fill"></div></div>
   </div>
 
-  <canvas id="neuro" class="canvas-bg"></canvas>
-  <div class="vignette"></div>
+  <canvas id="neuro" class="canvas-bg" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
 
   <header class="site-header">
     <div class="container header-inner">
-      <a href="#home" class="brand">
-        <div class="logo-box">
+      <a href="#home" class="brand" aria-label="LionSec Hub Home">
+        <div class="logo-box" aria-hidden="true">
           <svg viewBox="0 0 64 64" width="32" height="32">
             <path d="M32 2L2 14v18c0 20 22 30 30 30s30-10 30-30V14L32 2z" fill="url(#goldGradient)"/>
             <path d="M32 12L16 20v10c0 10 16 18 16 18s16-8 16-18V20L32 12z" stroke="#000" stroke-width="3" fill="none"/>
@@ -42,89 +47,125 @@
         <span class="brand-text">LIONSEC <span class="gold-text">HUB</span></span>
       </a>
 
-      <nav class="nav">
+      <nav class="nav" id="nav">
         <a href="#about">Mission</a>
         <a href="#courses">Academy</a>
+        <a href="#labs">Labs</a>
+        <a href="#engineering">Build</a>
         <a href="#reviews">Legacy</a>
+        <a href="#quote">Services</a>
         <a href="#legal">Legal</a>
         <a href="#register" class="btn btn-gold">JOIN THE ELITE</a>
       </nav>
-      
-      <div class="mobile-toggle">|||</div>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
   <main>
+    <!-- HERO -->
     <section id="home" class="hero">
       <div class="container hero-content">
-        <div class="hero-label fade-in">EST. LAGOS // OPERATING GLOBALLY</div>
+        <div class="hero-label reveal">EST. LAGOS // OPERATING GLOBALLY</div>
+
         <h1 class="hero-title glitch-text" data-text="SECURE THE FUTURE">SECURE THE FUTURE</h1>
-        <p class="lead fade-in delay-1">From the hubs of Yaba to the boardrooms of Abuja. We forge the next generation of <strong>Elite Cyber Sentinels</strong>.</p>
-        
-        <div class="hero-ctas fade-in delay-2">
+
+        <p class="lead reveal delay-1">
+          LionSec Hub trains and builds security for African realities — <strong>hands-on cohorts</strong>, <strong>live labs</strong>,
+          <strong>incident response simulations</strong>, and <strong>secure systems engineering</strong>.
+        </p>
+
+        <div class="hero-ctas reveal delay-2">
           <a href="#courses" class="btn btn-primary glow-effect">BEGIN TRAINING</a>
-          <a href="#corporate" class="btn btn-outline">CORPORATE DEFENSE</a>
+          <a href="#quote" class="btn btn-outline">REQUEST A QUOTE</a>
         </div>
-        
-        <div class="scroll-indicator">
+
+        <div class="hero-badges reveal delay-3" aria-label="Social proof badges">
+          <span class="badge">Mentorship + Labs</span>
+          <span class="badge">Portfolio Projects</span>
+          <span class="badge">Security-First Engineering</span>
+        </div>
+
+        <div class="scroll-indicator" aria-hidden="true">
           <span>SCROLL TO INITIALIZE</span>
           <div class="line"></div>
         </div>
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container grid-2">
         <div class="reveal-left">
           <h2 class="section-title">THE <span class="gold-text">LION</span> PHILOSOPHY</h2>
-          <p class="text-lg">In the wild, the lion does not ask for permission. In cyberspace, security is not given—it is taken.</p>
-          <p class="text-muted">LionSec Hub was founded to close the gap between African talent and Global threats. We don't just teach theory. We simulate real-world warfare. Our graduates don't just get jobs; they secure nations, banks, and infrastructure.</p>
-          
+          <p class="text-lg">Security is not given — it’s engineered, tested, and proven.</p>
+          <p class="text-muted">
+            LionSec Hub exists to close the gap between African talent and global threats. We don’t just teach theory.
+            We train with labs, simulations, and real-world workflows — so students can build confidence, discipline, and results.
+          </p>
+
           <div class="stats-grid">
             <div class="stat-box">
-              <h3>500+</h3>
-              <p>Sentinels Trained</p>
+              <h3>Hands-on</h3>
+              <p>Labs + simulations</p>
             </div>
             <div class="stat-box">
-              <h3>98%</h3>
-              <p>Placement Rate</p>
+              <h3>Portfolio</h3>
+              <p>Projects + reports</p>
             </div>
             <div class="stat-box">
-              <h3>₦200M+</h3>
-              <p>Assets Secured</p>
+              <h3>Support</h3>
+              <p>Mentorship + guidance</p>
             </div>
           </div>
+
+          <div class="pill-row">
+            <span class="pill">Incident Response</span>
+            <span class="pill">Threat Detection</span>
+            <span class="pill">Ethical Hacking</span>
+            <span class="pill">DevSecOps</span>
+            <span class="pill">Forensics</span>
+          </div>
         </div>
-        
+
+        <!-- VIDEO (MOBILE SAFE) -->
         <div class="reveal-right image-frame">
           <div class="video-hud">
             <div class="hud-line top"></div>
-            <video autoplay controls playsinline class="cyber-video">
-              <source src="intro.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+
+            <div class="video-wrap" role="group" aria-label="Intro video">
+              <video class="cyber-video" controls playsinline preload="metadata" poster="./poster.jpg">
+                <!-- Replace intro.mp4 with a real file in your /public folder -->
+                <source src="./intro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
             <div class="hud-line bottom"></div>
-            <div class="scan-line"></div>
+            <div class="scan-line" aria-hidden="true"></div>
           </div>
 
           <div class="video-caption-box">
-            <h5 class="caption-title">MISSION LOG: <span class="gold-text">BREAKING THE MOLD</span></h5>
+            <h5 class="caption-title">MISSION LOG: <span class="gold-text">PROOF & PRACTICE</span></h5>
             <p class="caption-text">
-              "There is no traditional path. I was a middle school English teacher. I worked full time, studied at night, and landed my first role."
+              We don’t sell vibes. We train with labs, reports, detection workflows, and real simulations.
             </p>
             <div class="caption-footer">
-              <span class="pulse-dot"></span> TRANSMISSION: TEACHER > ANALYST
+              <span class="pulse-dot" aria-hidden="true"></span> TRANSMISSION: LEARN → BUILD → PROTECT
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- COURSES -->
     <section id="courses" class="section alt-bg">
       <div class="container">
         <div class="section-header reveal-up">
           <h2 class="section-title">THE ARMORY (COURSES)</h2>
-          <p class="section-intro">Select your weapon. All courses include live labs, internship opportunities, and career certification.</p>
+          <p class="section-intro">Cohort-based training. Hands-on labs. Career-focused projects. Real-world mindset.</p>
         </div>
 
         <div class="grid grid-3">
@@ -134,10 +175,11 @@
               <div class="icon-box">🛡️</div>
             </div>
             <h3>Cybersecurity Fundamentals</h3>
-            <p>The perfect entry point. Understand networks, Linux kernels, and basic defense protocols.</p>
+            <p>Start strong: networking, Linux, security basics, and defensive thinking.</p>
             <ul class="specs">
               <li>Duration: 3 Months</li>
-              <li>Location: Remote / Lagos</li>
+              <li>Mode: Remote / Lagos</li>
+              <li>Outcome: Portfolio starter pack</li>
             </ul>
             <div class="price">₦220,000</div>
             <a href="#register" class="btn-link">ENROLL &rarr;</a>
@@ -149,10 +191,11 @@
               <div class="icon-box">⚔️</div>
             </div>
             <h3>Ethical Hacking (Red Team)</h3>
-            <p>Become the hunter. Master penetration testing, exploit development, and social engineering.</p>
+            <p>Pen testing fundamentals, recon, exploitation basics, and reporting.</p>
             <ul class="specs">
               <li>Duration: 4 Months</li>
-              <li>Includes: CTF Challenges</li>
+              <li>Includes: CTF challenges</li>
+              <li>Outcome: Pentest report template</li>
             </ul>
             <div class="price">₦380,000</div>
             <a href="#register" class="btn-link">ENROLL &rarr;</a>
@@ -164,25 +207,27 @@
               <div class="icon-box">☁️</div>
             </div>
             <h3>Cloud & DevSecOps</h3>
-            <p>Secure the cloud. AWS, Azure, and CI/CD pipeline security for modern enterprises.</p>
+            <p>Secure cloud infrastructure and pipelines — build automation with security controls.</p>
             <ul class="specs">
               <li>Duration: 3 Months</li>
-              <li>Focus: Automation</li>
+              <li>Focus: Automation + CI/CD</li>
+              <li>Outcome: Secure pipeline checklist</li>
             </ul>
             <div class="price">₦300,000</div>
             <a href="#register" class="btn-link">ENROLL &rarr;</a>
           </article>
-          
+
           <article class="course-card reveal-up">
             <div class="card-top">
               <span class="tier-badge">FORENSICS</span>
               <div class="icon-box">🔍</div>
             </div>
             <h3>Digital Forensics</h3>
-            <p>The investigation. Malware analysis, evidence recovery, and incident reporting.</p>
-             <ul class="specs">
+            <p>Evidence handling, artifacts, timelines, and incident documentation.</p>
+            <ul class="specs">
               <li>Duration: 3 Months</li>
-              <li>Tool: Autopsy/Volatility</li>
+              <li>Tools: Autopsy / Volatility</li>
+              <li>Outcome: Incident report pack</li>
             </ul>
             <div class="price">₦320,000</div>
             <a href="#register" class="btn-link">ENROLL &rarr;</a>
@@ -194,25 +239,27 @@
               <div class="icon-box">💻</div>
             </div>
             <h3>Full-Stack Secure Dev</h3>
-            <p>Build unhackable apps. Frontend, Backend, and Database security from day one.</p>
-             <ul class="specs">
+            <p>Build apps with security baked in — auth, OWASP, and secure data handling.</p>
+            <ul class="specs">
               <li>Duration: 4 Months</li>
-              <li>Stack: MERN/Python</li>
+              <li>Stack: MERN / Python</li>
+              <li>Outcome: Secure app demo</li>
             </ul>
             <div class="price">₦200,000</div>
             <a href="#register" class="btn-link">ENROLL &rarr;</a>
           </article>
 
-           <article class="course-card reveal-up delay-2">
+          <article class="course-card reveal-up delay-2">
             <div class="card-top">
               <span class="tier-badge">MOBILE</span>
               <div class="icon-box">📱</div>
             </div>
             <h3>Mobile App Dev</h3>
-            <p>Create the next big app. Android & iOS development with secure architecture.</p>
-             <ul class="specs">
+            <p>Mobile development with secure architecture — build real apps, not toys.</p>
+            <ul class="specs">
               <li>Duration: 3 Months</li>
-              <li>Stack: Flutter/React Native</li>
+              <li>Stack: Flutter / React Native</li>
+              <li>Outcome: MVP + security checklist</li>
             </ul>
             <div class="price">₦230,000</div>
             <a href="#register" class="btn-link">ENROLL &rarr;</a>
@@ -221,82 +268,244 @@
       </div>
     </section>
 
+    <!-- LABS -->
+    <section id="labs" class="section">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <h2 class="section-title">LIVE LABS (PUBLIC TRAINING ZONE)</h2>
+          <p class="section-intro">
+            Practice like a pro: detection drills, phishing analysis, log hunting, and incident response workflows.
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="service-card reveal-up">
+            <div class="icon-box">🧪</div>
+            <h3>Incident Response Simulation</h3>
+            <p>Step-by-step: triage → containment → eradication → recovery → reporting.</p>
+            <ul class="specs">
+              <li>Artifacts: timelines + IOC list</li>
+              <li>Output: incident report PDF</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal-up delay-1">
+            <div class="icon-box">📩</div>
+            <h3>Phishing Analysis Lab</h3>
+            <p>Analyze headers, links, payload behavior, and create user-safe advisories.</p>
+            <ul class="specs">
+              <li>Tooling: URL inspection + sandbox style flow</li>
+              <li>Output: threat bulletin</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal-up delay-2">
+            <div class="icon-box">📊</div>
+            <h3>Log Hunting</h3>
+            <p>Learn SIEM thinking: detect suspicious patterns with real log datasets.</p>
+            <ul class="specs">
+              <li>Focus: alert logic + investigation</li>
+              <li>Output: detection rules (starter)</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="cta-strip reveal-up">
+          <div>
+            <h3>Want access to the Lab Pack?</h3>
+            <p class="text-muted">We’ll send the starter lab roadmap + what you need to begin.</p>
+          </div>
+          <a class="btn btn-outline" href="#register">GET LAB ROADMAP</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENGINEERING / MONTEVIA -->
+    <section id="engineering" class="section alt-bg">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <h2 class="section-title">SECURITY ENGINEERING (PROOF OF BUILD)</h2>
+          <p class="section-intro">
+            LionSec Hub also builds secure systems. This is where training meets real engineering.
+          </p>
+        </div>
+
+        <div class="split-card reveal-up">
+          <div class="split-content">
+            <span class="tier-badge gold">R&D CASE STUDY</span>
+            <h3 class="big-title">Montevia — Financial OS (Demo / Engineering Stage)</h3>
+            <p class="text-muted">
+              A private financial operating system concept designed for money-with-context, audit logs, and compliance-aware records.
+              <strong>This is not a bank</strong>. It’s a security + compliance engineering build.
+            </p>
+
+            <ul class="check-list">
+              <li>Money with context (purpose + audit trail)</li>
+              <li>Tax clarity (explain charges and implications)</li>
+              <li>Bank-agnostic layer (designed to integrate, not replace)</li>
+              <li>Security-first architecture (auth + logs + modular backend)</li>
+            </ul>
+
+            <div class="chip-row">
+              <span class="chip">NestJS</span>
+              <span class="chip">Prisma</span>
+              <span class="chip">Audit Logs</span>
+              <span class="chip">Auth</span>
+              <span class="chip">Compliance-ready thinking</span>
+            </div>
+          </div>
+
+          <div class="split-aside">
+            <div class="code-card">
+              <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="code-title">montevia.architecture</span>
+              </div>
+              <pre><code>
+modules/
+  auth/
+  users/
+  banks/
+  transfers/
+  tax-records/
+  audit-logs/
+
+principles:
+  - traceable-by-design
+  - least-privilege access
+  - immutable audit trail
+  - privacy + integrity
+              </code></pre>
+            </div>
+
+            <a class="btn btn-primary btn-block" href="#quote">BUILD WITH US</a>
+            <p class="micro text-muted">
+              Want security engineering for your business? Request a quote below.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS (SAMPLE) -->
     <section id="reviews" class="section">
       <div class="container">
-        <h2 class="section-title center reveal-up">THE LEGACY (ALUMNI)</h2>
+        <div class="section-header reveal-up">
+          <h2 class="section-title center">THE LEGACY (SAMPLE TESTIMONIALS)</h2>
+          <p class="section-intro center">
+            Demo testimonials while alumni submissions are being collected. (We’ll replace with real student stories.)
+          </p>
+        </div>
+
         <div class="scrolling-wrapper reveal-up">
-          
           <div class="review-card">
             <div class="user-profile">
-              <div class="avatar">EO</div>
+              <img class="avatar-img" src="https://images.unsplash.com/photo-1531123414780-f74242c2b052?fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=400" alt="Portrait" loading="lazy">
               <div>
-                <h4>Emeka Okafor</h4>
-                <small>SOC Analyst, First Bank Plc</small>
+                <h4>Chiamaka N.</h4>
+                <small>Entry-level Analyst (Demo)</small>
               </div>
             </div>
-            <p>"I tried learning online, but I needed mentorship. LionSec Hub gave me the practical labs I needed. I secured my role at First Bank 2 months after graduating."</p>
+            <p>“The labs forced me to think like a defender. I stopped guessing and started investigating with a process.”</p>
           </div>
 
           <div class="review-card">
             <div class="user-profile">
-              <div class="avatar gold">ZA</div>
+              <img class="avatar-img" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGJsYWNrJTIwbWFufGVufDB8fDB8fHww&ixlib=rb-4.1.0&q=60&w=400" alt="Portrait" loading="lazy">
               <div>
-                <h4>Zainab Abdullahi</h4>
-                <small>Cyber Consultant, Abuja</small>
+                <h4>Femi A.</h4>
+                <small>Blue Team Track (Demo)</small>
               </div>
             </div>
-            <p>"The Ethical Hacking track is brutal but effective. They don't baby you. Real targets, real reports. Worth every Naira."</p>
+            <p>“I learned how to write reports and explain findings clearly. That alone changed my confidence.”</p>
           </div>
 
           <div class="review-card">
             <div class="user-profile">
-              <div class="avatar">TA</div>
+              <img class="avatar-img" src="https://images.unsplash.com/photo-1546525848-3ce03ca516f6?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YmxhY2slMjBtYW58ZW58MHx8MHx8fDA%3D&ixlib=rb-4.1.0&q=60&w=400" alt="Portrait" loading="lazy">
               <div>
-                <h4>Tunde Adebayo</h4>
-                <small>Remote DevSecOps, UK Firm</small>
+                <h4>Zainab K.</h4>
+                <small>Red Team Track (Demo)</small>
               </div>
             </div>
-            <p>"Living in Lagos, earning in Pounds. LionSec Hub taught me how to secure cloud infrastructure. The investment changed my life."</p>
+            <p>“Not just videos — actual practice. We simulated incidents and I finally understood what to do under pressure.”</p>
           </div>
+        </div>
 
+        <div class="mini-note reveal-up">
+          <strong>Tip:</strong> When you get real student stories, we’ll replace “(Demo)” with real roles + link to proof (LinkedIn or screenshots).
         </div>
       </div>
     </section>
 
-    <section id="legal" class="section alt-bg">
+    <!-- SERVICES / QUOTE -->
+    <section id="quote" class="section alt-bg">
       <div class="container small-container reveal-up">
-        <h2 class="section-title">PROTOCOLS & TERMS</h2>
-        <div class="accordion">
-          <div class="accordion-item">
-            <button class="accordion-header">Privacy Policy <span class="plus">+</span></button>
-            <div class="accordion-body">
-              <p>At LionSec Hub, data privacy is paramount. We collect student data solely for registration and certification purposes. We do not sell data to third parties. All sensitive payment data is processed via encrypted gateways (Paystack/Flutterwave).</p>
+        <h2 class="section-title">REQUEST A QUOTE (SECURITY SERVICES)</h2>
+        <p class="section-intro">
+          For startups, SMEs, and teams that need security help: assessment, hardening, incident response planning, and secure build guidance.
+        </p>
+
+        <form id="quoteForm" class="cyber-form" novalidate>
+          <div class="form-grid">
+            <div class="form-row">
+              <label>FULL NAME</label>
+              <input name="q_name" type="text" placeholder="Your name" required />
+            </div>
+
+            <div class="form-row">
+              <label>EMAIL</label>
+              <input name="q_email" type="email" placeholder="email@domain.com" required />
+            </div>
+
+            <div class="form-row">
+              <label>COMPANY / BRAND</label>
+              <input name="q_company" type="text" placeholder="Company name (optional)" />
+            </div>
+
+            <div class="form-row">
+              <label>PHONE / WHATSAPP</label>
+              <input name="q_phone" type="tel" placeholder="+234..." required />
+            </div>
+
+            <div class="form-row full">
+              <label>SERVICE NEEDED</label>
+              <select name="q_service" required>
+                <option value="">-- Select --</option>
+                <option>Security Assessment / Audit</option>
+                <option>Web/App Security Hardening</option>
+                <option>Incident Response Planning</option>
+                <option>Penetration Testing (Ethical)</option>
+                <option>Secure Architecture Guidance</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-row full">
+              <label>PROJECT DETAILS</label>
+              <textarea name="q_details" rows="4" placeholder="Describe what you need (scope, timeline, expectations)..." required></textarea>
             </div>
           </div>
-          <div class="accordion-item">
-            <button class="accordion-header">Refund & Cancellation Policy <span class="plus">+</span></button>
-            <div class="accordion-body">
-              <p>Refunds are available within the first 7 days of course commencement if the student is unsatisfied. After 7 days, no refunds are processed to ensure commitment to the cohort.</p>
-            </div>
+
+          <button type="submit" class="btn btn-primary btn-block">SEND REQUEST</button>
+          <div id="quoteMessage" class="terminal-msg" role="status" aria-live="polite"></div>
+
+          <div class="micro text-muted">
+            This form will open WhatsApp with your message (fast response). We can add email automation later.
           </div>
-          <div class="accordion-item">
-            <button class="accordion-header">Code of Conduct <span class="plus">+</span></button>
-            <div class="accordion-body">
-              <p>Students are strictly prohibited from using skills learned at LionSec Hub for illegal activities. Any student found engaging in unauthorized cyber activities will be expelled immediately and reported to relevant authorities.</p>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
     </section>
 
+    <!-- REGISTRATION -->
     <section id="register" class="section container">
       <div class="form-wrapper reveal-up">
         <div class="form-header">
           <h2 class="section-title">INITIATE SEQUENCE</h2>
           <p>Secure your spot in the next cohort. Limited seats available for quality control.</p>
         </div>
-        
-        <form id="registrationForm" class="cyber-form">
+
+        <form id="registrationForm" class="cyber-form" novalidate>
           <div class="form-row">
             <label>IDENTITY (FULL NAME)</label>
             <input name="fullname" type="text" placeholder="e.g. Olawale Johnson" required />
@@ -345,8 +554,44 @@
           </div>
 
           <button type="submit" class="btn btn-primary btn-block">EXECUTE REGISTRATION</button>
-          <div id="formMessage" class="terminal-msg"></div>
+          <div id="formMessage" class="terminal-msg" role="status" aria-live="polite"></div>
         </form>
+      </div>
+    </section>
+
+    <!-- LEGAL -->
+    <section id="legal" class="section alt-bg">
+      <div class="container small-container reveal-up">
+        <h2 class="section-title">PROTOCOLS & TERMS</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header" type="button">Privacy Policy <span class="plus">+</span></button>
+            <div class="accordion-body">
+              <p>We collect student data solely for registration and learning support. We do not sell data to third parties.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" type="button">Refund & Cancellation <span class="plus">+</span></button>
+            <div class="accordion-body">
+              <p>Refunds are available within the first 7 days of course commencement. After 7 days, refunds are not processed.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" type="button">Code of Conduct <span class="plus">+</span></button>
+            <div class="accordion-body">
+              <p>Skills learned here must not be used for illegal activity. Any misuse leads to expulsion and possible reporting.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" type="button">Compliance Note (Montevia) <span class="plus">+</span></button>
+            <div class="accordion-body">
+              <p>Montevia is a concept/demo engineering build for security + compliance thinking. It is not a licensed bank.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -358,20 +603,25 @@
         <p>The Standard for African Cybersecurity.</p>
         <p class="muted">Lagos • Abuja • Port Harcourt</p>
       </div>
+
       <div>
         <h4>LEGAL</h4>
         <a href="#legal">Terms of Service</a><br>
         <a href="#legal">Privacy Policy</a>
       </div>
+
       <div>
         <h4>CONNECT</h4>
         <div class="socials">
-          <a href="#">X (Twitter)</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">Instagram</a>
+          <a href="https://www.tiktok.com/@lionsec.hub?_r=1&_t=ZS-935P3vIu4ZA" target="_blank" rel="noreferrer">TikTok</a>
+          <a href="https://www.instagram.com/lionsec_hub?igsh=MWlhYnF5MTJoMW9uYw==" target="_blank" rel="noreferrer">Instagram</a>
+          <!-- Since we don't know your exact FB username yet, this is a safe link that finds it -->
+          <a href="https://www.facebook.com/search/top?q=Lion%20Sec%20Hub" target="_blank" rel="noreferrer">Facebook</a>
+          <a href="https://wa.me/2348107549232" target="_blank" rel="noreferrer">WhatsApp</a>
         </div>
       </div>
     </div>
+
     <div class="container copyright">
       <small>&copy; <span id="year"></span> LionSec Hub. Engineered for Dominance.</small>
     </div>
