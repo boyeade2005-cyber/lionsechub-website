@@ -29,7 +29,7 @@ if (toggle && nav) {
   });
 }
 
-// Smooth scroll offset for sticky header
+// Smooth scroll offset
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener("click", (e) => {
     const id = link.getAttribute("href");
@@ -62,8 +62,7 @@ document.querySelectorAll(".reveal, .reveal-up, .reveal-left, .reveal-right")
   .forEach(el => observer.observe(el));
 
 // WhatsApp helper
-const WA_NUMBER = "2348107549232"; // wa.me format (no +)
-
+const WA_NUMBER = "2348107549232";
 function openWhatsApp(message) {
   const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(url, "_blank", "noopener,noreferrer");
@@ -153,7 +152,7 @@ ${notes || "N/A"}`;
   });
 }
 
-/* Lightweight background network */
+/* Background network */
 const canvas = document.getElementById("neuro");
 if (canvas) {
   const ctx = canvas.getContext("2d");
