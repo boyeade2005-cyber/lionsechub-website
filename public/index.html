@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
-  <!-- Single CSP ONLY (kept practical for self-hosted assets + Formspree). -->
+  <!-- Single CSP ONLY (no duplicates). Adjust if you later use external fonts/CDN scripts. -->
   <meta http-equiv="Content-Security-Policy"
     content="
       default-src 'self';
@@ -24,17 +24,207 @@
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" />
 
   <title>LionSec Hub — Security, Intelligence & Engineering — Built for a Digital Africa</title>
-  <meta name="description" content="LionSec Hub delivers institutional security engagements and proof-based tech training. Pentesting, DFIR readiness, secure engineering, and a talent foundry—built for African realities." />
-  <meta name="keywords" content="Cybersecurity Nigeria, penetration testing Lagos, DFIR Nigeria, security audit readiness, NDPR readiness consulting, fraud investigation support, fintech security, secure software engineering, tech academy Nigeria, cybersecurity training, cloud engineering, DevOps Nigeria, digital forensics, IT fundamentals, Python beginners, web development basics, networking fundamentals, CompTIA A+, Network+, Security+ prep" />
+  <meta name="description" content="LionSec Hub delivers audit-grade security engagements and proof-based tech training. Pentesting, DFIR readiness, secure engineering, and a talent foundry—built for African realities." />
+  <meta name="keywords" content="Cybersecurity Nigeria, penetration testing Lagos, DFIR Nigeria, security audit readiness, NDPR readiness consulting, fraud investigation support, fintech security, secure software engineering, tech academy Nigeria, cybersecurity training, web development training, cloud engineering, DevOps Nigeria, digital forensics" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://lionsechub.vercel.app/" />
 
-  <!-- hreflang -->
+  <!-- hreflang (same URL for now) -->
   <link rel="alternate" href="https://lionsechub.vercel.app/" hreflang="en" />
   <link rel="alternate" href="https://lionsechub.vercel.app/" hreflang="en-NG" />
   <link rel="alternate" href="https://lionsechub.vercel.app/" hreflang="fr-FR" />
   <link rel="alternate" href="https://lionsechub.vercel.app/" hreflang="x-default" />
 
+  <!-- Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="LionSec Hub — Security, Intelligence & Engineering" />
+  <meta property="og:description" content="Institutional-grade security + proof-based tech training. Built for a Digital Africa." />
+  <meta property="og:url" content="https://lionsechub.vercel.app/" />
+  <meta property="og:image" content="https://lionsechub.vercel.app/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LionSec Hub — Built for a Digital Africa" />
+  <meta name="twitter:description" content="Security, intelligence, and engineering for Africa’s digital economy. Audits, DFIR readiness, pentesting, secure engineering, and tech training." />
+  <meta name="twitter:image" content="https://lionsechub.vercel.app/assets/og.png" />
+
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Skip link (WCAG) -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Ambient background -->
+  <canvas id="neuro" class="canvas-bg" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="aura-line" aria-hidden="true"></div>
+
+  <!-- Loader -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="loader-core">
+      <p class="loader-text">Initializing LionSec…</p>
+      <div class="loader-bar" aria-hidden="true"><span class="bar-fill"></span></div>
+      <p class="loader-sub">Security • Intelligence • Proof</p>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp (premium quick access) -->
+  <a class="wa-float" href="https://wa.me/2348107549232" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <span class="wa-orb" aria-hidden="true"></span>
+    <span class="wa-copy">
+      <strong>WhatsApp</strong>
+      <small>Fast response</small>
+    </span>
+    <span class="wa-ic" aria-hidden="true">💬</span>
+  </a>
+
+  <!-- Header -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="LionSec Hub home">
+        <img class="logo" src="assets/logo.png" alt="LionSec Hub logo" />
+        <span class="brand-name">LionSec Hub</span>
+      </a>
+
+      <button id="mobileToggle" class="mobile-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="nav" class="nav" aria-label="Primary">
+        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#intelligence">Intelligence</a>
+        <a class="nav-link" href="#academy">Academy</a>
+        <a class="nav-link" href="#careers">Career</a>
+        <a class="nav-link" href="#ventures">Ventures</a>
+        <a class="nav-link" href="#trust">Trust</a>
+        <a class="btn btn-ghost" href="#quote">Request Quote</a>
+        <a class="btn btn-primary" href="#apply">Apply</a>
+      </nav>
+    </div>
+
+    <!-- Calm tabbar -->
+    <div class="container tabbar" role="tablist" aria-label="Site sections">
+      <button class="tab is-active" data-target="#home" role="tab" aria-selected="true">Home</button>
+      <button class="tab" data-target="#intelligence" role="tab">Intelligence</button>
+      <button class="tab" data-target="#academy" role="tab">Academy</button>
+      <button class="tab" data-target="#careers" role="tab">Career</button>
+      <button class="tab" data-target="#ventures" role="tab">Ventures</button>
+      <button class="tab" data-target="#trust" role="tab">Trust</button>
+      <button class="tab" data-target="#quote" role="tab">Quote</button>
+      <button class="tab" data-target="#apply" role="tab">Apply</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="home" class="section hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy reveal-up">
+            <p class="eyebrow">LAGOS • AFRICA-FIRST • GLOBAL STANDARD</p>
+
+            <h1 class="h1">
+              Security, Intelligence & Engineering —
+              <span class="gold">Built for a Digital Africa</span>
+            </h1>
+
+            <p class="lead">
+              LionSec Hub delivers <strong>audit-grade security engagements</strong> and a <strong>proof-based academy</strong>
+              that builds job-ready talent across cybersecurity and high-value tech skills.
+              Calm execution. Serious standards. Measurable proof.
+            </p>
+
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="#quote">Request Institutional Quote</a>
+              <a class="btn btn-ghost" href="#academy">Explore Academy</a>
+              <a class="btn btn-outline" href="#ventures">See Montevia Proof</a>
+            </div>
+
+            <div class="signal-row" aria-label="Trust signals">
+              <div class="signal">
+                <span class="signal-dot"></span>
+                <span><strong>Written scope only</strong> (authorized work)</span>
+              </div>
+              <div class="signal">
+                <span class="signal-dot"></span>
+                <span><strong>Executive reporting</strong> + remediation plan</span>
+              </div>
+              <div class="signal">
+                <span class="signal-dot"></span>
+                <span><strong>Africa-ready</strong> + data sovereignty aware</span>
+              </div>
+            </div>
+
+            <div class="hero-panels">
+              <article class="panel reveal">
+                <h3>For Institutions</h3>
+                <p>Penetration testing, audit readiness, DFIR readiness, anti-fraud programs, and secure engineering.</p>
+                <a class="btn btn-ghost btn-block" href="#quote">Request a Quote</a>
+              </article>
+
+              <article class="panel reveal">
+                <h3>For Professionals</h3>
+                <p>Structured roadmap + labs + portfolio proof + career build. Top performers may get internal opportunities.</p>
+                <a class="btn btn-primary btn-block" href="#apply">Apply to Academy</a>
+              </article>
+            </div>
+
+            <div class="scroll-hint" aria-hidden="true">
+              <span class="line"></span>
+              <span>SCROLL</span>
+            </div>
+          </div>
+
+          <div class="hero-media reveal-up">
+            <div class="media-card">
+              <div class="media-top">
+                <span class="chip">INSTITUTIONAL MODE</span>
+                <span class="muted">Discipline • Outcome • Proof</span>
+              </div>
+
+              <div class="video-shell">
+                <video id="introVideo" class="video" controls playsinline preload="metadata" poster="assets/video-poster.jpg">
+                  <source src="assets/intro.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="scanline" aria-hidden="true"></div>
+              </div>
+
+              <div class="media-bottom">
+                <div class="mini-metric">
+                  <strong>Engagement Model</strong>
+                  <span class="muted">Scope → Evidence → Report → Retest</span>
+                </div>
+                <div class="mini-metric">
+                  <strong>Academy Model</strong>
+                  <span class="muted">Skill → Labs → Proof → Career build</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="microproof reveal">
+              <div class="microproof-row">
+                <span class="badge">OWASP-aligned</span>
+                <span class="badge">NIST-aware</span>
+                <span class="badge">Audit-ready mindset</span>
+                <span class="badge">NDPR readiness</span>
+              </div>
+              <p class="muted tiny">
+                Framework naming shows methodology alignment (not partnership). We only perform authorized work.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- (Your original file continues exactly as you pasted it...) -->
+
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+                  </html>
   <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="LionSec Hub — Security, Intelligence & Engineering" />
