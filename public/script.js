@@ -1,639 +1,597 @@
-/* ============================
-   ✅ NEW ACADEMY STYLES
-   ============================ */
+/* =========================================================
+   LionSec Hub — script.js
+   Works with your HTML + CSS you pasted.
+   - Loader hide
+   - Mobile menu toggle
+   - Tabbar scroll + active state
+   - Reveal on scroll
+   - USD toggle estimates
+   - Early-bird countdown
+   - Track helper recommendations
+   - Apply level → recommendation + auto-suggest track
+   - Formspree submit (fetch) with inline messages
+   ========================================================= */
 
-/* Beginner Safety Banner */
-.beginner-safety {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 18px 0;
-  padding: 16px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(110,231,183,.25);
-  background: rgba(110,231,183,.08);
-}
-.safety-badge {
-  display: inline-flex;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(110,231,183,.30);
-  background: rgba(10,18,30,.35);
-  font-size: .88rem;
-  font-weight: 600;
-}
+(() => {
+  "use strict";
 
-/* Global Reach Signal */
-.global-signal {
-  margin: 16px 0;
-  padding: 14px 16px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(10,18,30,.25);
-}
+  // ---------- Helpers ----------
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-/* Premium Bundle Highlight */
-.bundle-highlight {
-  margin: 28px 0 16px;
-  text-align: center;
-}
-.bundle-badge {
-  display: inline-flex;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 2px solid rgba(255,200,87,.45);
-  background: linear-gradient(135deg, rgba(255,200,87,.18), rgba(255,200,87,.08));
-  font-size: .95rem;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  box-shadow: 0 8px 24px rgba(255,200,87,.15);
-}
+  const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 
-.premium-bundle {
-  border: 2px solid rgba(255,200,87,.35) !important;
-  background: linear-gradient(180deg, rgba(255,200,87,.12), rgba(10,18,30,.55)) !important;
-  box-shadow: 0 18px 48px rgba(255,200,87,.12) !important;
-}
-.gold-chip {
-  border-color: rgba(255,200,87,.40) !important;
-  background: rgba(255,200,87,.18) !important;
-  color: #fff !important;
-}
-.bundle-list {
-  margin: 12px 0;
-  padding-left: 0;
-  list-style: none;
-}
-.bundle-list li {
-  margin: 8px 0;
-  padding-left: 0;
-}
+  const formatNGN = (n) => {
+    const num = Number(n || 0);
+    try {
+      return new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+        maximumFractionDigits: 0,
+      }).format(num);
+    } catch {
+      return `₦${Math.round(num).toLocaleString("en-NG")}`;
+    }
+  };
 
-/* Level Sections */
-.level-section {
-  margin-top: 48px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,.08);
-}
-.level-header {
-  margin-bottom: 18px;
-}
-.level-badge {
-  display: inline-flex;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: .9rem;
-  font-weight: 800;
-  letter-spacing: .10em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.level-1 .level-badge {
-  border: 1px solid rgba(110,231,183,.35);
-  background: rgba(110,231,183,.12);
-  color: rgba(110,231,183,1);
-}
-.level-2 .level-badge {
-  border: 1px solid rgba(96,165,250,.35);
-  background: rgba(96,165,250,.12);
-  color: rgba(96,165,250,1);
-}
-.level-3 .level-badge {
-  border: 1px solid rgba(248,113,113,.35);
-  background: rgba(248,113,113,.12);
-  color: rgba(248,113,113,1);
-}
+  const formatUSD = (n) => {
+    const num = Number(n || 0);
+    try {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0,
+      }).format(num);
+    } catch {
+      return `$${Math.round(num).toLocaleString("en-US")}`;
+    }
+  };
 
-/* Decision Helper */
-.decision-helper {
-  margin-top: 38px;
-  padding: 24px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(10,18,30,.25);
-}
-.decision-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 12px;
-  margin-top: 14px;
-}
-.decision-card {
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(10,18,30,.35);
-}
-.decision-card strong {
-  display: block;
-  margin-bottom: 6px;
-  font-size: .95rem;
-}
+  const safeText = (s) => String(s ?? "");
 
-/* Pricing Philosophy */
-.pricing-philosophy {
-  margin-top: 38px;
-  padding: 24px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,200,87,.20);
-  background: rgba(255,200,87,.06);
-}
+  const setMessage = (el, msg, type = "info") => {
+    if (!el) return;
+    el.textContent = safeText(msg);
 
-/* Success Metrics */
-.success-metrics {
-  margin-top: 24px;
-  padding: 24px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(110,231,183,.20);
-  background: rgba(110,231,183,.06);
-}
+    // Optional "type" styling hooks (won't break if CSS doesn't define them)
+    el.dataset.type = type;
+  };
 
-/* Button Large */
-.btn-large {
-  padding: 14px 18px;
-  font-size: 1.05rem;
-  font-weight: 700;
-}
+  const smoothScrollTo = (targetSel) => {
+    const target = typeof targetSel === "string" ? $(targetSel) : targetSel;
+    if (!target) return;
 
-/* Grid 1 column */
-.grid-1 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
+    // Offset for sticky header
+    const header = $(".site-header");
+    const offset = header ? header.getBoundingClientRect().height + 8 : 72;
 
-/* Responsive adjustments */
-@media (max-width: 980px) {
-  .decision-grid {
-    grid-template-columns: 1fr;
-  }
-  .beginner-safety {
-    flex-direction: column;
-  }
-}  // Loader: remove quickly after load
-  window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
+    const top = window.scrollY + target.getBoundingClientRect().top - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
+  // ---------- Loader ----------
+  const initLoader = () => {
+    const loader = $("#loader");
     if (!loader) return;
-    loader.classList.add("is-done");
-    setTimeout(() => loader.remove(), 480);
-  });
 
-  // Performance: reduce motion on low-end devices
-  const isLowEnd = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth < 420;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (isLowEnd || reduceMotion) {
-    document.documentElement.classList.add("reduce-motion");
-  }
-
-  // Canvas background: very light
-  const canvas = document.getElementById("neuro");
-  if (canvas && !document.documentElement.classList.contains("reduce-motion")) {
-    const ctx = canvas.getContext("2d", { alpha: true });
-    let w = 0, h = 0, raf = 0;
-    const dots = Array.from({ length: 60 }, () => ({
-      x: Math.random(), y: Math.random(),
-      vx: (Math.random() - 0.5) * 0.00035,
-      vy: (Math.random() - 0.5) * 0.00035,
-      r: 1 + Math.random() * 1.5
-    }));
-
-    const resize = () => {
-      w = canvas.width = Math.floor(window.innerWidth * 0.8);
-      h = canvas.height = Math.floor(window.innerHeight * 0.8);
-      canvas.style.width = window.innerWidth + "px";
-      canvas.style.height = window.innerHeight + "px";
-    };
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
-
-    const draw = () => {
-      ctx.clearRect(0, 0, w, h);
-
-      // faint dots only (no heavy lines)
-      ctx.globalAlpha = 0.55;
-      for (const d of dots) {
-        d.x += d.vx; d.y += d.vy;
-        if (d.x < 0 || d.x > 1) d.vx *= -1;
-        if (d.y < 0 || d.y > 1) d.vy *= -1;
-
-        const x = d.x * w, y = d.y * h;
-        ctx.beginPath();
-        ctx.arc(x, y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.10)";
-        ctx.fill();
-      }
-      raf = requestAnimationFrame(draw);
-    };
-
-    // Stop animation when tab not visible
-    const onVis = () => {
-      if (document.hidden) cancelAnimationFrame(raf);
-      else raf = requestAnimationFrame(draw);
-    };
-    document.addEventListener("visibilitychange", onVis);
-    raf = requestAnimationFrame(draw);
-  }
-
-  // Video anti-download friction (NOT absolute security)
-  const introVideo = document.getElementById("introVideo");
-  const videoShell = document.getElementById("videoShell");
-  if (introVideo) {
-    // block context menu
-    (videoShell || introVideo).addEventListener("contextmenu", (e) => e.preventDefault());
-
-    // avoid accidental drag
-    introVideo.setAttribute("draggable", "false");
-
-    // additional hint: disable picture-in-picture
-    introVideo.disablePictureInPicture = true;
-  }
-
-  /* ============================
-     Academy Pricing: NGN + USD toggle + early-bird countdown
-     ============================ */
-
-  // Set your cohort start date here (YYYY-MM-DD)
-  const cohortStartDate = "2026-03-15";
-  const earlyBirdDiscountNgn = 50000;
-
-  // USD estimate rate (you can update anytime)
-  // Keep it simple and realistic — investors just want a benchmark.
-  const usdRate = 1600; // NGN per USD (EDIT THIS)
-
-  const usdToggle = document.getElementById("usdToggle");
-  const priceCards = document.querySelectorAll("[data-ngn]");
-  const countdownEl = document.getElementById("countdown");
-
-  const formatNGN = (n) => "₦" + Math.round(n).toLocaleString("en-NG");
-  const formatUSD = (n) => "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
-
-  const updateUSD = () => {
-    const show = usdToggle && usdToggle.checked;
-    priceCards.forEach(card => {
-      const ngn = Number(card.getAttribute("data-ngn") || 0);
-      const usd = ngn > 0 ? Math.round(ngn / usdRate) : 0;
-      const usdEl = card.querySelector("[data-usd]");
-      if (!usdEl) return;
-      usdEl.textContent = show ? `(${formatUSD(usd)})` : "";
-    });
-  };
-
-  if (usdToggle) {
-    usdToggle.addEventListener("change", updateUSD);
-    updateUSD();
-  }
-
-  // Countdown to cohort (for early bird)
-  const updateCountdown = () => {
-    if (!countdownEl) return;
-    const end = new Date(cohortStartDate + "T00:00:00");
-    const now = new Date();
-    const diff = end.getTime() - now.getTime();
-
-    if (Number.isNaN(end.getTime())) {
-      countdownEl.textContent = "Set cohort date";
-      return;
-    }
-
-    if (diff <= 0) {
-      countdownEl.textContent = "Cohort started";
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / (1000 * 60)) % 60);
-    countdownEl.textContent = `${days}d ${hrs}h ${mins}m`;
-  };
-  updateCountdown();
-  setInterval(updateCountdown, 30000);
-
-  // Group pricing button -> prefill engagement select
-  const groupBtn = document.getElementById("groupPricingBtn");
-  const engagementSelect = document.getElementById("engagementSelect");
-  if (groupBtn && engagementSelect) {
-    groupBtn.addEventListener("click", () => {
-      // Wait a tick after navigation
+    const hide = () => {
+      loader.style.opacity = "0";
+      loader.style.pointerEvents = "none";
       setTimeout(() => {
-        engagementSelect.value = "Corporate Academy Training (Group)";
-      }, 250);
+        loader.style.display = "none";
+      }, 300);
+    };
+
+    // Hide after page is ready (small delay for smoothness)
+    window.addEventListener("load", () => setTimeout(hide, 450), { once: true });
+  };
+
+  // ---------- Mobile nav ----------
+  const initMobileNav = () => {
+    const toggle = $("#mobileToggle");
+    const nav = $("#nav");
+    if (!toggle || !nav) return;
+
+    const setState = (open) => {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+
+    toggle.addEventListener("click", () => {
+      const open = !nav.classList.contains("is-open");
+      setState(open);
     });
-  }
 
-  /* ============================
-     Form Sanitization (DOMPurify)
-     ============================ */
+    // Close when clicking a link
+    nav.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (!a) return;
+      setState(false);
+    });
 
-  const sanitizeValue = (value) => {
-    const v = String(value ?? "");
-    if (window.DOMPurify && typeof window.DOMPurify.sanitize === "function") {
-      // strict sanitize (no HTML allowed)
-      return window.DOMPurify.sanitize(v, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }).trim();
-    }
-    // fallback minimal sanitize if DOMPurify isn't loaded
-    return v.replace(/[<>]/g, "").trim();
+    // Close on escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setState(false);
+    });
   };
 
-  const sanitizeForm = (form) => {
-    const fields = form.querySelectorAll("input[type='text'], input[type='email'], input[type='tel'], textarea");
-    fields.forEach(f => { f.value = sanitizeValue(f.value); });
-  };
+  // ---------- Tabbar scroll + active ----------
+  const initTabbar = () => {
+    const tabButtons = $$(".tabbar .tab");
+    if (!tabButtons.length) return;
 
-  const validateBasic = (form) => {
-    // Keep it light. HTML5 required handles most.
-    // Just ensure email has @ and scope not empty.
-    const email = form.querySelector("input[type='email']");
-    if (email && !String(email.value).includes("@")) return false;
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
+        if (!target) return;
+        smoothScrollTo(target);
+      });
+    });
 
-    const required = form.querySelectorAll("[required]");
-    for (const r of required) {
-      if (!String(r.value || "").trim()) return false;
-    }
-    return true;
-  };
+    // Active state via IntersectionObserver
+    const sections = ["#home", "#intelligence", "#academy", "#careers", "#ventures", "#trust", "#quote", "#apply"]
+      .map((id) => $(id))
+      .filter(Boolean);
 
-  const wireForm = (formId, msgId, successText) => {
-    const form = document.getElementById(formId);
-    const msg = document.getElementById(msgId);
-    if (!form || !msg) return;
+    if (!sections.length) return;
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      msg.textContent = "Sending…";
+    const byId = new Map(
+      tabButtons
+        .map((b) => [b.getAttribute("data-target"), b])
+        .filter(([k, v]) => k && v)
+    );
 
-      // sanitize
-      sanitizeForm(form);
+    const setActive = (targetId) => {
+      tabButtons.forEach((b) => {
+        const isActive = b.getAttribute("data-target") === targetId;
+        b.classList.toggle("is-active", isActive);
+        b.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+    };
 
-      // validate
-      if (!validateBasic(form)) {
-        msg.textContent = "Please check your inputs and try again.";
-        return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        // Choose the most visible section
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible) return;
+        const id = `#${visible.target.id}`;
+        if (byId.has(id)) setActive(id);
+      },
+      {
+        root: null,
+        threshold: [0.25, 0.35, 0.5, 0.65],
       }
+    );
 
-      // submit
-      try {
-        const res = await fetch(form.action, {
-          method: "POST",
-          headers: { "Accept": "application/json" },
-          body: new FormData(form)
+    sections.forEach((sec) => io.observe(sec));
+  };
+
+  // ---------- Reveal on scroll ----------
+  const initReveal = () => {
+    const nodes = $$(".reveal, .reveal-up");
+    if (!nodes.length) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
         });
+      },
+      { threshold: 0.14 }
+    );
 
-        if (res.ok) {
-          form.reset();
-          msg.textContent = successText;
+    nodes.forEach((n) => io.observe(n));
+  };
+
+  // ---------- Footer year ----------
+  const initYear = () => {
+    const y = $("#year");
+    if (y) y.textContent = String(new Date().getFullYear());
+  };
+
+  // ---------- USD toggle ----------
+  const initUsdToggle = () => {
+    const toggle = $("#usdToggle");
+    if (!toggle) return;
+
+    // Heuristic USD rate (benchmark only). Change anytime.
+    const NGN_PER_USD = 1600;
+
+    const update = () => {
+      const show = toggle.checked;
+
+      // Elements that already have empty span: <span data-usd></span>
+      // OR have numeric: <span data-usd="45000"></span>
+      const usdSpans = $$("[data-usd]");
+
+      usdSpans.forEach((el) => {
+        const explicit = el.getAttribute("data-usd");
+        // if explicit contains a number, use it as NGN value; otherwise try to read from parent card
+        let ngn = Number(explicit);
+
+        if (!Number.isFinite(ngn) || ngn <= 0) {
+          // Try parent container with data-ngn
+          const parent = el.closest("[data-ngn]");
+          if (parent) {
+            const p = Number(parent.getAttribute("data-ngn"));
+            if (Number.isFinite(p)) ngn = p;
+          }
+        }
+
+        if (!show) {
+          el.textContent = "";
+          el.style.display = "none";
           return;
         }
 
-        msg.textContent = "Could not send. Please try again or use WhatsApp.";
-      } catch {
-        msg.textContent = "Network error. Please try again or use WhatsApp.";
-      }
-    });
-  };
-
-  wireForm(
-    "quoteForm",
-    "quoteMessage",
-    "Request received. We’ll reply with intake questions and next steps shortly."
-  );
-
-  wireForm(
-    "applyForm",
-    "applyMessage",
-    "Application received. We’ll respond with screening steps and cohort details."
-  );
-})();  // Loader: remove quickly after load
-  window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
-    if (!loader) return;
-    loader.classList.add("is-done");
-    setTimeout(() => loader.remove(), 480);
-  });
-
-  // Performance: reduce motion on low-end devices
-  const isLowEnd = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth < 420;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (isLowEnd || reduceMotion) {
-    document.documentElement.classList.add("reduce-motion");
-  }
-
-  // Canvas background: very light
-  const canvas = document.getElementById("neuro");
-  if (canvas && !document.documentElement.classList.contains("reduce-motion")) {
-    const ctx = canvas.getContext("2d", { alpha: true });
-    let w = 0, h = 0, raf = 0;
-    const dots = Array.from({ length: 60 }, () => ({
-      x: Math.random(), y: Math.random(),
-      vx: (Math.random() - 0.5) * 0.00035,
-      vy: (Math.random() - 0.5) * 0.00035,
-      r: 1 + Math.random() * 1.5
-    }));
-
-    const resize = () => {
-      w = canvas.width = Math.floor(window.innerWidth * 0.8);
-      h = canvas.height = Math.floor(window.innerHeight * 0.8);
-      canvas.style.width = window.innerWidth + "px";
-      canvas.style.height = window.innerHeight + "px";
-    };
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
-
-    const draw = () => {
-      ctx.clearRect(0, 0, w, h);
-
-      // faint dots only (no heavy lines)
-      ctx.globalAlpha = 0.55;
-      for (const d of dots) {
-        d.x += d.vx; d.y += d.vy;
-        if (d.x < 0 || d.x > 1) d.vx *= -1;
-        if (d.y < 0 || d.y > 1) d.vy *= -1;
-
-        const x = d.x * w, y = d.y * h;
-        ctx.beginPath();
-        ctx.arc(x, y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.10)";
-        ctx.fill();
-      }
-      raf = requestAnimationFrame(draw);
-    };
-
-    // Stop animation when tab not visible
-    const onVis = () => {
-      if (document.hidden) cancelAnimationFrame(raf);
-      else raf = requestAnimationFrame(draw);
-    };
-    document.addEventListener("visibilitychange", onVis);
-    raf = requestAnimationFrame(draw);
-  }
-
-  // Video anti-download friction (NOT absolute security)
-  const introVideo = document.getElementById("introVideo");
-  const videoShell = document.getElementById("videoShell");
-  if (introVideo) {
-    // block context menu
-    (videoShell || introVideo).addEventListener("contextmenu", (e) => e.preventDefault());
-
-    // avoid accidental drag
-    introVideo.setAttribute("draggable", "false");
-
-    // additional hint: disable picture-in-picture
-    introVideo.disablePictureInPicture = true;
-  }
-
-  /* ============================
-     Academy Pricing: NGN + USD toggle + early-bird countdown
-     ============================ */
-
-  // Set your cohort start date here (YYYY-MM-DD)
-  const cohortStartDate = "2026-03-15";
-  const earlyBirdDiscountNgn = 50000;
-
-  // USD estimate rate (you can update anytime)
-  // Keep it simple and realistic — investors just want a benchmark.
-  const usdRate = 1600; // NGN per USD (EDIT THIS)
-
-  const usdToggle = document.getElementById("usdToggle");
-  const priceCards = document.querySelectorAll("[data-ngn]");
-  const countdownEl = document.getElementById("countdown");
-
-  const formatNGN = (n) => "₦" + Math.round(n).toLocaleString("en-NG");
-  const formatUSD = (n) => "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
-
-  const updateUSD = () => {
-    const show = usdToggle && usdToggle.checked;
-    priceCards.forEach(card => {
-      const ngn = Number(card.getAttribute("data-ngn") || 0);
-      const usd = ngn > 0 ? Math.round(ngn / usdRate) : 0;
-      const usdEl = card.querySelector("[data-usd]");
-      if (!usdEl) return;
-      usdEl.textContent = show ? `(${formatUSD(usd)})` : "";
-    });
-  };
-
-  if (usdToggle) {
-    usdToggle.addEventListener("change", updateUSD);
-    updateUSD();
-  }
-
-  // Countdown to cohort (for early bird)
-  const updateCountdown = () => {
-    if (!countdownEl) return;
-    const end = new Date(cohortStartDate + "T00:00:00");
-    const now = new Date();
-    const diff = end.getTime() - now.getTime();
-
-    if (Number.isNaN(end.getTime())) {
-      countdownEl.textContent = "Set cohort date";
-      return;
-    }
-
-    if (diff <= 0) {
-      countdownEl.textContent = "Cohort started";
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / (1000 * 60)) % 60);
-    countdownEl.textContent = `${days}d ${hrs}h ${mins}m`;
-  };
-  updateCountdown();
-  setInterval(updateCountdown, 30000);
-
-  // Group pricing button -> prefill engagement select
-  const groupBtn = document.getElementById("groupPricingBtn");
-  const engagementSelect = document.getElementById("engagementSelect");
-  if (groupBtn && engagementSelect) {
-    groupBtn.addEventListener("click", () => {
-      // Wait a tick after navigation
-      setTimeout(() => {
-        engagementSelect.value = "Corporate Academy Training (Group)";
-      }, 250);
-    });
-  }
-
-  /* ============================
-     Form Sanitization (DOMPurify)
-     ============================ */
-
-  const sanitizeValue = (value) => {
-    const v = String(value ?? "");
-    if (window.DOMPurify && typeof window.DOMPurify.sanitize === "function") {
-      // strict sanitize (no HTML allowed)
-      return window.DOMPurify.sanitize(v, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }).trim();
-    }
-    // fallback minimal sanitize if DOMPurify isn't loaded
-    return v.replace(/[<>]/g, "").trim();
-  };
-
-  const sanitizeForm = (form) => {
-    const fields = form.querySelectorAll("input[type='text'], input[type='email'], input[type='tel'], textarea");
-    fields.forEach(f => { f.value = sanitizeValue(f.value); });
-  };
-
-  const validateBasic = (form) => {
-    // Keep it light. HTML5 required handles most.
-    // Just ensure email has @ and scope not empty.
-    const email = form.querySelector("input[type='email']");
-    if (email && !String(email.value).includes("@")) return false;
-
-    const required = form.querySelectorAll("[required]");
-    for (const r of required) {
-      if (!String(r.value || "").trim()) return false;
-    }
-    return true;
-  };
-
-  const wireForm = (formId, msgId, successText) => {
-    const form = document.getElementById(formId);
-    const msg = document.getElementById(msgId);
-    if (!form || !msg) return;
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      msg.textContent = "Sending…";
-
-      // sanitize
-      sanitizeForm(form);
-
-      // validate
-      if (!validateBasic(form)) {
-        msg.textContent = "Please check your inputs and try again.";
-        return;
-      }
-
-      // submit
-      try {
-        const res = await fetch(form.action, {
-          method: "POST",
-          headers: { "Accept": "application/json" },
-          body: new FormData(form)
-        });
-
-        if (res.ok) {
-          form.reset();
-          msg.textContent = successText;
+        if (!Number.isFinite(ngn) || ngn <= 0) {
+          // If we still can't read it, just show nothing instead of guessing wrongly
+          el.textContent = "";
+          el.style.display = "none";
           return;
         }
 
-        msg.textContent = "Could not send. Please try again or use WhatsApp.";
-      } catch {
-        msg.textContent = "Network error. Please try again or use WhatsApp.";
+        const usd = Math.round(ngn / NGN_PER_USD);
+        el.textContent = `≈ ${formatUSD(usd)}`;
+        el.style.display = "inline";
+      });
+    };
+
+    toggle.addEventListener("change", update);
+    update();
+  };
+
+  // ---------- Early-bird countdown ----------
+  const initCountdown = () => {
+    const out = $("#countdown");
+    if (!out) return;
+
+    // Set your cohort deadline here (local time).
+    // Example: ends 10 days from now if you forget to change.
+    const DEFAULT_DAYS = 10;
+
+    const stored = localStorage.getItem("lionsec_earlybird_deadline");
+    let deadline = stored ? new Date(stored) : null;
+
+    if (!(deadline instanceof Date) || isNaN(deadline.getTime())) {
+      deadline = new Date();
+      deadline.setDate(deadline.getDate() + DEFAULT_DAYS);
+      deadline.setHours(23, 59, 59, 999);
+      localStorage.setItem("lionsec_earlybird_deadline", deadline.toISOString());
+    }
+
+    const tick = () => {
+      const now = new Date();
+      let ms = deadline - now;
+
+      if (ms <= 0) {
+        out.textContent = "Closed";
+        return;
       }
+
+      const sec = Math.floor(ms / 1000);
+      const d = Math.floor(sec / 86400);
+      const h = Math.floor((sec % 86400) / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+
+      out.textContent = `${d}d ${h}h ${m}m`;
+    };
+
+    tick();
+    setInterval(tick, 30 * 1000); // update every 30s
+  };
+
+  // ---------- Track helper (Academy) ----------
+  const initTrackHelper = () => {
+    const output = $("#helperOutput");
+    const buttons = $$(".helper-btn");
+    if (!output || !buttons.length) return;
+
+    const reco = {
+      zero: {
+        title: "Complete Beginner Path",
+        text:
+          "Start with **Computer & IT Fundamentals**, then **Python for Absolute Beginners** or **Web Development Basics**. If you want one full path, choose the **0 → Job Ready Bootcamp**.",
+      },
+      some: {
+        title: "You know a little",
+        text:
+          "Go straight to **Python for Absolute Beginners** (if coding is weak) + **Networking Fundamentals** (if you want cybersecurity). Then pick a specialization.",
+      },
+      cyber: {
+        title: "Cybersecurity track",
+        text:
+          "Start with **Networking Fundamentals** + **IT Fundamentals**, then move into **AI Ethical Hacking** when your base is solid.",
+      },
+      job: {
+        title: "Fastest to employable",
+        text:
+          "Best route is the **0 → Job Ready Bootcamp** (structure + mentorship + portfolio + career prep). Add **Tech Job & Portfolio Prep** if needed.",
+      },
+    };
+
+    const render = (k) => {
+      const item = reco[k];
+      if (!item) return;
+
+      // Use DOMPurify if present, otherwise fall back to plain text
+      const html = `<strong>Recommendation:</strong> <span class="gold">${item.title}</span><br><span class="muted">${item.text}</span>`;
+      if (window.DOMPurify) {
+        output.innerHTML = DOMPurify.sanitize(html, { ALLOWED_TAGS: ["strong", "span", "br"] });
+      } else {
+        output.textContent = `Recommendation: ${item.title} — ${item.text.replace(/\*\*/g, "")}`;
+      }
+    };
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const k = btn.getAttribute("data-reco");
+        render(k);
+      });
     });
   };
 
-  wireForm(
-    "quoteForm",
-    "quoteMessage",
-    "Request received. We’ll reply with intake questions and next steps shortly."
-  );
+  // ---------- Apply section: level → reco + auto-track suggestion ----------
+  const initApplyReco = () => {
+    const level = $("#levelSelect");
+    const track = $("#trackSelect");
+    const box = $("#applyReco");
+    if (!level || !track || !box) return;
 
-  wireForm(
-    "applyForm",
-    "applyMessage",
-    "Application received. We’ll respond with screening steps and cohort details."
-  );
+    const trackStartsWith = (needle) => {
+      const options = Array.from(track.options);
+      const found = options.find((o) => safeText(o.textContent).toLowerCase().startsWith(needle.toLowerCase()));
+      return found ? found.value : null;
+    };
+
+    const setTrackByStartsWith = (needle) => {
+      const value = trackStartsWith(needle);
+      if (value) track.value = value;
+    };
+
+    const render = (msg) => {
+      if (window.DOMPurify) {
+        box.innerHTML = DOMPurify.sanitize(msg, { ALLOWED_TAGS: ["strong", "span", "br"] });
+      } else {
+        box.textContent = msg.replace(/<br>/g, " ").replace(/<\/?strong>/g, "").replace(/<\/?span.*?>/g, "");
+      }
+    };
+
+    const onChange = () => {
+      const v = level.value;
+
+      if (v === "beginner") {
+        render(
+          `<strong>Recommendation:</strong> <span class="gold">Start Level 1</span><br>` +
+            `<span class="muted">Best start: Computer & IT Fundamentals → Python/Web Basics. If you want one complete path, choose the Bootcamp.</span>`
+        );
+        // Suggest IT Fundamentals by default
+        setTrackByStartsWith("Computer & IT Fundamentals");
+      } else if (v === "some") {
+        render(
+          `<strong>Recommendation:</strong> <span class="gold">Build a strong base fast</span><br>` +
+            `<span class="muted">Suggested: Python for Absolute Beginners + Networking Fundamentals, then a specialization.</span>`
+        );
+        setTrackByStartsWith("Python for Absolute Beginners");
+      } else if (v === "intermediate") {
+        render(
+          `<strong>Recommendation:</strong> <span class="gold">Go to specialization</span><br>` +
+            `<span class="muted">You can choose RegTech / Ethical Hacking / Fintech Engineering based on your goal.</span>`
+        );
+        // Don’t force-change track here
+      } else {
+        render(`<strong>Recommendation:</strong> <span class="muted">Select your current level to get a suggested starting track.</span>`);
+      }
+    };
+
+    level.addEventListener("change", onChange);
+    onChange();
+  };
+
+  // ---------- Forms (Formspree fetch submit) ----------
+  const initForms = () => {
+    const handle = (formId, messageId) => {
+      const form = $(formId);
+      const msg = $(messageId);
+      if (!form || !msg) return;
+
+      const endpoint = form.getAttribute("action") || "";
+
+      // Simple endpoint guard: if user forgot to replace, show friendly warning
+      const looksPlaceholder = endpoint.includes("yourFormId") || endpoint.includes("yourApplyFormId");
+
+      const setBusy = (busy) => {
+        const btn = form.querySelector('button[type="submit"]');
+        if (!btn) return;
+        btn.disabled = !!busy;
+        btn.dataset.busy = busy ? "1" : "0";
+        btn.textContent = busy ? "Submitting…" : btn.dataset.originalText || btn.textContent;
+      };
+
+      const initBtn = () => {
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn && !btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
+      };
+
+      initBtn();
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        if (looksPlaceholder) {
+          setMessage(
+            msg,
+            "Heads up: replace the Formspree link in your HTML (action='https://formspree.io/f/...'). Then try again.",
+            "warn"
+          );
+          return;
+        }
+
+        // Basic browser validation
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          setMessage(msg, "Please complete the required fields.", "warn");
+          return;
+        }
+
+        setBusy(true);
+        setMessage(msg, "Sending…", "info");
+
+        try {
+          const formData = new FormData(form);
+
+          const res = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+            },
+            body: formData,
+          });
+
+          if (res.ok) {
+            form.reset();
+            setMessage(msg, "Submitted ✅ We’ll get back to you shortly.", "ok");
+          } else {
+            let data = null;
+            try {
+              data = await res.json();
+            } catch {}
+            const error = data?.errors?.[0]?.message || "Something went wrong. Please try again.";
+            setMessage(msg, error, "bad");
+          }
+        } catch (err) {
+          setMessage(msg, "Network error. Please check your connection and try again.", "bad");
+        } finally {
+          setBusy(false);
+        }
+      });
+    };
+
+    handle("#quoteForm", "#quoteMessage");
+    handle("#applyForm", "#applyMessage");
+  };
+
+  // ---------- Optional: Calm background canvas (lightweight) ----------
+  const initAmbientCanvas = () => {
+    const canvas = $("#neuro");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    let w = 0,
+      h = 0,
+      dpr = 1;
+
+    const points = [];
+    const MAX_POINTS = 40;
+
+    const resize = () => {
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      w = Math.floor(window.innerWidth);
+      h = Math.floor(window.innerHeight);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      points.length = 0;
+      for (let i = 0; i < MAX_POINTS; i++) {
+        points.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          r: 1 + Math.random() * 2.5,
+        });
+      }
+    };
+
+    const step = () => {
+      ctx.clearRect(0, 0, w, h);
+
+      // subtle background
+      ctx.globalAlpha = 0.6;
+
+      // points
+      for (const p of points) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < -20) p.x = w + 20;
+        if (p.x > w + 20) p.x = -20;
+        if (p.y < -20) p.y = h + 20;
+        if (p.y > h + 20) p.y = -20;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(245,197,66,0.35)";
+        ctx.fill();
+      }
+
+      // links
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const a = points[i];
+          const b = points[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const max = 140;
+
+          if (dist < max) {
+            const alpha = (1 - dist / max) * 0.12;
+            ctx.strokeStyle = `rgba(245,197,66,${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      ctx.globalAlpha = 1;
+
+      requestAnimationFrame(step);
+    };
+
+    resize();
+    window.addEventListener("resize", () => {
+      // debounce-ish
+      clearTimeout(initAmbientCanvas._t);
+      initAmbientCanvas._t = setTimeout(resize, 150);
+    });
+
+    // reduce motion respect
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce) requestAnimationFrame(step);
+    else ctx.clearRect(0, 0, w, h);
+  };
+
+  // ---------- Init ----------
+  const init = () => {
+    initLoader();
+    initMobileNav();
+    initTabbar();
+    initReveal();
+    initYear();
+    initUsdToggle();
+    initCountdown();
+    initTrackHelper();
+    initApplyReco();
+    initForms();
+    initAmbientCanvas();
+  };
+
+  document.addEventListener("DOMContentLoaded", init);
 })();
+```0
