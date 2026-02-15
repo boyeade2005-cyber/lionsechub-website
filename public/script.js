@@ -1,40 +1,178 @@
 /* ============================
-   LionSec Hub — Performance + UI
+   ✅ NEW ACADEMY STYLES
    ============================ */
 
-(() => {
-  // Year
-  const y = document.getElementById("year");
-  if (y) y.textContent = String(new Date().getFullYear());
+/* Beginner Safety Banner */
+.beginner-safety {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 18px 0;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(110,231,183,.25);
+  background: rgba(110,231,183,.08);
+}
+.safety-badge {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(110,231,183,.30);
+  background: rgba(10,18,30,.35);
+  font-size: .88rem;
+  font-weight: 600;
+}
 
-  // Smooth tab jump (relaxed)
-  const tabbar = document.querySelector(".tabbar");
-  if (tabbar) {
-    tabbar.addEventListener("click", (e) => {
-      const btn = e.target.closest(".tab");
-      if (!btn) return;
-      const target = btn.getAttribute("data-target");
-      const el = target ? document.querySelector(target) : null;
-      if (!el) return;
+/* Global Reach Signal */
+.global-signal {
+  margin: 16px 0;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(10,18,30,.25);
+}
 
-      document.querySelectorAll(".tab").forEach(t => t.classList.remove("is-active"));
-      btn.classList.add("is-active");
+/* Premium Bundle Highlight */
+.bundle-highlight {
+  margin: 28px 0 16px;
+  text-align: center;
+}
+.bundle-badge {
+  display: inline-flex;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,200,87,.45);
+  background: linear-gradient(135deg, rgba(255,200,87,.18), rgba(255,200,87,.08));
+  font-size: .95rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 24px rgba(255,200,87,.15);
+}
 
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+.premium-bundle {
+  border: 2px solid rgba(255,200,87,.35) !important;
+  background: linear-gradient(180deg, rgba(255,200,87,.12), rgba(10,18,30,.55)) !important;
+  box-shadow: 0 18px 48px rgba(255,200,87,.12) !important;
+}
+.gold-chip {
+  border-color: rgba(255,200,87,.40) !important;
+  background: rgba(255,200,87,.18) !important;
+  color: #fff !important;
+}
+.bundle-list {
+  margin: 12px 0;
+  padding-left: 0;
+  list-style: none;
+}
+.bundle-list li {
+  margin: 8px 0;
+  padding-left: 0;
+}
+
+/* Level Sections */
+.level-section {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.level-header {
+  margin-bottom: 18px;
+}
+.level-badge {
+  display: inline-flex;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: .9rem;
+  font-weight: 800;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.level-1 .level-badge {
+  border: 1px solid rgba(110,231,183,.35);
+  background: rgba(110,231,183,.12);
+  color: rgba(110,231,183,1);
+}
+.level-2 .level-badge {
+  border: 1px solid rgba(96,165,250,.35);
+  background: rgba(96,165,250,.12);
+  color: rgba(96,165,250,1);
+}
+.level-3 .level-badge {
+  border: 1px solid rgba(248,113,113,.35);
+  background: rgba(248,113,113,.12);
+  color: rgba(248,113,113,1);
+}
+
+/* Decision Helper */
+.decision-helper {
+  margin-top: 38px;
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(10,18,30,.25);
+}
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.decision-card {
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(10,18,30,.35);
+}
+.decision-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: .95rem;
+}
+
+/* Pricing Philosophy */
+.pricing-philosophy {
+  margin-top: 38px;
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,200,87,.20);
+  background: rgba(255,200,87,.06);
+}
+
+/* Success Metrics */
+.success-metrics {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(110,231,183,.20);
+  background: rgba(110,231,183,.06);
+}
+
+/* Button Large */
+.btn-large {
+  padding: 14px 18px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* Grid 1 column */
+.grid-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 980px) {
+  .decision-grid {
+    grid-template-columns: 1fr;
   }
-
-  // Mobile nav
-  const mobileToggle = document.getElementById("mobileToggle");
-  const nav = document.getElementById("nav");
-  if (mobileToggle && nav) {
-    mobileToggle.addEventListener("click", () => {
-      const open = nav.classList.toggle("is-open");
-      mobileToggle.setAttribute("aria-expanded", String(open));
-    });
+  .beginner-safety {
+    flex-direction: column;
   }
-
-  // Loader: remove quickly after load
+}  // Loader: remove quickly after load
   window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
     if (!loader) return;
