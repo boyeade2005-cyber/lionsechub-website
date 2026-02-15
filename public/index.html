@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
+  <!-- Single CSP ONLY (kept practical for self-hosted assets + Formspree). -->
   <meta http-equiv="Content-Security-Policy"
     content="
       default-src 'self';
@@ -23,18 +24,961 @@
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" />
 
   <title>LionSec Hub — Security, Intelligence & Engineering — Built for a Digital Africa</title>
-  <meta name="description" content="LionSec Hub delivers institutional security engagements and proof-based tech training from beginner to expert. Pentesting, DFIR readiness, secure engineering, and a global talent foundry—built for African realities." />
-  <meta name="keywords" content="Cybersecurity Nigeria, penetration testing Lagos, DFIR Nigeria, security audit readiness, NDPR readiness consulting, fraud investigation support, fintech security, secure software engineering, tech academy Nigeria, cybersecurity training, cloud engineering, DevOps Nigeria, digital forensics, IT fundamentals, Python beginners, web development basics, networking fundamentals, CompTIA A+, Network+, Security+ prep, online tech training Africa, global cybersecurity academy" />
+  <meta name="description" content="LionSec Hub delivers institutional security engagements and proof-based tech training. Pentesting, DFIR readiness, secure engineering, and a talent foundry—built for African realities." />
+  <meta name="keywords" content="Cybersecurity Nigeria, penetration testing Lagos, DFIR Nigeria, security audit readiness, NDPR readiness consulting, fraud investigation support, fintech security, secure software engineering, tech academy Nigeria, cybersecurity training, cloud engineering, DevOps Nigeria, digital forensics, IT fundamentals, Python beginners, web development basics, networking fundamentals, CompTIA A+, Network+, Security+ prep" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://lionsechub.vercel.app/" />
 
+  <!-- hreflang -->
   <link rel="alternate" href="https://lionsechub.vercel.app/" hreflang="en" />
   <link rel="alternate" href="https://lionsechub.vercel.app/" hreflang="en-NG" />
   <link rel="alternate" href="https://lionsechub.vercel.app/" hreflang="fr-FR" />
   <link rel="alternate" href="https://lionsechub.vercel.app/" hreflang="x-default" />
 
+  <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="LionSec Hub — Security, Intelligence & Engineering" />
+  <meta property="og:description" content="Institutional-grade security + proof-based tech training. Built for a Digital Africa." />
+  <meta property="og:url" content="https://lionsechub.vercel.app/" />
+  <meta property="og:image" content="https://lionsechub.vercel.app/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Skip link (WCAG) -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Ambient -->
+  <canvas id="neuro" class="canvas-bg" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="aura-line" aria-hidden="true"></div>
+
+  <!-- Loader -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="loader-core">
+      <p class="loader-text">Initializing LionSec…</p>
+      <div class="loader-bar" aria-hidden="true"><span class="bar-fill"></span></div>
+      <p class="loader-sub">Security • Intelligence • Proof</p>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp (UPDATED) -->
+  <a class="wa-float" href="https://wa.me/2349116089070" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <span class="wa-orb" aria-hidden="true"></span>
+    <span class="wa-ic" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 32 32" role="img" aria-label="WhatsApp">
+        <path fill="currentColor" d="M19.1 17.6c-.3-.2-1.8-.9-2-.9-.3 0-.5-.2-.7.2-.2.3-.8.9-1 .9-.2 0-.4 0-.7-.2-2.2-1.1-3.6-3.1-3.7-3.3-.1-.2 0-.4.1-.5l.5-.6c.2-.2.3-.4.4-.6.1-.2 0-.4 0-.6 0-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.3c.2.2 2.4 3.7 5.9 5.2.8.4 1.4.6 1.9.7.8.2 1.5.2 2 .1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4z"/>
+        <path fill="currentColor" d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.4 1.7 6.3L3 29l6.9-1.8c1.9 1 4 1.6 6.1 1.6 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.6c-2 0-3.9-.6-5.6-1.6l-.4-.2-4.1 1.1 1.1-4-.2-.4c-1.1-1.7-1.7-3.7-1.7-5.7C5.2 9.8 10 5 16 5s10.8 4.8 10.8 10.8S22 26.6 16 26.6z"/>
+      </svg>
+    </span>
+    <span class="wa-copy">
+      <strong>WhatsApp</strong>
+      <small>Fast response</small>
+    </span>
+  </a>
+
+  <!-- Header -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="LionSec Hub home">
+        <img class="logo" src="assets/logo.png" alt="LionSec Hub logo" loading="lazy" />
+        <span class="brand-name">LionSec Hub</span>
+      </a>
+
+      <button id="mobileToggle" class="mobile-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="nav" class="nav" aria-label="Primary">
+        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#intelligence">Intelligence</a>
+        <a class="nav-link" href="#academy">Academy</a>
+        <a class="nav-link" href="#careers">Career</a>
+        <a class="nav-link" href="#ventures">Ventures</a>
+        <a class="nav-link" href="#trust">Trust</a>
+        <a class="btn btn-ghost" href="#quote">Request Quote</a>
+        <a class="btn btn-primary" href="#apply">Apply</a>
+      </nav>
+    </div>
+
+    <!-- Tabbar -->
+    <div class="container tabbar" role="tablist" aria-label="Site sections">
+      <button class="tab is-active" data-target="#home" role="tab" aria-selected="true">Home</button>
+      <button class="tab" data-target="#intelligence" role="tab">Intelligence</button>
+      <button class="tab" data-target="#academy" role="tab">Academy</button>
+      <button class="tab" data-target="#careers" role="tab">Career</button>
+      <button class="tab" data-target="#ventures" role="tab">Ventures</button>
+      <button class="tab" data-target="#trust" role="tab">Trust</button>
+      <button class="tab" data-target="#quote" role="tab">Quote</button>
+      <button class="tab" data-target="#apply" role="tab">Apply</button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section id="home" class="section hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy reveal-up">
+            <p class="eyebrow">LAGOS • AFRICA-FIRST • GLOBAL STANDARD</p>
+
+            <h1 class="h1">
+              Security, Intelligence & Engineering —
+              <span class="gold">Built for a Digital Africa</span>
+            </h1>
+
+            <p class="lead">
+              LionSec Hub delivers <strong>institutional security engagements</strong> and a <strong>proof-based academy</strong>
+              that takes complete beginners to job-ready professionals — no prior experience required.
+              Calm execution. Serious standards. Measurable proof.
+            </p>
+
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="#quote">Request Institutional Quote</a>
+              <a class="btn btn-ghost" href="#academy">Explore Academy</a>
+              <a class="btn btn-outline" href="#ventures">See Montevia Proof</a>
+            </div>
+
+            <div class="signal-row" aria-label="Trust signals">
+              <div class="signal"><span class="signal-dot"></span><span><strong>Written scope only</strong> (authorized work)</span></div>
+              <div class="signal"><span class="signal-dot"></span><span><strong>Executive reporting</strong> + remediation plan</span></div>
+              <div class="signal"><span class="signal-dot"></span><span><strong>Beginner-safe academy</strong> (start from zero)</span></div>
+            </div>
+
+            <div class="hero-panels">
+              <article class="panel reveal">
+                <h3>For Institutions</h3>
+                <p>Pentesting, audit readiness consulting, DFIR readiness, anti-fraud programs, and secure engineering.</p>
+                <a class="btn btn-ghost btn-block" href="#quote">Request a Quote</a>
+              </article>
+
+              <article class="panel reveal">
+                <h3>For Beginners & Professionals</h3>
+                <p>Start from zero → build proof → become employable. Top performers may join internal build teams.</p>
+                <a class="btn btn-primary btn-block" href="#apply">Apply to Academy</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="hero-media reveal-up">
+            <div class="media-card">
+              <div class="media-top">
+                <span class="chip">INSTITUTIONAL MODE</span>
+                <span class="muted">Discipline • Outcome • Proof</span>
+              </div>
+
+              <div class="video-shell" id="videoShell">
+                <video
+                  id="introVideo"
+                  class="video"
+                  controls
+                  playsinline
+                  preload="metadata"
+                  poster="assets/video-poster.jpg"
+                  controlsList="nodownload noplaybackrate"
+                >
+                  <source src="assets/intro.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="scanline" aria-hidden="true"></div>
+              </div>
+
+              <div class="media-bottom">
+                <div class="mini-metric"><strong>Engagement</strong><span class="muted">Scope → Evidence → Report → Retest</span></div>
+                <div class="mini-metric"><strong>Academy</strong><span class="muted">Beginner → Proof → Career</span></div>
+              </div>
+
+              <p class="tiny muted">
+                Note: download prevention on the open web is not absolute. For stronger protection use DRM + authenticated streaming.
+              </p>
+            </div>
+
+            <div class="microproof reveal">
+              <div class="microproof-row">
+                <span class="badge">OWASP-aligned</span>
+                <span class="badge">NIST-aware</span>
+                <span class="badge">Audit-ready mindset</span>
+                <span class="badge">NDPR readiness</span>
+              </div>
+              <p class="muted tiny">Framework naming shows methodology alignment (not partnership). Authorized work only.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTELLIGENCE -->
+    <section id="intelligence" class="section alt" data-cv>
+      <div class="container">
+        <div class="section-head reveal-up">
+          <h2 class="h2">Intelligence</h2>
+          <p class="intro">
+            Calm, structured security services for real-world African threat conditions:
+            fraud pressure, identity abuse, legacy stacks, and compliance realities.
+          </p>
+        </div>
+
+        <div class="cards grid-3">
+          <article class="card reveal">
+            <h3>Penetration Testing</h3>
+            <p>Web, API, mobile, and cloud testing with controlled exploitation and executive-ready reporting.</p>
+            <ul class="list">
+              <li>Web/API pentest discipline</li>
+              <li>Mobile app security testing</li>
+              <li>Cloud exposure review</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-ghost" href="#quote">Request Quote</a>
+              <a class="btn btn-outline" href="#trust">Trust Layer</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3>Security Audit Readiness</h3>
+            <p>We prepare institutions for audit success: controls review, evidence, and governance improvements.</p>
+            <ul class="list">
+              <li>Security posture assessment</li>
+              <li>NDPR readiness consulting</li>
+              <li>ISO 27001 readiness roadmap</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-ghost" href="#quote">Request Quote</a>
+              <a class="btn btn-outline" href="#trust">Roadmap</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3>DFIR Readiness & Support</h3>
+            <p>Incident workflow readiness + investigations support for compromise, fraud, and intrusion events.</p>
+            <ul class="list">
+              <li>Evidence handling discipline</li>
+              <li>Timeline reconstruction support</li>
+              <li>Containment + hardening plan</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-ghost" href="#quote">Request Quote</a>
+              <a class="btn btn-outline" href="#trust">Rules</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3>Anti-Fraud Programs</h3>
+            <p>Defense for phishing, BEC, impersonation, and coercion patterns—built for Nigeria’s reality.</p>
+            <ul class="list">
+              <li>Phishing defense</li>
+              <li>Executive impersonation hardening</li>
+              <li>Policy + staff training</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-ghost" href="#quote">Request Quote</a>
+              <a class="btn btn-outline" href="#academy">Train Team</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3>Security Engineering</h3>
+            <p>Secure systems: auth, audit logging, secure architecture, secure SDLC discipline.</p>
+            <ul class="list">
+              <li>MFA/SSO patterns</li>
+              <li>Audit logs + detection readiness</li>
+              <li>Secure build pipelines</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-ghost" href="#quote">Request Quote</a>
+              <a class="btn btn-outline" href="#ventures">Montevia</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3>Continuous Security</h3>
+            <p>Ongoing security without building a full SOC: cadence, check-ins, monitoring advisory.</p>
+            <ul class="list">
+              <li>Vulnerability cadence</li>
+              <li>Monitoring advisory</li>
+              <li>Quarterly risk check-ins</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-ghost" href="#quote">Request Quote</a>
+              <a class="btn btn-outline" href="#trust">How we work</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="note-soft reveal">
+          <strong>Data sovereignty note:</strong> We design programs with African regulatory realities in mind—privacy expectations and data residency constraints.
+        </div>
+      </div>
+    </section>
+
+    <!-- ACADEMY (FULL FIXED STRUCTURE) -->
+    <section id="academy" class="section" data-cv>
+      <div class="container">
+        <div class="section-head reveal-up">
+          <h2 class="h2">LionSec Academy</h2>
+          <p class="intro">
+            Start from zero. Build real skills. Get hired.
+            Whether you’ve never touched code or want to switch careers,
+            we take you from complete beginner to job-ready professional — with proof, not promises.
+          </p>
+        </div>
+
+        <div class="metrics-row reveal">
+          <div class="metric"><strong>Start from zero</strong><span class="muted">Beginner-safe pathway</span></div>
+          <div class="metric"><strong>Portfolio Proof</strong><span class="muted">Labs + capstones</span></div>
+          <div class="metric"><strong>Career Pipeline</strong><span class="muted">CV + LinkedIn + interviews</span></div>
+        </div>
+
+        <!-- Psychological Safety Signals -->
+        <div class="beginner-safety reveal">
+          <span class="badge-large">✅ 0% tech experience required</span>
+          <span class="badge-large">✅ Learn step-by-step</span>
+          <span class="badge-large">✅ Build real portfolio projects</span>
+          <span class="badge-large">✅ Mentorship & structure</span>
+        </div>
+
+        <!-- Which track helper -->
+        <div class="track-helper reveal">
+          <h3 class="h3">Which track is right for me?</h3>
+          <p class="muted">Pick your situation — we’ll recommend the best starting point.</p>
+
+          <div class="helper-actions">
+            <button class="btn btn-outline helper-btn" data-reco="zero">I’m a complete beginner</button>
+            <button class="btn btn-outline helper-btn" data-reco="some">I know a little</button>
+            <button class="btn btn-outline helper-btn" data-reco="cyber">I want cybersecurity</button>
+            <button class="btn btn-outline helper-btn" data-reco="job">I want a job fast</button>
+          </div>
+
+          <div class="helper-output" id="helperOutput" aria-live="polite">
+            <strong>Recommendation:</strong> Select an option above.
+          </div>
+        </div>
+
+        <!-- LEVEL 1 -->
+        <h3 class="level-title level-1 reveal-up">🟢 Level 1 — Tech Foundations (Start Here)</h3>
+        <p class="level-desc reveal">
+          Perfect if you’ve never written code or feel intimidated by tech. Build confidence first, then specialize.
+        </p>
+
+        <div class="academy-grid grid-3 reveal">
+          <article class="course-card">
+            <h4>Computer & IT Fundamentals</h4>
+            <p>Hardware/software basics, Windows + Linux intro, file systems, command line, internet fundamentals.</p>
+            <div class="roi">Outcome: Tech confidence + strong foundation to learn faster.</div>
+            <span class="price">₦45,000 <span class="usd tiny muted" data-usd="45000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Start Here</a>
+          </article>
+
+          <article class="course-card">
+            <h4>Python for Absolute Beginners</h4>
+            <p>Logic, variables, loops, functions, mini projects, intro automation + Git/GitHub basics.</p>
+            <div class="roi">Outcome: You can build simple scripts + understand programming logic.</div>
+            <span class="price">₦65,000 <span class="usd tiny muted" data-usd="65000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Enroll</a>
+          </article>
+
+          <article class="course-card">
+            <h4>Web Development Basics</h4>
+            <p>HTML, CSS, JavaScript, responsive design, deployment, clean structure.</p>
+            <div class="roi">Outcome: You ship real websites + start your portfolio.</div>
+            <span class="price">₦75,000 <span class="usd tiny muted" data-usd="75000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Enroll</a>
+          </article>
+
+          <article class="course-card">
+            <h4>Networking Fundamentals</h4>
+            <p>TCP/IP, IP addressing, ports/protocols, DNS/DHCP, troubleshooting, routing basics.</p>
+            <div class="roi">Outcome: You understand how the internet works (required for cybersecurity).</div>
+            <span class="price">₦70,000 <span class="usd tiny muted" data-usd="70000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Enroll</a>
+          </article>
+
+          <article class="course-card">
+            <h4>Tech Job & Portfolio Prep</h4>
+            <p>CV + LinkedIn, GitHub portfolio, interview drills, job application strategy + proof packaging.</p>
+            <div class="roi">Outcome: You present like a professional and become employable.</div>
+            <span class="price">₦55,000 <span class="usd tiny muted" data-usd="55000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Enroll</a>
+          </article>
+
+          <article class="course-card">
+            <h4>Certification Prep (CompTIA Path)</h4>
+            <p>Prep support for ITF+ / A+ / Network+ / Security+. Roadmap + study plan + practice sessions.</p>
+            <div class="roi">Outcome: You get a structured path to recognized certifications.</div>
+            <span class="price">₦95,000 <span class="usd tiny muted" data-usd="95000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Enroll</a>
+          </article>
+        </div>
+
+        <!-- Pricing tools + Early-bird -->
+        <div class="pricing-tools reveal">
+          <div class="toggle">
+            <input id="usdToggle" type="checkbox" />
+            <label for="usdToggle">Show USD estimates</label>
+          </div>
+
+          <div class="cohort-card">
+            <div>
+              <strong>Early-bird</strong>
+              <p class="muted tiny">₦100,000 discount if paid before cohort starts.</p>
+            </div>
+            <div class="countdown" aria-live="polite">
+              <span class="muted tiny">Ends in</span>
+              <strong id="countdown">—</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOOTCAMP (MOST POPULAR) -->
+        <h3 class="level-title level-bundle reveal-up">💎 0 → Job Ready Bootcamp (Most Popular)</h3>
+        <p class="level-desc reveal">
+          Best for career switchers who want one complete path, structure, mentorship, and results.
+        </p>
+
+        <div class="academy-grid grid-1 reveal">
+          <article class="course-card premium">
+            <div class="ribbon">BEST VALUE</div>
+            <div class="course-topline">
+              <span class="chip chip-gold">BOOTCAMP</span>
+              <span class="pill gold">12–16 weeks</span>
+              <span class="pill">Mentorship</span>
+              <span class="pill">Portfolio</span>
+            </div>
+
+            <h4>Complete Career Switch Program</h4>
+            <p>
+              IT Foundations → Programming → Web Dev → Networking → Cybersecurity Basics → Career Prep → Certification Roadmap
+            </p>
+
+            <ul class="list">
+              <li>All Level 1 courses included</li>
+              <li>Weekly mentor support</li>
+              <li>Portfolio proof packaging</li>
+              <li>Interview drills + job strategy</li>
+            </ul>
+
+            <div class="price-meta">
+              <span class="pill gold">Save ₦200,000+ vs buying separately</span>
+              <span class="pill">Most popular for beginners</span>
+              <span class="pill">60% upfront / 40% mid-term</span>
+            </div>
+
+            <span class="price price-big">₦850,000 <span class="usd tiny muted" data-usd="850000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Apply to Bootcamp</a>
+          </article>
+        </div>
+
+        <!-- LEVEL 2 -->
+        <h3 class="level-title level-2 reveal-up">🔴 Level 2 — Professional Specializations</h3>
+        <p class="level-desc reveal">
+          Advanced tracks for career depth. Requires Level 1 completion or equivalent experience.
+        </p>
+
+        <div class="academy-grid grid-3 reveal">
+          <article class="course-card">
+            <div class="course-topline">
+              <span class="chip">REGTECH</span>
+              <span class="pill gold">Early-bird: -₦100,000</span>
+            </div>
+            <h4>RegTech & Tax Intelligence (Montevia Logic)</h4>
+            <p>Compliance reasoning, audit trails, VAT/stamp duty logic, secure event design.</p>
+            <div class="roi">Includes: Montevia-style capstone + portfolio review + internship eligibility.</div>
+            <span class="price">₦450,000 <span class="usd tiny muted" data-usd="450000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Apply</a>
+          </article>
+
+          <article class="course-card">
+            <div class="course-topline">
+              <span class="chip">CYBER</span>
+              <span class="pill">Cohort-limited</span>
+            </div>
+            <h4>AI Ethical Hacking (CEH v13 Path)</h4>
+            <p>Modern pentesting workflow + AI-assisted recon + reporting discipline + retest mindset.</p>
+            <div class="roi">Includes: advanced labs + report templates + mentor review + proof portfolio.</div>
+            <span class="price">₦650,000 <span class="usd tiny muted" data-usd="650000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Apply</a>
+          </article>
+
+          <article class="course-card">
+            <div class="course-topline">
+              <span class="chip">FINTECH</span>
+              <span class="pill gold">Top 5% talent credit</span>
+            </div>
+            <h4>Fintech Engineering (Secure Systems)</h4>
+            <p>Secure backend patterns, audit logging, fraud signals, and compliance-ready architecture.</p>
+            <div class="roi">Includes: secure API capstone + threat modeling + deployment checklist.</div>
+            <span class="price">₦750,000 <span class="usd tiny muted" data-usd="750000"></span></span>
+            <a class="btn btn-primary btn-block" href="#apply">Apply</a>
+          </article>
+        </div>
+
+        <div class="academy-bottom reveal">
+          <div class="note-soft">
+            <strong>Corporate rates:</strong> training for banks/government/teams (5+ staff). We provide group pricing and reporting.
+          </div>
+          <a class="btn btn-outline" href="#quote" id="groupPricingBtn">Request Group Pricing</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAREERS -->
+    <section id="careers" class="section alt" data-cv>
+      <div class="container">
+        <div class="section-head reveal-up">
+          <h2 class="h2">Career Foundry</h2>
+          <p class="intro">
+            We don’t just train. We build employable professionals and a venture talent pipeline.
+            Top performers may join internal build teams (including Montevia).
+          </p>
+        </div>
+
+        <div class="foundry grid-2">
+          <article class="card reveal">
+            <h3>How it works</h3>
+            <ol class="steps">
+              <li><strong>Screening:</strong> discipline + baseline readiness</li>
+              <li><strong>Training:</strong> role-based roadmap</li>
+              <li><strong>Proof:</strong> labs + capstones + reports + GitHub evidence</li>
+              <li><strong>Career build:</strong> CV, LinkedIn, interview drills</li>
+              <li><strong>Pipeline:</strong> top performers → LionSec Labs / venture build team</li>
+            </ol>
+            <div class="note-soft">
+              <strong>Talent Credit:</strong> top performers may receive refund/bonus if hired internally (policy cohort-based).
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3>Roles we prepare you for</h3>
+            <div class="pillrow">
+              <span class="pill">SOC Analyst</span>
+              <span class="pill">Junior Pentester</span>
+              <span class="pill">DFIR Assistant</span>
+              <span class="pill">Cloud Junior</span>
+              <span class="pill">Security Engineer Track</span>
+              <span class="pill gold">RegTech Builder</span>
+            </div>
+            <div class="note-soft">
+              <strong>Exclusivity signal:</strong> competitive admission (high standards).
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENTURES -->
+    <section id="ventures" class="section" data-cv>
+      <div class="container">
+        <div class="section-head reveal-up">
+          <h2 class="h2">Ventures</h2>
+          <p class="intro">
+            Montevia is our proof-of-vision: a RegTech-style compliance intelligence layer built for Nigerian and African realities.
+          </p>
+        </div>
+
+        <div class="grid-2 venture-proof reveal">
+          <article class="card">
+            <div class="venture-top">
+              <span class="chip">MONTEVIA</span>
+              <span class="badge">Tax-intelligence • Audit trails</span>
+            </div>
+
+            <h3>Montevia — Tax-Aware Financial Intelligence</h3>
+            <p class="muted">
+              Not “just banking.” Montevia is designed for regulated money movement:
+              <strong>context capture</strong>, <strong>tax logic</strong> (VAT / stamp duty), and <strong>secure execution</strong> with audit logs.
+            </p>
+
+            <div class="ip-diagram" aria-label="Montevia architecture diagram">
+              <div class="ip-node"><strong>1) Context Capture</strong><span class="muted">Purpose • category • risk signals</span></div>
+              <div class="ip-line"></div>
+              <div class="ip-node gold-node"><strong>2) AI Compliance Kernel</strong><span class="muted">VAT • stamp duty • rules engine</span></div>
+              <div class="ip-line"></div>
+              <div class="ip-node"><strong>3) Secure Execution</strong><span class="muted">Audit logs • risk score • safe transfer</span></div>
+            </div>
+
+            <div class="card-actions">
+              <a class="btn btn-primary" href="#quote">Partner / Request Demo</a>
+              <a class="btn btn-outline" href="assets/whitepapers/montevia-protocol.pdf" target="_blank" rel="noopener noreferrer">
+                Read Vision Whitepaper (PDF)
+              </a>
+            </div>
+
+            <p class="tiny muted">
+              Whitepaper: <strong>“The Montevia Protocol: Securing Africa’s Digital Tax Future”</strong> (place PDF in <code>/assets/whitepapers/</code>).
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Powered by the LionSec Intelligence Kernel</h3>
+            <p class="muted">
+              The same discipline used in security engagements powers venture engineering:
+              auditable events, compliance clarity, and evidence-grade logging.
+            </p>
+            <ul class="list">
+              <li><strong>Audit-ready logs</strong> (evidence discipline)</li>
+              <li><strong>Compliance clarity</strong> (fees explained)</li>
+              <li><strong>Risk before transfer</strong> (fraud patterns)</li>
+              <li><strong>Data sovereignty aware</strong> (African regulatory reality)</li>
+            </ul>
+            <div class="note-soft">
+              Montevia is built by LionSec talent: Academy → Foundry → Venture pipeline.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section id="trust" class="section alt" data-cv>
+      <div class="container">
+        <div class="section-head reveal-up">
+          <h2 class="h2">Trust Layer</h2>
+          <p class="intro">We earn trust with process + proof. No false claims. Clear compliance roadmap.</p>
+        </div>
+
+        <div class="grid-2 trust-grid reveal">
+          <article class="card">
+            <h3>Institutional Readiness Roadmap (2026)</h3>
+            <p class="muted">
+              LionSec Hub operates as a pre-seed venture in research & capability-building mode.
+              Full corporate registration and licensing are planned upon conclusion of the current funding round.
+            </p>
+
+            <div class="roadmap">
+              <div class="road-item">
+                <strong>NDPB / DPCO Licensing</strong>
+                <p class="muted tiny">In progress — target Q2 2026 (roadmap & requirements defined).</p>
+              </div>
+              <div class="road-item">
+                <strong>ISO 27001 Certification</strong>
+                <p class="muted tiny">Roadmap initiated for Montevia infrastructure & internal controls.</p>
+              </div>
+              <div class="road-item">
+                <strong>CBN Sandbox Integration (Montevia)</strong>
+                <p class="muted tiny">Strategic objective for tax-automation testing and regulated partnerships.</p>
+              </div>
+            </div>
+
+            <div class="note-soft">
+              <strong>Integrity policy:</strong> We do not claim licenses or affiliations we do not yet hold.
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Leadership</h3>
+            <p class="muted">Institutions trust accountable leadership and visible competence.</p>
+
+            <div class="team">
+              <div class="team-card">
+                <div class="team-avatar">AA</div>
+                <div class="team-info">
+                  <strong>Adeboye Alade</strong>
+                  <small class="muted">Founder • Security & Incident Response</small>
+                  <div class="team-certs">
+                    <span class="pill">CompTIA Security+</span>
+                    <span class="pill">CEH</span>
+                    <span class="pill">Google Cybersecurity</span>
+                    <span class="pill">Cisco Networking Basics</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="team-card">
+                <div class="team-avatar">LS</div>
+                <div class="team-info">
+                  <strong>LionSec Capability</strong>
+                  <small class="muted">Pentest • DFIR • Security Engineering</small>
+                  <div class="team-certs">
+                    <span class="pill">SIEM (Splunk/ELK)</span>
+                    <span class="pill">Vuln mgmt</span>
+                    <span class="pill gold">Evidence discipline</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="method-badges">
+              <span class="badge">OWASP-aligned</span>
+              <span class="badge">NIST-aware</span>
+              <span class="badge">Audit-ready mindset</span>
+              <span class="badge">Authorized work only</span>
+            </div>
+
+            <div class="note-soft">
+              <strong>Corporate presence:</strong> Victoria Island, Lagos (Remote-first + onsite for institutional engagements)
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST QUOTE -->
+    <section id="quote" class="section" data-cv>
+      <div class="container">
+        <div class="section-head reveal-up">
+          <h2 class="h2">Request an Institutional Quote</h2>
+          <p class="intro">Clear scope = faster response. You’ll receive a reply via email/phone.</p>
+        </div>
+
+        <div class="form-wrap reveal">
+          <form id="quoteForm" class="form" action="https://formspree.io/f/yourFormId" method="POST" novalidate>
+            <div class="form-grid">
+              <label>
+                <span>Organization</span>
+                <input name="company" type="text" placeholder="e.g., Bank / Fintech / Agency" required />
+              </label>
+
+              <label>
+                <span>Your Name</span>
+                <input name="name" type="text" placeholder="Full name" required />
+              </label>
+
+              <label>
+                <span>Work Email</span>
+                <input name="email" type="email" placeholder="name@company.com" required />
+              </label>
+
+              <label>
+                <span>Phone</span>
+                <input name="phone" type="tel" placeholder="+234…" required />
+              </label>
+
+              <label>
+                <span>Engagement Type</span>
+                <select name="engagement" required>
+                  <option value="" disabled selected>Select a service</option>
+                  <option>Pentest (Web/API/Mobile)</option>
+                  <option>Audit Readiness / Posture Review</option>
+                  <option>DFIR Readiness / Investigations Support</option>
+                  <option>Anti-Fraud / Phishing Program</option>
+                  <option>Security Engineering</option>
+                  <option>Corporate Academy Training (Group)</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Timeline</span>
+                <select name="timeline" required>
+                  <option value="" disabled selected>Select timeline</option>
+                  <option>Urgent (1–7 days)</option>
+                  <option>2–3 weeks</option>
+                  <option>1–2 months</option>
+                  <option>Flexible</option>
+                </select>
+              </label>
+
+              <label class="span-2">
+                <span>Scope / Details</span>
+                <textarea name="details" rows="6" placeholder="What do you want tested or secured? Include URLs, systems, goals." required></textarea>
+              </label>
+
+              <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" />
+
+              <button class="btn btn-primary span-2" type="submit">Submit Request</button>
+              <p id="quoteMessage" class="form-msg span-2" aria-live="polite"></p>
+            </div>
+          </form>
+
+          <aside class="form-aside">
+            <h3>What happens next</h3>
+            <ul class="list">
+              <li>We reply with intake questions + NDA option</li>
+              <li>We scope, estimate, and schedule</li>
+              <li>Work begins only after written authorization</li>
+            </ul>
+            <div class="note-soft">
+              <strong>Quick questions?</strong> Use WhatsApp float. Formal engagements use this form.
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLY -->
+    <section id="apply" class="section alt" data-cv>
+      <div class="container">
+        <div class="section-head reveal-up">
+          <h2 class="h2">Academy Application</h2>
+          <p class="intro">Structured like serious institutions. We screen for discipline, consistency, and readiness.</p>
+        </div>
+
+        <div class="apply-wrap reveal">
+          <form id="applyForm" class="form" action="https://formspree.io/f/yourApplyFormId" method="POST" novalidate>
+            <div class="form-grid">
+              <label>
+                <span>Full Name</span>
+                <input name="full_name" type="text" required />
+              </label>
+
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" required />
+              </label>
+
+              <label>
+                <span>Phone</span>
+                <input name="phone" type="tel" required />
+              </label>
+
+              <label>
+                <span>Your current level</span>
+                <select name="level" id="levelSelect" required>
+                  <option value="" disabled selected>Select level</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="some">Some basics</option>
+                  <option value="intermediate">Intermediate</option>
+                </select>
+              </label>
+
+              <div class="span-2 reco-box" id="applyReco" aria-live="polite">
+                <strong>Recommendation:</strong> Select your current level to get a suggested starting track.
+              </div>
+
+              <label class="span-2">
+                <span>Choose Track</span>
+                <select name="track" id="trackSelect" required>
+                  <option value="" disabled selected>Select track</option>
+
+                  <option>Computer & IT Fundamentals (₦45,000)</option>
+                  <option>Python for Absolute Beginners (₦65,000)</option>
+                  <option>Web Development Basics (₦75,000)</option>
+                  <option>Networking Fundamentals (₦70,000)</option>
+                  <option>Tech Job & Portfolio Prep (₦55,000)</option>
+                  <option>Certification Prep (CompTIA Path) (₦95,000)</option>
+
+                  <option>🔥 0 → Job Ready Bootcamp (₦850,000)</option>
+
+                  <option>RegTech & Tax Intelligence (₦450,000)</option>
+                  <option>AI Ethical Hacking (₦650,000)</option>
+                  <option>Fintech Engineering (₦750,000)</option>
+                </select>
+              </label>
+
+              <label class="span-2">
+                <span>Why do you want this track?</span>
+                <textarea name="motivation" rows="5" placeholder="Tell us your goal and your discipline plan." required></textarea>
+              </label>
+
+              <label class="span-2">
+                <span>Availability</span>
+                <select name="availability" required>
+                  <option value="" disabled selected>Select time</option>
+                  <option>1–2 hours/day</option>
+                  <option>3–4 hours/day</option>
+                  <option>Weekends only</option>
+                </select>
+              </label>
+
+              <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" />
+
+              <button class="btn btn-primary span-2" type="submit">Submit Application</button>
+              <p id="applyMessage" class="form-msg span-2" aria-live="polite"></p>
+            </div>
+          </form>
+
+          <aside class="apply-aside">
+            <h3>What you get</h3>
+            <ul class="list">
+              <li>Structured roadmap + weekly check-ins</li>
+              <li>Proof-based capstones + portfolio review</li>
+              <li>Career build: CV + LinkedIn + interview prep</li>
+              <li>Top performers: internal build opportunities</li>
+            </ul>
+            <div class="note-soft">
+              <strong>Installments:</strong> 60% upfront / 40% mid-term • <strong>Talent Credit</strong> for top performers.
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="logo" src="assets/logo.png" alt="LionSec Hub logo" loading="lazy" />
+            <div>
+              <strong>LionSec Hub</strong>
+              <p class="muted tiny">Security, Intelligence & Engineering — Built for a Digital Africa</p>
+            </div>
+          </div>
+
+          <div class="footer-proof">
+            <span class="proof-badge">HQ: Victoria Island, Lagos (Remote-first)</span>
+            <span class="proof-badge">CAC: <em>RC-________</em> (add when ready)</span>
+            <span class="proof-badge">Compliance: Roadmap-first (no false claims)</span>
+          </div>
+
+          <p class="muted tiny">
+            Email: <a class="link" href="mailto:info@lionsechub.com">info@lionsechub.com</a> •
+            WhatsApp: <a class="link" href="https://wa.me/2349116089070" target="_blank" rel="noopener noreferrer">+234 911 608 9070</a>
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <strong>Links</strong>
+          <a href="#intelligence">Intelligence</a>
+          <a href="#academy">Academy</a>
+          <a href="#careers">Career</a>
+          <a href="#ventures">Ventures</a>
+          <a href="#trust">Trust</a>
+          <a href="#quote">Quote</a>
+        </div>
+
+        <div class="footer-links">
+          <strong>Legal</strong>
+          <a href="#trust">Integrity policy</a>
+          <a href="#" aria-disabled="true">Privacy Policy (add)</a>
+          <a href="#" aria-disabled="true">Terms (add)</a>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <span class="muted tiny">© <span id="year"></span> LionSec Hub. All rights reserved.</span>
+        <span class="muted tiny">Built with discipline • proof • standards.</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"EducationalOrganization",
+    "name":"LionSec Hub Academy",
+    "url":"https://lionsechub.vercel.app/",
+    "description":"Proof-based training across cybersecurity and high-value tech skills. Roadmaps, labs, capstones, and career readiness.",
+    "areaServed":"Africa",
+    "parentOrganization":{"@type":"Organization","name":"LionSec Hub"}
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProfessionalService",
+    "name":"LionSec Hub",
+    "url":"https://lionsechub.vercel.app/",
+    "description":"Institutional security engagements and readiness consulting: pentesting, DFIR readiness, security engineering, and anti-fraud programs.",
+    "areaServed":"Africa",
+    "address":{
+      "@type":"PostalAddress",
+      "addressLocality":"Lagos",
+      "addressCountry":"NG",
+      "streetAddress":"Victoria Island"
+    }
+  }
+  </script>
+
+  <!-- DOMPurify must be LOCAL -->
+  <script src="assets/vendor/dompurify.min.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+  </html>  <meta property="og:title" content="LionSec Hub — Security, Intelligence & Engineering" />
   <meta property="og:description" content="Institutional-grade security + proof-based tech training. Built for a Digital Africa." />
   <meta property="og:url" content="https://lionsechub.vercel.app/" />
   <meta property="og:image" content="https://lionsechub.vercel.app/assets/og.png" />
