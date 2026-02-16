@@ -1,40 +1,293 @@
+/* ============================
+   LionSec Hub — Performance + UI
+   ============================ */
+
 (() => {
-  "use strict";
+  // Year
+  const y = document.getElementById("year");
+  if (y) y.textContent = String(new Date().getFullYear());
 
-  // ---------- Helpers ----------
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  // Smooth tab jump (relaxed)
+  const tabbar = document.querySelector(".tabbar");
+  if (tabbar) {
+    tabbar.addEventListener("click", (e) => {
+      const btn = e.target.closest(".tab");
+      if (!btn) return;
+      const target = btn.getAttribute("data-target");
+      const el = target ? document.querySelector(target) : null;
+      if (!el) return;
 
-  const formatUSD = (n) => {
-    const num = Number(n || 0);
-    try {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      }).format(num);
-    } catch {
-      return `$${Math.round(num).toLocaleString("en-US")}`;
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("is-active"));
+      btn.classList.add("is-active");
+
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  // Mobile nav
+  const mobileToggle = document.getElementById("mobileToggle");
+  const nav = document.getElementById("nav");
+  if (mobileToggle && nav) {
+    mobileToggle.addEventListener("click", () => {
+      const open = nav.classList.toggle("is-open");
+      mobileToggle.setAttribute("aria-expanded", String(open));
+    });
+  }
+
+  // Loader: remove quickly after load
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    if (!loader) return;
+    loader.classList.add("is-done");
+    setTimeout(() => loader.remove(), 480);
+  });
+
+  // Performance: reduce motion on low-end devices
+  const isLowEnd = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth < 420;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (isLowEnd || reduceMotion) {
+    document.documentElement.classList.add("reduce-motion");
+  }
+
+  // Reveal animations (Samsung/Apple calm feel)
+  const revealEls = Array.from(document.querySelectorAll(".reveal, .reveal-up"));
+  const enableReveal = !document.documentElement.classList.contains("reduce-motion");
+
+  if (enableReveal && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const ent of entries) {
+        if (ent.isIntersecting) {
+          ent.target.classList.add("is-visible");
+          io.unobserve(ent.target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add("is-visible"));
+  }
+
+  // Canvas background: very light
+  const canvas = document.getElementById("neuro");
+  if (canvas && !document.documentElement.classList.contains("reduce-motion")) {
+    const ctx = canvas.getContext("2d", { alpha: true });
+    let w = 0, h = 0, raf = 0;
+    const dots = Array.from({ length: 60 }, () => ({
+      x: Math.random(), y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.00035,
+      vy: (Math.random() - 0.5) * 0.00035,
+      r: 1 + Math.random() * 1.5
+    }));
+
+    const resize = () => {
+      w = canvas.width = Math.floor(window.innerWidth * 0.8);
+      h = canvas.height = Math.floor(window.innerHeight * 0.8);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+    };
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.globalAlpha = 0.55;
+      for (const d of dots) {
+        d.x += d.vx; d.y += d.vy;
+        if (d.x < 0 || d.x > 1) d.vx *= -1;
+        if (d.y < 0 || d.y > 1) d.vy *= -1;
+
+        const x = d.x * w, y = d.y * h;
+        ctx.beginPath();
+        ctx.arc(x, y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.10)";
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    };
+
+    const onVis = () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else raf = requestAnimationFrame(draw);
+    };
+    document.addEventListener("visibilitychange", onVis);
+    raf = requestAnimationFrame(draw);
+  }
+
+  // Video anti-download friction (NOT absolute security)
+  const introVideo = document.getElementById("introVideo");
+  const videoShell = document.getElementById("videoShell");
+  if (introVideo) {
+    (videoShell || introVideo).addEventListener("contextmenu", (e) => e.preventDefault());
+    introVideo.setAttribute("draggable", "false");
+    introVideo.disablePictureInPicture = true;
+  }
+
+  /* ============================
+     Academy Pricing: NGN + USD toggle + countdown
+     ============================ */
+
+  const cohortStartDate = "2026-03-15";
+  const usdRate = 1600;
+
+  const usdToggle = document.getElementById("usdToggle");
+  const priceCards = document.querySelectorAll("[data-ngn]");
+  const countdownEl = document.getElementById("countdown");
+
+  const formatUSD = (n) => "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+
+  const updateUSD = () => {
+    const show = usdToggle && usdToggle.checked;
+    priceCards.forEach(card => {
+      const ngn = Number(card.getAttribute("data-ngn") || 0);
+      const usd = ngn > 0 ? Math.round(ngn / usdRate) : 0;
+      const usdEl = card.querySelector("[data-usd]");
+      if (!usdEl) return;
+      usdEl.textContent = show ? `(${formatUSD(usd)})` : "";
+    });
+  };
+
+  if (usdToggle) {
+    usdToggle.addEventListener("change", updateUSD);
+    updateUSD();
+  }
+
+  const updateCountdown = () => {
+    if (!countdownEl) return;
+    const end = new Date(cohortStartDate + "T00:00:00");
+    const now = new Date();
+    const diff = end.getTime() - now.getTime();
+
+    if (Number.isNaN(end.getTime())) {
+      countdownEl.textContent = "Set cohort date";
+      return;
     }
+
+    if (diff <= 0) {
+      countdownEl.textContent = "Cohort started";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    countdownEl.textContent = `${days}d ${hrs}h ${mins}m`;
+  };
+  updateCountdown();
+  setInterval(updateCountdown, 30000);
+
+  // Group pricing button -> prefill engagement select
+  const groupBtn = document.getElementById("groupPricingBtn");
+  const engagementSelect = document.getElementById("engagementSelect");
+  if (groupBtn && engagementSelect) {
+    groupBtn.addEventListener("click", () => {
+      setTimeout(() => {
+        engagementSelect.value = "Group Training (Team)";
+      }, 250);
+    });
+  }
+
+  /* ============================
+     Academy filter tabs
+     ============================ */
+  const aTabs = document.querySelectorAll(".a-tab");
+  const courses = document.querySelectorAll(".course");
+
+  const setCat = (cat) => {
+    courses.forEach(c => {
+      const ok = cat === "all" || c.getAttribute("data-cat") === cat;
+      c.classList.toggle("is-hidden", !ok);
+    });
   };
 
-  const safeText = (s) => String(s ?? "");
+  if (aTabs.length) {
+    aTabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        aTabs.forEach(t => t.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        const cat = btn.getAttribute("data-filter") || "all";
+        setCat(cat);
+      });
+    });
+  }
 
-  const setMessage = (el, msg, type = "info") => {
-    if (!el) return;
-    el.textContent = safeText(msg);
-    el.dataset.type = type;
+  /* ============================
+     Form Sanitization (DOMPurify)
+     ============================ */
+
+  const sanitizeValue = (value) => {
+    const v = String(value ?? "");
+    if (window.DOMPurify && typeof window.DOMPurify.sanitize === "function") {
+      return window.DOMPurify.sanitize(v, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }).trim();
+    }
+    return v.replace(/[<>]/g, "").trim();
   };
 
-  const smoothScrollTo = (targetSel) => {
-    const target = typeof targetSel === "string" ? $(targetSel) : targetSel;
-    if (!target) return;
+  const sanitizeForm = (form) => {
+    const fields = form.querySelectorAll("input[type='text'], input[type='email'], input[type='tel'], textarea");
+    fields.forEach(f => { f.value = sanitizeValue(f.value); });
+  };
 
-    const header = $(".site-header");
-    const offset = header ? header.getBoundingClientRect().height + 8 : 72;
+  const validateBasic = (form) => {
+    const email = form.querySelector("input[type='email']");
+    if (email && !String(email.value).includes("@")) return false;
 
-    const top = window.scrollY + target.getBoundingClientRect().top - offset;
-    window.scrollTo({ top, behavior: "smooth" });
+    const required = form.querySelectorAll("[required]");
+    for (const r of required) {
+      if (!String(r.value || "").trim()) return false;
+    }
+    return true;
+  };
+
+  const wireForm = (formId, msgId, successText) => {
+    const form = document.getElementById(formId);
+    const msg = document.getElementById(msgId);
+    if (!form || !msg) return;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msg.textContent = "Sending…";
+
+      sanitizeForm(form);
+
+      if (!validateBasic(form)) {
+        msg.textContent = "Please check your inputs and try again.";
+        return;
+      }
+
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: new FormData(form)
+        });
+
+        if (res.ok) {
+          form.reset();
+          msg.textContent = successText;
+          return;
+        }
+
+        msg.textContent = "Could not send. Please try again or use WhatsApp.";
+      } catch {
+        msg.textContent = "Network error. Please try again or use WhatsApp.";
+      }
+    });
+  };
+
+  wireForm(
+    "quoteForm",
+    "quoteMessage",
+    "Request received. We’ll reply with intake questions and next steps shortly."
+  );
+
+  wireForm(
+    "applyForm",
+    "applyMessage",
+    "Application received. We’ll respond with cohort details and screening steps."
+  );
+})();    window.scrollTo({ top, behavior: "smooth" });
   };
 
   // ---------- Mobile nav ----------
