@@ -1,80 +1,29 @@
 /* ============================
-   LionSec Hub — Performance + UI
+   LionSec Hub — Performance + UI (CLEAN)
    ============================ */
 
 (() => {
+  "use strict";
+
   // Helpers
-  const $ = (sel) => document.querySelector(sel);
-  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   // Footer year
-  const y = $("#year");
-  if (y) y.textContent = String(new Date().getFullYear());
-
-  // Mobile nav
-  const mobileToggle = $("#mobileToggle");
-  const nav = $("#nav");
-  if (mobileToggle && nav) {
-    mobileToggle.addEventListener("click", () => {
-      const open = nav.classList.toggle("is-open");
-      mobileToggle.setAttribute("aria-expanded", String(open));
-      mobileToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    });
-
-    nav.addEventListener("click", (e) => {
-      if (e.target.closest("a")) {
-        nav.classList.remove("is-open");
-        mobileToggle.setAttribute("aria-expanded", "false");
-        mobileToggle.setAttribute("aria-label", "Open menu");
-      }
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        nav.classList.remove("is-open");
-        mobileToggle.setAttribute("aria-expanded", "false");
-        mobileToggle.setAttribute("aria-label", "Open menu");
-      }
-    });
-  }
-
-  // Smooth tab jump
-  const tabbar = $(".tabbar");
-  if (tabbar) {
-    tabbar.addEventListener("click", (e) => {
-      const btn = e.target.closest(".tab");
-      if (!btn) return;
-
-      const target = btn.getAttribute("data-target");
-      const el = target ? $(target) : null;
-      if (!el) return;
-
-      $$(".tab").forEach((t) => {
-        t.classList.remove("is-active");
-        t.setAttribute("aria-selected", "false");
-      });
-
-      btn.classList.add("is-active");
-      btn.setAttribute("aria-selected", "true");
-
-      const header = $(".site-header");
-      const offset = header ? header.getBoundingClientRect().height + 8 : 72;
-      const top = window.scrollY + el.getBoundingClientRect().top - offset;
-
-      window.scrollTo({ top, behavior: "smooth" });
-    });
-  }
+  const yearEl = $("#year");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
   // Reduce motion on low-end devices
   const isLowEnd =
     (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
     window.innerWidth < 420;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (isLowEnd || reduceMotion) {
-    document.documentElement.classList.add("reduce-motion");
-  }
 
-  // Loader (ROBUST) — NEVER STUCK
+  const prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (isLowEnd || prefersReduce) document.documentElement.classList.add("reduce-motion");
+
+  /* ============================
+     Loader (ROBUST) — NEVER STUCK
+     ============================ */
   const initLoader = () => {
     const loader = $("#loader");
     if (!loader) return;
@@ -86,20 +35,140 @@
       setTimeout(() => loader.remove(), 480);
     };
 
-    document.addEventListener("DOMContentLoaded", () => setTimeout(hide, 150), { once: true });
-    window.addEventListener("load", () => setTimeout(hide, 250), { once: true });
-    setTimeout(hide, 2500); // hard fallback
-  };
-  initLoader();
+    // Hide ASAP
+    if (document.readyState !== "loading") setTimeout(hide, 150);
+    else document.addEventListener("DOMContentLoaded", () => setTimeout(hide, 150), { once: true });
 
-  // Canvas background (very light)
-  const canvas = $("#neuro");
-  if (canvas && !document.documentElement.classList.contains("reduce-motion")) {
+    // Hide again on full load (safe)
+    window.addEventListener("load", () => setTimeout(hide, 250), { once: true });
+
+    // Hard fallback
+    setTimeout(hide, 2500);
+  };
+
+  /* ============================
+     Mobile nav
+     ============================ */
+  const initMobileNav = () => {
+    const toggle = $("#mobileToggle");
+    const nav = $("#nav");
+    if (!toggle || !nav) return;
+
+    const setState = (open) => {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+
+    toggle.addEventListener("click", () => setState(!nav.classList.contains("is-open")));
+
+    nav.addEventListener("click", (e) => {
+      if (e.target.closest("a")) setState(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setState(false);
+    });
+  };
+
+  /* ============================
+     Smooth tab scroll (tabbar + nav links)
+     ============================ */
+  const smoothScrollTo = (targetSel) => {
+    const el = typeof targetSel === "string" ? $(targetSel) : targetSel;
+    if (!el) return;
+
+    const header = $(".site-header");
+    const offset = header ? header.getBoundingClientRect().height + 10 : 72;
+
+    const top = window.scrollY + el.getBoundingClientRect().top - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
+  const initTabbar = () => {
+    const tabbar = $(".tabbar");
+    if (!tabbar) return;
+
+    tabbar.addEventListener("click", (e) => {
+      const btn = e.target.closest(".tab");
+      if (!btn) return;
+
+      const target = btn.getAttribute("data-target");
+      if (!target) return;
+
+      const section = $(target);
+      if (!section) return;
+
+      $$(".tab").forEach((t) => {
+        t.classList.remove("is-active");
+        t.setAttribute("aria-selected", "false");
+      });
+
+      btn.classList.add("is-active");
+      btn.setAttribute("aria-selected", "true");
+
+      smoothScrollTo(section);
+    });
+
+    // Make normal anchors smooth too (optional)
+    $$("#nav a[href^='#']").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        const href = a.getAttribute("href");
+        const section = href ? $(href) : null;
+        if (!section) return;
+        e.preventDefault();
+        smoothScrollTo(section);
+      });
+    });
+  };
+
+  /* ============================
+     Reveal animations
+     (works with .reveal and .reveal-up)
+     ============================ */
+  const initReveal = () => {
+    const reduce = document.documentElement.classList.contains("reduce-motion");
+    const nodes = $$(".reveal, .reveal-up");
+    if (!nodes.length) return;
+
+    if (reduce || !("IntersectionObserver" in window)) {
+      nodes.forEach((n) => n.classList.add("is-visible"));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((ent) => {
+          if (ent.isIntersecting) {
+            ent.target.classList.add("is-visible");
+            io.unobserve(ent.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+    );
+
+    nodes.forEach((n) => io.observe(n));
+  };
+
+  /* ============================
+     Ambient Canvas (lightweight)
+     ============================ */
+  const initAmbientCanvas = () => {
+    const canvas = $("#neuro");
+    if (!canvas) return;
+
+    const reduce = document.documentElement.classList.contains("reduce-motion");
+    if (reduce) return;
+
     const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
     let w = 0, h = 0, raf = 0;
 
-    const dots = Array.from({ length: 60 }, () => ({
-      x: Math.random(), y: Math.random(),
+    const dots = Array.from({ length: 50 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
       vx: (Math.random() - 0.5) * 0.00035,
       vy: (Math.random() - 0.5) * 0.00035,
       r: 1 + Math.random() * 1.5
@@ -111,8 +180,6 @@
       canvas.style.width = window.innerWidth + "px";
       canvas.style.height = window.innerHeight + "px";
     };
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
@@ -129,116 +196,137 @@
         ctx.fillStyle = "rgba(255,255,255,0.10)";
         ctx.fill();
       }
+
       raf = requestAnimationFrame(draw);
     };
 
-    const onVis = () => {
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    document.addEventListener("visibilitychange", () => {
       if (document.hidden) cancelAnimationFrame(raf);
       else raf = requestAnimationFrame(draw);
-    };
-    document.addEventListener("visibilitychange", onVis);
-    raf = requestAnimationFrame(draw);
-  }
+    });
 
-  // Video friction
-  const introVideo = $("#introVideo");
-  const videoShell = $("#videoShell");
-  if (introVideo) {
+    raf = requestAnimationFrame(draw);
+  };
+
+  /* ============================
+     Video anti-download friction
+     ============================ */
+  const initVideoFriction = () => {
+    const introVideo = $("#introVideo");
+    const videoShell = $("#videoShell");
+    if (!introVideo) return;
+
     (videoShell || introVideo).addEventListener("contextmenu", (e) => e.preventDefault());
     introVideo.setAttribute("draggable", "false");
     introVideo.disablePictureInPicture = true;
-  }
-
-  // USD toggle (uses data-ngn on course cards)
-  const usdRate = 1600;
-  const usdToggle = $("#usdToggle");
-  const priceCards = $$("[data-ngn]");
-
-  const formatUSD = (n) => "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
-
-  const updateUSD = () => {
-    const show = usdToggle && usdToggle.checked;
-    priceCards.forEach((card) => {
-      const ngn = Number(card.getAttribute("data-ngn") || 0);
-      const usd = ngn > 0 ? Math.round(ngn / usdRate) : 0;
-      const usdEl = card.querySelector("[data-usd]");
-      if (!usdEl) return;
-      usdEl.textContent = show ? `(${formatUSD(usd)})` : "";
-    });
   };
 
-  if (usdToggle) {
-    usdToggle.addEventListener("change", updateUSD);
-    updateUSD();
-  }
+  /* ============================
+     USD toggle (uses data-ngn)
+     ============================ */
+  const initUsdToggle = () => {
+    const usdToggle = $("#usdToggle");
+    if (!usdToggle) return;
 
-  // Countdown
-  const cohortStartDate = "2026-03-15";
-  const countdownEl = $("#countdown");
+    const usdRate = 1600;
+    const cards = $$("[data-ngn]");
 
-  const updateCountdown = () => {
-    if (!countdownEl) return;
-    const end = new Date(cohortStartDate + "T00:00:00");
-    const now = new Date();
-    const diff = end.getTime() - now.getTime();
+    const formatUSD = (n) => "$" + Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 });
 
-    if (Number.isNaN(end.getTime())) {
-      countdownEl.textContent = "Set cohort date";
-      return;
-    }
-    if (diff <= 0) {
-      countdownEl.textContent = "Cohort started";
-      return;
-    }
+    const update = () => {
+      const show = usdToggle.checked;
+      cards.forEach((card) => {
+        const ngn = Number(card.getAttribute("data-ngn") || 0);
+        const usd = ngn > 0 ? Math.round(ngn / usdRate) : 0;
+        const usdEl = card.querySelector("[data-usd]");
+        if (!usdEl) return;
+        usdEl.textContent = show ? `(${formatUSD(usd)})` : "";
+      });
+    };
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / (1000 * 60)) % 60);
-    countdownEl.textContent = `${days}d ${hrs}h ${mins}m`;
-  };
-  updateCountdown();
-  setInterval(updateCountdown, 30000);
-
-  // Academy filter tabs (optional)
-  const aTabs = $$(".a-tab");
-  const courses = $$(".course");
-
-  const setCat = (cat) => {
-    courses.forEach((c) => {
-      const ok = cat === "all" || c.getAttribute("data-cat") === cat;
-      c.classList.toggle("is-hidden", !ok);
-    });
+    usdToggle.addEventListener("change", update);
+    update();
   };
 
-  if (aTabs.length) {
-    aTabs.forEach((btn) => {
+  /* ============================
+     Countdown (cohort start)
+     ============================ */
+  const initCountdown = () => {
+    const cohortStartDate = "2026-03-15";
+    const out = $("#countdown");
+    if (!out) return;
+
+    const tick = () => {
+      const end = new Date(cohortStartDate + "T00:00:00");
+      const now = new Date();
+      const diff = end.getTime() - now.getTime();
+
+      if (Number.isNaN(end.getTime())) {
+        out.textContent = "Set cohort date";
+        return;
+      }
+
+      if (diff <= 0) {
+        out.textContent = "Cohort started";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      out.textContent = `${days}d ${hrs}h ${mins}m`;
+    };
+
+    tick();
+    setInterval(tick, 30000);
+  };
+
+  /* ============================
+     Academy filter tabs (optional)
+     ============================ */
+  const initAcademyFilters = () => {
+    const tabs = $$(".a-tab");
+    const courses = $$(".course");
+    if (!tabs.length || !courses.length) return;
+
+    const setCat = (cat) => {
+      courses.forEach((c) => {
+        const ok = cat === "all" || c.getAttribute("data-cat") === cat;
+        c.classList.toggle("is-hidden", !ok);
+      });
+    };
+
+    tabs.forEach((btn) => {
       btn.addEventListener("click", () => {
-        aTabs.forEach((t) => t.classList.remove("is-active"));
+        tabs.forEach((t) => t.classList.remove("is-active"));
         btn.classList.add("is-active");
         setCat(btn.getAttribute("data-filter") || "all");
       });
     });
-  }
+  };
 
-  // Group pricing button -> prefill engagement select
-  const groupBtn = $("#groupPricingBtn");
-  const engagementSelect = $("#engagementSelect");
-  if (groupBtn && engagementSelect) {
+  /* ============================
+     Group pricing button -> select
+     ============================ */
+  const initGroupPricingPrefill = () => {
+    const groupBtn = $("#groupPricingBtn");
+    const select = $("#engagementSelect");
+    if (!groupBtn || !select) return;
+
     groupBtn.addEventListener("click", () => {
       setTimeout(() => {
-        engagementSelect.value = "Group Training (Team)";
+        select.value = "Group Training (Team)";
       }, 250);
     });
-  }
-
-  // Forms (basic)
-  const sanitizeValue = (value) => {
-    const v = String(value ?? "");
-    if (window.DOMPurify && typeof window.DOMPurify.sanitize === "function") {
-      return window.DOMPurify.sanitize(v, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }).trim();
-    }
-    return v.replace(/[<>]/g, "").trim();
   };
+
+  /* ============================
+     Forms (Formspree) — basic safe
+     ============================ */
+  const sanitizeValue = (value) => String(value ?? "").replace(/[<>]/g, "").trim();
 
   const sanitizeForm = (form) => {
     const fields = form.querySelectorAll("input[type='text'], input[type='email'], input[type='tel'], textarea");
@@ -257,8 +345,8 @@
   };
 
   const wireForm = (formId, msgId, successText) => {
-    const form = $(formId);
-    const msg = $(msgId);
+    const form = $("#" + formId);
+    const msg = $("#" + msgId);
     if (!form || !msg) return;
 
     form.addEventListener("submit", async (e) => {
@@ -267,13 +355,20 @@
 
       sanitizeForm(form);
 
+      // Placeholder endpoint guard
+      const endpoint = form.action || "";
+      if (endpoint.includes("yourFormId") || endpoint.includes("yourApplyFormId")) {
+        msg.textContent = "Replace the Formspree link in your HTML (action='https://formspree.io/f/...').";
+        return;
+      }
+
       if (!validateBasic(form)) {
         msg.textContent = "Please check your inputs and try again.";
         return;
       }
 
       try {
-        const res = await fetch(form.action, {
+        const res = await fetch(endpoint, {
           method: "POST",
           headers: { Accept: "application/json" },
           body: new FormData(form),
@@ -284,6 +379,7 @@
           msg.textContent = successText;
           return;
         }
+
         msg.textContent = "Could not send. Please try again or use WhatsApp.";
       } catch {
         msg.textContent = "Network error. Please try again or use WhatsApp.";
@@ -291,235 +387,24 @@
     });
   };
 
-  wireForm("quoteForm", "quoteMessage", "Request received. We’ll reply shortly.");
-  wireForm("applyForm", "applyMessage", "Application received. We’ll respond shortly.");
-})();      const v = level.value;
-
-      if (v === "beginner") {
-        render(
-          `<strong>Recommendation:</strong> <span class="gold">Start Level 1</span><br>` +
-            `<span class="muted">Best start: Computer & IT Fundamentals → Python/Web Basics. If you want one complete path, choose the Bootcamp.</span>`
-        );
-        // Suggest IT Fundamentals by default
-        setTrackByStartsWith("Computer & IT Fundamentals");
-      } else if (v === "some") {
-        render(
-          `<strong>Recommendation:</strong> <span class="gold">Build a strong base fast</span><br>` +
-            `<span class="muted">Suggested: Python for Absolute Beginners + Networking Fundamentals, then a specialization.</span>`
-        );
-        setTrackByStartsWith("Python for Absolute Beginners");
-      } else if (v === "intermediate") {
-        render(
-          `<strong>Recommendation:</strong> <span class="gold">Go to specialization</span><br>` +
-            `<span class="muted">You can choose RegTech / Ethical Hacking / Fintech Engineering based on your goal.</span>`
-        );
-        // Don’t force-change track here
-      } else {
-        render(`<strong>Recommendation:</strong> <span class="muted">Select your current level to get a suggested starting track.</span>`);
-      }
-    };
-
-    level.addEventListener("change", onChange);
-    onChange();
-  };
-
-  // ---------- Forms (Formspree fetch submit) ----------
-  const initForms = () => {
-    const handle = (formId, messageId) => {
-      const form = $(formId);
-      const msg = $(messageId);
-      if (!form || !msg) return;
-
-      const endpoint = form.getAttribute("action") || "";
-
-      // Simple endpoint guard: if user forgot to replace, show friendly warning
-      const looksPlaceholder = endpoint.includes("yourFormId") || endpoint.includes("yourApplyFormId");
-
-      const setBusy = (busy) => {
-        const btn = form.querySelector('button[type="submit"]');
-        if (!btn) return;
-        btn.disabled = !!busy;
-        btn.dataset.busy = busy ? "1" : "0";
-        btn.textContent = busy ? "Submitting…" : btn.dataset.originalText || btn.textContent;
-      };
-
-      const initBtn = () => {
-        const btn = form.querySelector('button[type="submit"]');
-        if (btn && !btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
-      };
-
-      initBtn();
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        if (looksPlaceholder) {
-          setMessage(
-            msg,
-            "Heads up: replace the Formspree link in your HTML (action='https://formspree.io/f/...'). Then try again.",
-            "warn"
-          );
-          return;
-        }
-
-        // Basic browser validation
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          setMessage(msg, "Please complete the required fields.", "warn");
-          return;
-        }
-
-        setBusy(true);
-        setMessage(msg, "Sending…", "info");
-
-        try {
-          const formData = new FormData(form);
-
-          const res = await fetch(endpoint, {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-            },
-            body: formData,
-          });
-
-          if (res.ok) {
-            form.reset();
-            setMessage(msg, "Submitted ✅ We’ll get back to you shortly.", "ok");
-          } else {
-            let data = null;
-            try {
-              data = await res.json();
-            } catch {}
-            const error = data?.errors?.[0]?.message || "Something went wrong. Please try again.";
-            setMessage(msg, error, "bad");
-          }
-        } catch (err) {
-          setMessage(msg, "Network error. Please check your connection and try again.", "bad");
-        } finally {
-          setBusy(false);
-        }
-      });
-    };
-
-    handle("#quoteForm", "#quoteMessage");
-    handle("#applyForm", "#applyMessage");
-  };
-
-  // ---------- Optional: Calm background canvas (lightweight) ----------
-  const initAmbientCanvas = () => {
-    const canvas = $("#neuro");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
-
-    let w = 0,
-      h = 0,
-      dpr = 1;
-
-    const points = [];
-    const MAX_POINTS = 40;
-
-    const resize = () => {
-      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-      w = Math.floor(window.innerWidth);
-      h = Math.floor(window.innerHeight);
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      points.length = 0;
-      for (let i = 0; i < MAX_POINTS; i++) {
-        points.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          r: 1 + Math.random() * 2.5,
-        });
-      }
-    };
-
-    const step = () => {
-      ctx.clearRect(0, 0, w, h);
-
-      // subtle background
-      ctx.globalAlpha = 0.6;
-
-      // points
-      for (const p of points) {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < -20) p.x = w + 20;
-        if (p.x > w + 20) p.x = -20;
-        if (p.y < -20) p.y = h + 20;
-        if (p.y > h + 20) p.y = -20;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(245,197,66,0.35)";
-        ctx.fill();
-      }
-
-      // links
-      for (let i = 0; i < points.length; i++) {
-        for (let j = i + 1; j < points.length; j++) {
-          const a = points[i];
-          const b = points[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const max = 140;
-
-          if (dist < max) {
-            const alpha = (1 - dist / max) * 0.12;
-            ctx.strokeStyle = `rgba(245,197,66,${alpha})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      ctx.globalAlpha = 1;
-
-      requestAnimationFrame(step);
-    };
-
-    resize();
-    window.addEventListener("resize", () => {
-      // debounce-ish
-      clearTimeout(initAmbientCanvas._t);
-      initAmbientCanvas._t = setTimeout(resize, 150);
-    });
-
-    // reduce motion respect
-    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reduce) requestAnimationFrame(step);
-    else ctx.clearRect(0, 0, w, h);
-  };
-
-  // ---------- Init ----------
+  /* ============================
+     INIT
+     ============================ */
   const init = () => {
     initLoader();
     initMobileNav();
     initTabbar();
     initReveal();
-    initYear();
+    initAmbientCanvas();
+    initVideoFriction();
     initUsdToggle();
     initCountdown();
-    initTrackHelper();
-    initApplyReco();
-    initForms();
-    initAmbientCanvas();
+    initAcademyFilters();
+    initGroupPricingPrefill();
+
+    wireForm("quoteForm", "quoteMessage", "Request received. We’ll reply shortly.");
+    wireForm("applyForm", "applyMessage", "Application received. We’ll respond shortly.");
   };
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-```0
