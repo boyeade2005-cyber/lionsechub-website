@@ -1,0 +1,75 @@
+# LionSec Hub — Full Context for AI Assistants
+
+> LionSec Hub (CAC BN 9458297, Nigeria) is a global cybersecurity, quantum-safe security
+> and digital resilience organisation. Tagline: "Securing critical systems. Protecting
+> digital economies. Preparing for the quantum era."
+> HQ: Victoria Island, Lagos, Nigeria (remote-first). Office: 24 Rue du Sentier,
+> 75002 Paris, France — open 24 hours, Monday–Sunday.
+> Contact: lionsechub@gmail.com · WhatsApp +234 810 754 9232 ·
+> Proposal form: /proposal.html
+
+## What LionSec Hub does
+Six business divisions:
+1. Cyber Defence & Security Operations — pentesting, SOC, detection engineering, threat hunting, DFIR
+2. Quantum-Safe Security & Cryptographic Research — PQC migration, QKD advisory, crypto agility
+3. Financial Security & Digital Intelligence — fraud prevention, financial crime intelligence
+4. National Security & Critical Infrastructure — government, defence, energy, telecoms resilience
+5. Secure Engineering & Emerging Technologies — cloud security, secure SDLC, AI/LLM security
+6. Academy, Research & Workforce Development — instructor-led professional programmes
+
+Sectors served: banking & finance, government, defence, critical infrastructure, telecoms,
+energy, healthcare, enterprise.
+
+## Delivery markets
+Nigeria, Ghana, Egypt, France, UK, Italy, UAE, Saudi Arabia, Singapore, Australia, USA, Canada.
+Lagos is the African operations base; Paris is the European office.
+
+## Academy
+Seven specialist schools (A–G): foundations, cyber defence/SOC/threat intel, offensive
+security, cloud & secure engineering, AI security, quantum-safe security & cryptography,
+GRC/privacy/financial security — plus a Corporate & Institutional Academy.
+Model: Skill → Labs → Proof → Career. Live instructor-led, portfolio-first.
+Tuition (Nigeria): Foundations ₦350,000 · Technical Fast-Track ₦250,000.
+Fixed payment plans — two-part or monthly; specialist programmes 60% before commencement
++ 40% by midpoint.
+
+## Real student programmes (see /curriculum.html)
+- Damian (Nigeria): Premium Enterprise Cybersecurity, 4-month intensive, NSE 8/OSCP/CISSP targets
+- Ryan Yirenkyi Opoku (Ghana): developer → cybersecurity professional, 9-stage pathway
+- Salma Esam (Cairo, Egypt): 16-week IoT/AI/cloud security curriculum
+- Valentine, Aduragbemi: professional pathways · Ephraim: AI Security & LLM Red Teaming
+- Victor Thankgod: beginner mobile-first · Kelly (Rwanda): post-high-school career track
+- Prince: foundation recovery · BlueShield SOC: advanced capstone (28 detection rules,
+  MITRE ATT&CK mapped, Wazuh + OpenSearch + Zeek)
+
+## Leadership
+Adeboye Alade — Founder / Curriculum & Training Lead. Security Operations & IT Analyst,
+Femas Protection Security Ltd (2021–2025). Certifications: OSCP, eCPPTv2/PNPT, CySA+,
+Cisco CyberOps Professional, BTL1/BTL2, CCNA/CCNP Enterprise, ISO/IEC 27001 Lead
+Implementer, Cisco Networking Academy (Networking Basics, Endpoint Security),
+Forage simulations (JPMorgan Chase, Mastercard). GitHub: github.com/boyeade2005-cyber
+Curriculum team: Amarachi Obasi (Chief of AI Security & Curriculum Developer),
+Williams (Cybersecurity Instructor).
+
+## Research
+LionSec Quantum Security Lab — post-quantum cryptography, QKD, quantum communications,
+cryptographic agility, next-generation security architecture.
+
+## Careers
+Roles at LionSec Hub plus Global Cybersecurity Career Intelligence — verified international
+cybersecurity vacancies with original employer application links.
+
+## Key pages
+- / — home: capabilities, academy, careers, ventures, global delivery, trust
+- /services.html — six service divisions
+- /academy.html — seven schools, payment plans, student proof, application
+- /curriculum.html — readable student curricula with locations and PDF documents
+- /careers.html — open roles + global vacancy intelligence
+- /research.html — quantum security lab publications
+- /about.html — corporate identity, leadership, credentials, verification
+- /proposal.html — engagement request form
+- /trust.html — integrity & no-false-claims policy
+
+## Principles
+Authorized work only. Evidence-driven delivery. No false claims. Scope-first proposals.
+Sensitive materials exchanged under NDA — never submit credentials via web forms.

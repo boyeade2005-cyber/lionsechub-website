@@ -2137,3 +2137,156 @@ input:focus, select:focus, textarea:focus{
   .mobile-toggle{display:inline-flex}
 }
 .nav.is-open{display:flex}
+
+
+/* ===== Globe, marquee & transcript (LionSec Hub global presence) ===== */
+.globe-wrap{
+  display:grid;
+  grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
+  gap: 26px;
+  align-items:center;
+  margin: 8px 0 10px;
+}
+.globe-card{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  background: radial-gradient(120% 120% at 50% 0%, rgba(255,200,87,.07), rgba(10,18,30,.55));
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+#globe, canvas[data-globe]{
+  display:block;
+  width:100%;
+  aspect-ratio: 1 / 1;
+  max-height: 540px;
+  margin: 0 auto;
+}
+.globe-caption{
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center;
+  margin-top: 12px;
+}
+.globe-side .eyebrow{margin-bottom:8px}
+.globe-side .muted{max-width:56ch}
+.marquee{
+  margin-top:18px;
+  overflow:hidden;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:12px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track{
+  display:flex; gap:10px; width:max-content;
+  animation: mqScroll 42s linear infinite;
+}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.mq-chip{
+  white-space:nowrap;
+  padding:7px 14px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(10,18,30,.55);
+  color:var(--text-muted);
+  font-size:.82rem;
+  font-weight:600;
+}
+.mq-chip.gold{color:var(--gold); border-color: rgba(255,200,87,.4)}
+@keyframes mqScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.marquee-track{animation:none}}
+
+/* Story / transcript */
+.story-grid{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap:26px;
+  align-items:start;
+  margin-top:22px;
+}
+.transcript{display:flex; flex-direction:column; gap:18px}
+.transcript-line{border-left:2px solid rgba(255,200,87,.45); padding-left:16px}
+.transcript-who{
+  display:block;
+  font-size:.78rem; font-weight:800; letter-spacing:.14em;
+  color:var(--gold); margin-bottom:4px;
+}
+.transcript-line p{margin:0; color:rgba(232,243,255,.92)}
+
+@media (max-width: 980px){
+  .globe-wrap{grid-template-columns:1fr}
+  .story-grid{grid-template-columns:1fr}
+}
+
+
+a.course{display:block; color:inherit}
+
+
+/* Globe legend + photo + life */
+.globe-legend{display:inline-flex; flex-wrap:wrap; gap:12px; align-items:center}
+.globe-legend span{display:inline-flex; align-items:center; gap:6px; font-size:.78rem; color:var(--text-muted); letter-spacing:.04em}
+.lg{display:inline-block; width:9px; height:9px; flex:none}
+.lg-city{border-radius:50%; background:var(--mint)}
+.lg-bank{background:var(--gold)}
+.lg-gov{background:#7dd3fc; clip-path:polygon(50% 0,100% 100%,0 100%)}
+.globe-photo{margin-top:18px}
+.globe-photo img{
+  width:100%;
+  border-radius:14px;
+  border:1px solid var(--border);
+  display:block;
+  aspect-ratio: 4 / 3;
+  object-fit:cover;
+}
+.globe-photo figcaption{margin-top:8px}
+
+/* Gentle life: floating chips + pulsing dots */
+@keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.globe-caption .chip{animation: chipFloat 5s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:1}50%{opacity:.35}}
+.signal-dot{animation: dotPulse 2.4s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){
+  .globe-caption .chip, .signal-dot{animation:none}
+}
+
+
+.team-photo{width:56px;height:56px;object-fit:cover;border-radius:14px;border:1px solid var(--border);flex:none}
+
+
+/* Global command deck (hero globe) */
+.globe-deck{padding-top:0}
+.globe-deck-card{
+  position:relative;
+  border-radius:24px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  background:
+    radial-gradient(90% 120% at 70% 30%, rgba(110,231,183,.10), transparent 55%),
+    radial-gradient(120% 140% at 20% 100%, rgba(10,18,30,.65), rgba(7,12,22,.85));
+  box-shadow: var(--shadow), inset 0 0 80px rgba(110,231,183,.05);
+  min-height: 480px;
+}
+.globe-deck-card canvas[data-globe]{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  aspect-ratio:auto; max-height:none;
+}
+.globe-deck-overlay{
+  position:relative; z-index:1;
+  max-width: 560px;
+  padding: clamp(22px, 4vw, 48px);
+  padding-bottom: clamp(28px, 5vw, 56px);
+}
+.globe-deck-overlay .h2{margin:10px 0 12px}
+.globe-deck-overlay .muted{max-width:46ch}
+@media (max-width: 720px){
+  .globe-deck-card{min-height: 560px}
+  .globe-deck-overlay{padding-bottom:120px}
+}
+@media (prefers-reduced-motion: reduce){
+  .globe-deck-card canvas[data-globe]{opacity:.85}
+}
+
+/* Protected pages — no selection */
+.no-select, .no-select *{user-select:none !important; -webkit-user-select:none !important}
+img, video{-webkit-user-drag:none}

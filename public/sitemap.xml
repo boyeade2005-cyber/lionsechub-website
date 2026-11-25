@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://lionsechub.vercel.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://lionsechub.vercel.app/services.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lionsechub.vercel.app/academy.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lionsechub.vercel.app/curriculum.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lionsechub.vercel.app/proposal.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lionsechub.vercel.app/careers.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lionsechub.vercel.app/research.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lionsechub.vercel.app/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lionsechub.vercel.app/trust.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://lionsechub.vercel.app/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://lionsechub.vercel.app/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>

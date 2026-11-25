@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en-NG">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Request a Proposal - LionSec Hub | Professional Cybersecurity Services</title>
+  <meta name="description" content="Request a scoped cybersecurity proposal from LionSec Hub. Cyber defence, AI security, quantum-safe security, financial security, GRC and digital resilience." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://lionsechub.vercel.app/proposal.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LionSec Hub" />
+  <meta property="og:title" content="Request a Proposal - LionSec Hub" />
+  <meta property="og:description" content="Tell us about your organisation and security requirements. We respond with a scoped technical and commercial proposal." />
+  <meta property="og:url" content="https://lionsechub.vercel.app/proposal.html" />
+  <meta property="og:image" content="https://lionsechub.vercel.app/assets/og.png" />
+  <meta name="theme-color" content="#020a13" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formspree.io; connect-src 'self' https://formspree.io; img-src 'self' data: https:; media-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self'; upgrade-insecure-requests;" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="neuro" class="canvas-bg" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="aura-line" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="LionSec Hub home">
+        <img class="logo" src="assets/logo.png" alt="LionSec Hub logo" loading="eager" />
+        <span class="brand-name">LionSec Hub</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="services.html">Capabilities</a>
+        <a class="nav-link" href="academy.html">Academy</a>
+        <a class="nav-link" href="curriculum.html">Curriculum</a>
+        <a class="nav-link" href="careers.html">Careers</a>
+        <a class="nav-link" href="research.html">Research</a>
+        <a class="nav-link" href="about.html">About &amp; Trust</a>
+        <a class="btn btn-primary" href="proposal.html">Request a Proposal</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section hero">
+      <div class="container">
+        <p class="eyebrow">LIONSEC HUB · PROFESSIONAL SERVICES</p>
+        <h1 class="h1">Let's secure <span class="gold">what matters.</span></h1>
+        <p class="lead">
+          Tell us about your organisation, technology environment and security requirements.
+          Our team will assess your request and prepare an appropriately scoped technical and commercial proposal.
+        </p>
+        <div class="signal-row" aria-label="Trust signals">
+          <div class="signal"><span class="signal-dot"></span><span>C Cyber Defence · AI Security · Quantum-Safe Security · Financial Security · GRC · Digital Resilience</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="form-wrap reveal">
+          <form id="proposalForm" class="form" action="https://formspree.io/f/meepnykj" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New Proposal Request - LionSec Hub" />
+            <div class="form-grid">
+              <h3 class="span-2">Organisation Details</h3>
+              <label><span>Organisation Name</span><input name="org_name" type="text" required /></label>
+              <label><span>Country</span><input name="org_country" type="text" required /></label>
+              <label><span>Industry / Sector</span><input name="org_industry" type="text" placeholder="e.g., Banking, Government, Telecoms" required /></label>
+              <label><span>Company Website</span><input name="org_website" type="text" placeholder="https://…" /></label>
+
+              <h3 class="span-2">Contact Details</h3>
+              <label><span>Full Name</span><input name="name" type="text" required /></label>
+              <label><span>Job Title</span><input name="job_title" type="text" required /></label>
+              <label><span>Corporate Email</span><input name="email" type="email" required /></label>
+              <label><span>Phone</span><input name="phone" type="tel" required /></label>
+
+              <h3 class="span-2">Service Selection</h3>
+              <label class="span-2">
+                <span>Division(s) of Interest</span>
+                <select name="division" required>
+                  <option value="" disabled selected>Select a division</option>
+                  <option>01 - Cyber Defence &amp; Offensive Security</option>
+                  <option>02 - AI Security &amp; AI Assurance</option>
+                  <option>03 - Quantum-Safe Security &amp; Cryptographic Research</option>
+                  <option>04 - Financial Security, Fraud Prevention &amp; Digital Intelligence</option>
+                  <option>05 - Digital Forensics, Incident Response &amp; Cyber Resilience</option>
+                  <option>06 - Governance, Risk, Compliance &amp; Information Assurance</option>
+                  <option>07 - Secure Engineering, Cloud &amp; Infrastructure</option>
+                  <option>08 - Government, Defence &amp; Critical Infrastructure Resilience</option>
+                  <option>ISO / Standards Readiness Advisory</option>
+                  <option>Corporate &amp; Institutional Academy</option>
+                  <option>Multiple / Not sure - advise me</option>
+                </select>
+              </label>
+
+              <h3 class="span-2">Engagement Details</h3>
+              <label><span>Preferred Start Date</span><input name="start_date" type="date" /></label>
+              <label><span>Target Completion</span><input name="end_date" type="date" /></label>
+              <label class="span-2"><span>Project Requirements / Environment</span><textarea name="requirements" rows="5" placeholder="Describe your environment, technologies, scale and objectives." required></textarea></label>
+              <label class="span-2"><span>Technology Involved</span><input name="technology" type="text" placeholder="e.g., AWS, on-prem AD, banking core, Kubernetes" /></label>
+
+              <h3 class="span-2">Commercial Information (optional)</h3>
+              <label>
+                <span>Budget Range</span>
+                <select name="budget">
+                  <option value="" selected>Select range</option>
+                  <option>Under ₦1M</option>
+                  <option>₦1M – ₦5M</option>
+                  <option>₦5M – ₦20M</option>
+                  <option>₦20M+</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </label>
+              <label>
+                <span>Procurement Arrangement</span>
+                <select name="procurement">
+                  <option value="" selected>Select</option>
+                  <option>Direct engagement</option>
+                  <option>RFP / tender process</option>
+                  <option>Framework / panel</option>
+                  <option>Partner / subcontract</option>
+                </select>
+              </label>
+              <label class="span-2"><span>RFP / Tender Reference (optional)</span><input name="rfp_ref" type="text" /></label>
+
+              <h3 class="span-2">Authorisation</h3>
+              <label class="span-2" style="display:flex;gap:10px;align-items:flex-start">
+                <input type="checkbox" name="authorised" value="yes" required style="width:auto;margin-top:4px" />
+                <span>I confirm I am authorised to submit this request, and that any proposed testing will only involve systems my organisation has the legal right to assess.</span>
+              </label>
+
+              <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" />
+              <button class="btn btn-primary span-2" type="submit">Submit Proposal Request</button>
+              <p id="proposalMessage" class="form-msg span-2" aria-live="polite"></p>
+            </div>
+          </form>
+
+          <aside class="form-aside">
+            <h3>What happens next</h3>
+            <ul class="list">
+              <li>We reply with intake questions + NDA option</li>
+              <li>We scope, estimate and schedule</li>
+              <li>Work begins only after written authorisation</li>
+            </ul>
+            <h3 style="margin-top:18px">Never share secrets</h3>
+            <p class="muted tiny">Do not submit passwords, private keys, tokens or exploit details through this form. Sensitive materials are exchanged under NDA through secure channels only.</p>
+            <h3 style="margin-top:18px">Prefer to talk?</h3>
+            <p class="muted tiny">WhatsApp: <a class="link" href="https://wa.me/2348107549232" target="_blank" rel="noopener noreferrer">+234 810 754 9232</a><br>Email: <a class="link" href="mailto:lionsechub@gmail.com">lionsechub@gmail.com</a></p>
+            <h3 style="margin-top:18px">Visit or call</h3>
+            <p class="muted tiny">24 Rue du Sentier, 75002 Paris, France<br>Open 24 hours, Monday through Sunday</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img class="logo" src="assets/logo.png" alt="LionSec Hub logo" loading="lazy" />
+          <div><strong>LionSec Hub</strong><p class="muted tiny">Global Security &amp; Technology</p></div>
+        </div>
+        <div class="footer-proof"><span class="proof-badge">CAC BN 9458297</span><span class="proof-badge">Authorized work only</span></div>
+        <p class="muted tiny">© 2027–2028 LionSec Hub. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <strong>Explore</strong>
+        <a href="index.html">Home</a><a href="services.html">Capabilities</a><a href="academy.html">Academy</a><a href="curriculum.html">Curriculum</a><a href="careers.html">Careers</a><a href="research.html">Research</a><a href="about.html">About &amp; Trust</a>
+      </div>
+      <div class="footer-links">
+        <strong>Legal</strong>
+        <a href="trust.html">Integrity policy</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  <script src="assets/vendor/dompurify.min.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

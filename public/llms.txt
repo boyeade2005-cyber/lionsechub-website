@@ -1,0 +1,46 @@
+# LionSec Hub
+
+> LionSec Hub is a global cybersecurity, quantum-safe security and digital resilience organisation
+> providing advanced security solutions, research, intelligence, engineering and workforce
+> development for financial institutions, governments, defence organisations, critical
+> infrastructure operators and enterprises. Registered in Nigeria (CAC BN 9458297).
+> Securing critical systems. Protecting digital economies. Preparing for the quantum era.
+
+## Capabilities
+- Cyber Defence & Offensive Security (pentesting, SOC, detection engineering, threat hunting)
+- AI Security & AI Assurance (LLM security, AI red teaming, agent security)
+- Quantum-Safe Security & Cryptographic Research (PQC, QKD advisory, cryptographic agility)
+- Financial Security, Fraud Prevention & Digital Intelligence
+- Digital Forensics, Incident Response & Cyber Resilience
+- Governance, Risk, Compliance & Information Assurance (ISO-aligned advisory)
+- Secure Engineering, Cloud & Infrastructure
+- Government, Defence & Critical Infrastructure Resilience
+- Corporate & Institutional Academy (workforce training)
+
+## Industries
+Banking & Finance, Government, Defence, Critical Infrastructure, Telecoms, Energy, Healthcare, Enterprise
+
+## Academy
+Seven specialist schools: foundations, cyber defence/SOC/threat intel, offensive security,
+cloud & secure engineering, AI security, quantum-safe security & cryptography, GRC & financial security.
+Instructor-led, proof-based programmes. Tuition in NGN; international pricing on request.
+
+## Curriculum
+/curriculum.html - readable student curricula with locations: Nigeria, Ghana, Egypt, Rwanda.
+Personalised programmes: SOC analyst pathway, developer-to-security, IoT/AI/cloud security,
+AI security engineering & LLM red teaming, foundation recovery and advanced SOC capstone.
+
+## Research
+LionSec Quantum Security Lab - post-quantum cryptography, QKD, quantum communications,
+cryptographic agility and next-generation security architecture.
+
+## Careers
+Careers at LionSec Hub plus Global Cybersecurity Career Intelligence - verified international
+cybersecurity vacancies with original employer application links.
+
+## Contact
+- Email: lionsechub@gmail.com
+- WhatsApp: +234 810 754 9232
+- Proposal requests: /proposal.html
+- Office: 24 Rue du Sentier, 75002 Paris, France - open 24 hours, Monday–Sunday
+- HQ: Victoria Island, Lagos, Nigeria (remote-first)
