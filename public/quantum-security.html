@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en-NG">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Quantum Security &amp; Post-Quantum Cryptography - LionSec Hub</title>
+  <meta name="description" content="LionSec Hub quantum security practice: post-quantum cryptography (NIST ML-KEM, ML-DSA, SLH-DSA), QKD fundamentals, quantum-safe architecture, cryptographic agility and enterprise PQC migration advisory." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://lionsechub.vercel.app/quantum-security.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LionSec Hub" />
+  <meta property="og:title" content="Quantum Security &amp; Post-Quantum Cryptography - LionSec Hub" />
+  <meta property="og:description" content="PQC migration, quantum-safe architecture and cryptographic agility - advisory, research and training for the post-quantum transition." />
+  <meta property="og:url" content="https://lionsechub.vercel.app/quantum-security.html" />
+  <meta property="og:image" content="https://lionsechub.vercel.app/assets/og.png" />
+  <meta name="theme-color" content="#020a13" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formspree.io; connect-src 'self' https://formspree.io; img-src 'self' data: https:; media-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self'; upgrade-insecure-requests;" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="neuro" class="canvas-bg" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="aura-line" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="LionSec Hub home">
+        <img class="logo" src="assets/logo.png" alt="LionSec Hub logo" loading="eager" />
+        <span class="brand-name">LionSec Hub</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="services.html">Services</a>
+        <a class="nav-link" href="quantum-security.html">Quantum Security</a>
+        <a class="nav-link" href="academy.html">Academy</a>
+        <a class="nav-link" href="industries.html">Industries</a>
+        <a class="nav-link" href="research.html">Research</a>
+        <a class="nav-link" href="careers.html">Careers</a>
+        <a class="nav-link" href="about.html">About &amp; Trust</a>
+        <a class="btn btn-primary" href="proposal.html">Request a Proposal</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section hero">
+      <div class="container">
+        <p class="eyebrow">LIONSEC HUB · STRATEGIC PRACTICE</p>
+        <h1 class="h1">Quantum Security &amp; <span class="gold">Post-Quantum Readiness</span></h1>
+        <p class="lead">
+          Cryptography that survives the quantum era. LionSec Hub advises on post-quantum
+          migration, quantum-safe architecture and cryptographic agility - from cryptographic
+          inventory and risk assessment through hybrid deployment and long-term assurance.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="proposal.html">Request a Proposal</a>
+          <a class="btn btn-ghost" href="academy.html#cybersecurity">Quantum-Safe Academy Programmes</a>
+        </div>
+        <div class="signal-row" aria-label="Trust signals">
+          <div class="signal"><span class="signal-dot"></span><span><strong>NIST-standard aligned</strong> - ML-KEM, ML-DSA, SLH-DSA</span></div>
+          <div class="signal"><span class="signal-dot"></span><span><strong>Harvest-now-decrypt-later</strong> risk advisory</span></div>
+          <div class="signal"><span class="signal-dot"></span><span><strong>Research-grounded</strong> - not hype</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PROBLEM -->
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head reveal-up">
+          <p class="eyebrow">WHY NOW</p>
+          <h2 class="h2">The quantum threat is a migration problem, not a science problem</h2>
+          <p class="intro muted">
+            Shor's algorithm breaks RSA, ECC and Diffie-Hellman. Even if large-scale quantum
+            computers arrive later, adversaries can record encrypted traffic today and decrypt
+            it retroactively - the "harvest now, decrypt later" threat. Data with long
+            confidentiality lifetimes must be protected now.
+          </p>
+        </div>
+        <div class="cards grid-3">
+          <article class="card reveal">
+            <span class="badge">THREAT</span>
+            <h3>Harvest now, decrypt later</h3>
+            <p class="muted">Encrypted communications and stored data intercepted today can be decrypted once cryptographically relevant quantum computers exist. Long-lived secrets - credentials, health records, state secrets, financial archives - are already at risk.</p>
+          </article>
+          <article class="card reveal">
+            <span class="badge">STANDARD</span>
+            <h3>NIST post-quantum standards are here</h3>
+            <p class="muted">NIST finalised FIPS 203 (ML-KEM key encapsulation), FIPS 204 (ML-DSA signatures) and FIPS 205 (SLH-DSA stateless signatures) in 2024. The transition window is open - organisations that wait inherit emergency migrations.</p>
+          </article>
+          <article class="card reveal">
+            <span class="badge">COMPLEXITY</span>
+            <h3>PQC is an ecosystem migration</h3>
+            <p class="muted">Algorithms are only part of it. Certificates, protocols, hardware, firmware, libraries and operational processes all embed classical assumptions. Inventory and agility matter more than any single algorithm choice.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PQC FAMILY -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal-up">
+          <p class="eyebrow">PQC FUNDAMENTALS</p>
+          <h2 class="h2">The NIST-standardised post-quantum family</h2>
+          <p class="intro muted">Three FIPS standards define the first generation of quantum-resistant cryptography.</p>
+        </div>
+        <div class="cards grid-3">
+          <article class="card reveal">
+            <h3>ML-KEM <span class="muted tiny">(FIPS 203)</span></h3>
+            <p class="muted">Module-Lattice Key Encapsulation - the standard for quantum-safe key exchange, successor to Diffie-Hellman/RSA key transport. Used for hybrid TLS key establishment.</p>
+          </article>
+          <article class="card reveal">
+            <h3>ML-DSA <span class="muted tiny">(FIPS 204)</span></h3>
+            <p class="muted">Module-Lattice Digital Signature - the primary quantum-safe signature standard for certificates, firmware signing, code signing and document integrity.</p>
+          </article>
+          <article class="card reveal">
+            <h3>SLH-DSA <span class="muted tiny">(FIPS 205)</span></h3>
+            <p class="muted">Stateless Hash-Based Digital Signature - conservative, conservative-assumption signatures for long-lived signatures, root-of-trust and high-assurance scenarios where signature lifetime matters most.</p>
+          </article>
+        </div>
+        <div class="note-soft reveal">
+          <strong>Honest framing:</strong> PQC algorithms are new and will be scrutinised for decades.
+          Defensible architectures deploy them in <em>hybrid</em> mode alongside classical
+          cryptography - so security never depends on a single unproven assumption.
+        </div>
+      </div>
+    </section>
+
+    <!-- QKD -->
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head reveal-up">
+          <p class="eyebrow">QKD &amp; QUANTUM COMMUNICATIONS</p>
+          <h2 class="h2">Quantum key distribution - physics-based key exchange</h2>
+          <p class="intro muted">
+            QKD uses quantum mechanics - typically photon polarisation over optical fibre - to
+            detect eavesdropping during key establishment. It is complementary to PQC:
+            QKD protects the key-exchange channel physically; PQC protects the mathematics
+            of the algorithms themselves.
+          </p>
+        </div>
+        <div class="ip-diagram reveal">
+          <div class="ip-node">Alice<br><span class="muted tiny">single photons, random bases</span></div>
+          <div class="ip-line"></div>
+          <div class="ip-node gold-node">Quantum channel<br><span class="muted tiny">optical fibre - any interception disturbs photons</span></div>
+          <div class="ip-line"></div>
+          <div class="ip-node">Bob<br><span class="muted tiny">matching bases → sifted key</span></div>
+          <div class="ip-line"></div>
+          <div class="ip-node gold-node">Classical channel<br><span class="muted tiny">authenticated reconciliation</span></div>
+          <div class="ip-line"></div>
+          <div class="ip-node">Shared secret key<br><span class="muted tiny">feeds AES/GCM or PQC session keys</span></div>
+        </div>
+        <div class="cards grid-2">
+          <article class="card reveal">
+            <h3>Where QKD fits</h3>
+            <p class="muted">Metro-scale fibre links between fixed sites, government and defence backbone encryption, and high-assurance data-centre interconnects where physical-layer guarantees are worth the infrastructure cost.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Where it does not</h3>
+            <p class="muted">QKD requires dedicated fibre and trusted endpoints - it does not replace PQC for general internet traffic, certificates or software. It authenticates nothing by itself; the classical channel still needs PQC or pre-shared keys.</p>
+          </article>
+        </div>
+        <p class="muted tiny reveal">LionSec Hub's QKD work is research- and architecture-based: threat modelling, link-budget understanding, integration patterns and migration planning. We do not operate quantum hardware laboratories.</p>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal-up">
+          <p class="eyebrow">SERVICES PROVIDED</p>
+          <h2 class="h2">Quantum-safe engagements</h2>
+        </div>
+        <div class="cards grid-3">
+          <article class="card reveal">
+            <h3>Cryptographic Inventory &amp; Risk Assessment</h3>
+            <ul class="list">
+              <li>Discovery of algorithms, certificates, keys and protocols in use</li>
+              <li>Classification by data lifetime and confidentiality requirement</li>
+              <li>Harvest-now-decrypt-later exposure ranking</li>
+              <li>Prioritised migration roadmap with effort estimates</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <h3>Quantum-Safe Architecture Design</h3>
+            <ul class="list">
+              <li>Hybrid classical + PQC protocol design</li>
+              <li>Certificate and PKI migration strategy</li>
+              <li>HSM, KMS and key-lifecycle integration</li>
+              <li>QKD feasibility and integration assessment</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <h3>PQC Migration Engineering</h3>
+            <ul class="list">
+              <li>Library and dependency upgrades (OpenSSL, BoringSSL, etc.)</li>
+              <li>TLS 1.3 hybrid key-exchange deployment</li>
+              <li>Code-signing and firmware-signing migration</li>
+              <li>Interoperability and regression testing</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <h3>Cryptographic Agility</h3>
+            <ul class="list">
+              <li>Algorithm-abstraction layers and crypto-agility design</li>
+              <li>Policy-driven algorithm selection and rotation</li>
+              <li>Crypto-bom (CBOM) documentation and inventory tooling</li>
+              <li>Future-agility for algorithms not yet standardised</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <h3>Quantum Communications Advisory</h3>
+            <ul class="list">
+              <li>QKD link feasibility, distance and trusted-node analysis</li>
+              <li>Quantum-network security architecture</li>
+              <li>Quantum-safe backbone planning for telecoms and defence</li>
+              <li>Satellite and fibre quantum-channel assessment</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <h3>Training &amp; Research</h3>
+            <ul class="list">
+              <li>Executive briefings on the quantum threat timeline</li>
+              <li>Engineering workshops on PQC implementation</li>
+              <li>Academy programmes: PQC, QKD, cryptographic agility</li>
+              <li>Published research and technical notes</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MIGRATION PATH -->
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head reveal-up">
+          <p class="eyebrow">MIGRATION METHODOLOGY</p>
+          <h2 class="h2">How a PQC transition runs</h2>
+        </div>
+        <ol class="steps reveal">
+          <li><strong>Cryptographic discovery</strong> - inventory every algorithm, certificate, key and protocol; map data flows and lifetimes.</li>
+          <li><strong>Risk prioritisation</strong> - rank assets by harvest-now-decrypt-later exposure and migration cost.</li>
+          <li><strong>Target architecture</strong> - hybrid PQC design, crypto-agility layer, certificate strategy and HSM/KMS integration.</li>
+          <li><strong>Pilot deployment</strong> - hybrid TLS and signing in non-critical paths; measure performance and interoperability.</li>
+          <li><strong>Phased migration</strong> - certificates, protocols, firmware and applications moved in risk order with rollback plans.</li>
+          <li><strong>Assurance</strong> - ongoing inventory, algorithm monitoring and readiness for future standards and QKD integration.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ACADEMY LINK -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal-up">
+          <p class="eyebrow">BUILD THE CAPABILITY</p>
+          <h2 class="h2">Quantum-safe skills in the Academy</h2>
+          <p class="intro muted">
+            Our Cryptography &amp; Quantum-Safe Security category covers quantum computing
+            foundations, PQC engineering and migration, QKD fundamentals and cryptographic
+            agility - including Research Programmes delivered through research partnerships.
+          </p>
+        </div>
+        <div class="cards grid-3">
+          <article class="card reveal">
+            <h3>Post-Quantum Cryptography Foundations</h3>
+            <p class="muted">NIST standards, lattice-based and hash-based schemes, and the mathematics behind ML-KEM, ML-DSA and SLH-DSA.</p>
+          </article>
+          <article class="card reveal">
+            <h3>PQC Engineering &amp; Migration</h3>
+            <p class="muted">Hands-on migration: inventory, hybrid deployment, certificate transition and testing.</p>
+          </article>
+          <article class="card reveal">
+            <h3>QKD &amp; Quantum Communications</h3>
+            <p class="muted">Research programmes covering QKD principles, quantum network security and architecture (theory and simulation-based).</p>
+          </article>
+        </div>
+        <div class="card-actions reveal">
+          <a class="btn btn-ghost" href="academy.html#categories">View Academy programmes</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STANDARDS -->
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head reveal-up">
+          <p class="eyebrow">STANDARDS &amp; REFERENCES</p>
+          <h2 class="h2">What we align to</h2>
+        </div>
+        <div class="pillrow reveal">
+          <span class="pill">NIST FIPS 203 / 204 / 205</span>
+          <span class="pill">NIST SP 800-208 (hash-based signatures)</span>
+          <span class="pill">NIST IR 8547 (PQC migration)</span>
+          <span class="pill">ETSI QKD standards</span>
+          <span class="pill">ISO/IEC 27001</span>
+          <span class="pill">CNSA 2.0 guidance awareness</span>
+        </div>
+        <p class="muted tiny reveal">Advisory and engineering support only - LionSec Hub does not claim certification or quantum-hardware operation.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card reveal" style="text-align:center">
+          <p class="eyebrow">ENGAGE</p>
+          <h2 class="h2">Start the quantum-safe transition now.</h2>
+          <p class="intro muted">Tell us about your cryptographic estate, data lifetimes and timeline. We will respond with a scoped assessment or migration proposal.</p>
+          <a class="btn btn-primary" href="proposal.html">Request a Proposal</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img class="logo" src="assets/logo.png" alt="LionSec Hub logo" loading="lazy" />
+          <div><strong>LionSec Hub</strong><p class="muted tiny">Global Cybersecurity, Intelligence &amp; Advanced Technology - Advancing cybersecurity, quantum-safe technologies, AI security and digital resilience.</p></div>
+        </div>
+        <div class="footer-proof"><span class="proof-badge">CAC BN 9458297 | Registered in Nigeria</span><span class="proof-badge">HQ: Victoria Island, Lagos (Remote-first)</span><span class="proof-badge">Authorized work only</span></div>
+        <p class="muted tiny">Email: <a class="link" href="mailto:lionsechub@gmail.com">lionsechub@gmail.com</a> • WhatsApp: <a class="link" href="https://wa.me/2348107549232" target="_blank" rel="noopener noreferrer">+234 810 754 9232</a></p>
+      </div>
+      <div class="footer-links">
+        <strong>Explore</strong>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="quantum-security.html">Quantum Security</a>
+        <a href="data-protection.html">Data Protection</a>
+        <a href="academy.html">Academy</a>
+        <a href="industries.html">Industries</a>
+        <a href="research.html">Research</a>
+        <a href="careers.html">Careers</a>
+        <a href="about.html">About &amp; Trust</a>
+        <a href="proposal.html">Request a Proposal</a>
+      </div>
+      <div class="footer-links">
+        <strong>Legal</strong>
+        <a href="trust.html">Integrity policy</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span class="muted tiny">© 2027–2028 LionSec Hub. All rights reserved.</span>
+      <span class="muted tiny">Built with discipline • proof • standards.</span>
+    </div>
+  </footer>
+  <script src="assets/vendor/dompurify.min.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

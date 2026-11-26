@@ -2290,3 +2290,63 @@ a.course{display:block; color:inherit}
 /* Protected pages — no selection */
 .no-select, .no-select *{user-select:none !important; -webkit-user-select:none !important}
 img, video{-webkit-user-drag:none}
+
+/* ===== Academy subject categories & programme detail cards ===== */
+.cat{border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-card); margin:14px 0; overflow:hidden}
+.cat>summary{cursor:pointer; list-style:none; padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:14px}
+.cat>summary::-webkit-details-marker{display:none}
+.cat>summary::after{content:"+"; font-size:1.4rem; color:var(--gold); flex:none; line-height:1}
+.cat[open]>summary::after{content:"\2013"}
+.cat>summary:focus-visible, details summary:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+.cat-head h3{margin:0}
+.cat-head .muted{margin-top:4px}
+.cat-body{padding:4px 20px 20px; border-top:1px solid var(--border)}
+.cat-flag{border-color: rgba(255,200,87,.4); box-shadow: 0 0 0 1px rgba(255,200,87,.08) inset}
+.cat-num{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:10px; border:1px solid rgba(255,200,87,.35); color:var(--gold); font-weight:800; margin-right:10px; vertical-align:middle}
+
+.prog{border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-card2); padding:18px; margin:14px 0; display:block; color:inherit}
+.prog:hover{border-color: rgba(255,200,87,.25)}
+.prog-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap}
+.prog h3{margin:6px 0 4px}
+.prog-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:12px 0}
+.prog-meta .pm{border:1px solid var(--border); border-radius:12px; padding:8px 12px; background:var(--bg-card)}
+.prog-meta .pm strong{display:block; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.prog-meta .pm span{font-weight:700}
+.prog details{margin-top:8px; border-top:1px dashed var(--border); padding-top:8px}
+.prog details summary{cursor:pointer; color:var(--gold); font-weight:600; font-size:.92rem}
+.prog details ul{margin:8px 0 0}
+.prog .card-actions{margin-top:14px; display:flex; gap:8px; flex-wrap:wrap}
+
+.pill.status-available{border-color: rgba(110,231,183,.4); color:#8ff0cd}
+.pill.status-upcoming{border-color: var(--border); color: var(--text-muted)}
+.pill.status-research{border-color: rgba(125,211,252,.4); color:#9fd8ff}
+
+/* ===== Technical architecture diagrams ===== */
+.dg{border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-card); padding:18px; margin:14px 0}
+.dg h3{margin-top:0}
+.dg-flow{display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; margin:14px 0}
+.dg-node{flex:1 1 150px; border:1px solid var(--border); border-radius:12px; background:var(--bg-card2); padding:10px 12px}
+.dg-node strong{display:block; font-size:.92rem}
+.dg-node span{font-size:.8rem; color:var(--muted)}
+.dg-node.gold{border-color: rgba(255,200,87,.4); background: rgba(255,200,87,.07)}
+.dg-node.mint{border-color: rgba(110,231,183,.4); background: rgba(110,231,183,.07)}
+.dg-arrow{align-self:center; color:var(--gold); font-weight:800; flex:none; padding:0 2px}
+.dg-legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:12px; font-size:.82rem; color:var(--muted)}
+.dg-legend i{display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:6px; vertical-align:middle}
+.lg-quantum{background:var(--mint)}
+.lg-classical{background:var(--gold)}
+.lg-sec{background:#7aa2ff}
+.lg-data{background:#c084fc}
+.algo-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin-top:12px}
+.algo{border:1px solid var(--border); border-radius:12px; padding:14px; background:var(--bg-card2)}
+.algo h4{margin:0 0 6px; color:var(--gold)}
+.algo p{margin:0; font-size:.88rem; color:var(--muted)}
+.dg-steps{counter-reset:dgstep; margin:12px 0; padding:0; list-style:none}
+.dg-steps li{counter-increment:dgstep; position:relative; padding:10px 12px 10px 52px; border:1px solid var(--border); border-radius:12px; background:var(--bg-card2); margin-bottom:8px}
+.dg-steps li::before{content:counter(dgstep); position:absolute; left:14px; top:50%; transform:translateY(-50%); width:26px; height:26px; border-radius:50%; border:1px solid rgba(255,200,87,.5); color:var(--gold); display:grid; place-items:center; font-size:.8rem; font-weight:800}
+
+@media (max-width: 720px){
+  .dg-flow{flex-direction:column}
+  .dg-arrow{transform:rotate(90deg); align-self:flex-start; padding:2px 0}
+  .prog-meta{grid-template-columns:1fr 1fr}
+}

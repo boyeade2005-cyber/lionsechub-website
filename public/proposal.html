@@ -31,11 +31,12 @@
       </a>
       <nav class="nav" aria-label="Primary navigation">
         <a class="nav-link" href="index.html">Home</a>
-        <a class="nav-link" href="services.html">Capabilities</a>
+        <a class="nav-link" href="services.html">Services</a>
+        <a class="nav-link" href="quantum-security.html">Quantum Security</a>
         <a class="nav-link" href="academy.html">Academy</a>
-        <a class="nav-link" href="curriculum.html">Curriculum</a>
-        <a class="nav-link" href="careers.html">Careers</a>
+        <a class="nav-link" href="industries.html">Industries</a>
         <a class="nav-link" href="research.html">Research</a>
+        <a class="nav-link" href="careers.html">Careers</a>
         <a class="nav-link" href="about.html">About &amp; Trust</a>
         <a class="btn btn-primary" href="proposal.html">Request a Proposal</a>
       </nav>
@@ -60,7 +61,7 @@
     <section class="section alt">
       <div class="container">
         <div class="form-wrap reveal">
-          <form id="proposalForm" class="form" action="https://formspree.io/f/meepnykj" method="POST" novalidate>
+          <form id="proposalForm" class="form" action="https://formspree.io/f/meepnykj" method="POST" enctype="multipart/form-data" novalidate>
             <input type="hidden" name="_subject" value="New Proposal Request - LionSec Hub" />
             <div class="form-grid">
               <h3 class="span-2">Organisation Details</h3>
@@ -80,25 +81,50 @@
                 <span>Division(s) of Interest</span>
                 <select name="division" required>
                   <option value="" disabled selected>Select a division</option>
-                  <option>01 - Cyber Defence &amp; Offensive Security</option>
-                  <option>02 - AI Security &amp; AI Assurance</option>
-                  <option>03 - Quantum-Safe Security &amp; Cryptographic Research</option>
-                  <option>04 - Financial Security, Fraud Prevention &amp; Digital Intelligence</option>
-                  <option>05 - Digital Forensics, Incident Response &amp; Cyber Resilience</option>
-                  <option>06 - Governance, Risk, Compliance &amp; Information Assurance</option>
-                  <option>07 - Secure Engineering, Cloud &amp; Infrastructure</option>
-                  <option>08 - Government, Defence &amp; Critical Infrastructure Resilience</option>
-                  <option>ISO / Standards Readiness Advisory</option>
+                  <option>01 - Cybersecurity &amp; Cyber Defence</option>
+                  <option>02 - Quantum Technologies &amp; Post-Quantum Security</option>
+                  <option>03 - Artificial Intelligence &amp; AI Security</option>
+                  <option>04 - Advanced Offensive Security &amp; Adversary Simulation</option>
+                  <option>05 - Defence, Military &amp; National Security Technology</option>
+                  <option>06 - Advanced Data Protection &amp; Privacy Engineering</option>
+                  <option>07 - Financial Intelligence &amp; Fraud Security</option>
+                  <option>08 - Governance, Risk, Compliance &amp; Standards</option>
+                  <option>09 - Secure Engineering &amp; Digital Infrastructure</option>
                   <option>Corporate &amp; Institutional Academy</option>
                   <option>Multiple / Not sure - advise me</option>
                 </select>
               </label>
+              <label class="span-2">
+                <span>Additional services needed (optional)</span>
+                <input name="services_extra" type="text" placeholder="e.g., Penetration testing + SOC readiness + staff training" />
+              </label>
 
               <h3 class="span-2">Engagement Details</h3>
               <label><span>Preferred Start Date</span><input name="start_date" type="date" /></label>
-              <label><span>Target Completion</span><input name="end_date" type="date" /></label>
+              <label>
+                <span>Preferred Engagement Timeline</span>
+                <select name="timeline">
+                  <option value="" selected>Select timeline</option>
+                  <option>Urgent - within 2 weeks</option>
+                  <option>1 month</option>
+                  <option>1–3 months</option>
+                  <option>3–6 months</option>
+                  <option>Flexible / planning stage</option>
+                </select>
+              </label>
               <label class="span-2"><span>Project Requirements / Environment</span><textarea name="requirements" rows="5" placeholder="Describe your environment, technologies, scale and objectives." required></textarea></label>
+              <label class="span-2"><span>Technical Requirements</span><textarea name="technical_requirements" rows="4" placeholder="Specific technical requirements: systems in scope, compliance obligations, delivery constraints, on-site vs remote." /></label>
               <label class="span-2"><span>Technology Involved</span><input name="technology" type="text" placeholder="e.g., AWS, on-prem AD, banking core, Kubernetes" /></label>
+
+              <h3 class="span-2">RFP / Tender Documents (optional)</h3>
+              <label class="span-2">
+                <span>Upload RFP or scope document</span>
+                <input name="rfp_document" type="file" accept=".pdf,.doc,.docx,.txt,.zip" />
+                <span class="muted tiny">PDF, DOC/DOCX, TXT or ZIP. If the upload fails or the file is large, email it securely to lionsechub@gmail.com and reference this request. Never upload credentials or secrets.</span>
+              </label>
+              <label class="span-2"><span>RFP / Tender Reference</span><input name="rfp_ref" type="text" placeholder="Tender or RFP reference number" /></label>
+
+              <label class="span-2"><span>Additional Comments / Questions</span><textarea name="comments" rows="3" /></label>
 
               <h3 class="span-2">Commercial Information (optional)</h3>
               <label>
@@ -122,7 +148,6 @@
                   <option>Partner / subcontract</option>
                 </select>
               </label>
-              <label class="span-2"><span>RFP / Tender Reference (optional)</span><input name="rfp_ref" type="text" /></label>
 
               <h3 class="span-2">Authorisation</h3>
               <label class="span-2" style="display:flex;gap:10px;align-items:flex-start">
@@ -147,8 +172,8 @@
             <p class="muted tiny">Do not submit passwords, private keys, tokens or exploit details through this form. Sensitive materials are exchanged under NDA through secure channels only.</p>
             <h3 style="margin-top:18px">Prefer to talk?</h3>
             <p class="muted tiny">WhatsApp: <a class="link" href="https://wa.me/2348107549232" target="_blank" rel="noopener noreferrer">+234 810 754 9232</a><br>Email: <a class="link" href="mailto:lionsechub@gmail.com">lionsechub@gmail.com</a></p>
-            <h3 style="margin-top:18px">Visit or call</h3>
-            <p class="muted tiny">24 Rue du Sentier, 75002 Paris, France<br>Open 24 hours, Monday through Sunday</p>
+            <h3 style="margin-top:18px">Headquarters</h3>
+            <p class="muted tiny">Victoria Island, Lagos, Nigeria<br>Remote-first international delivery</p>
           </aside>
         </div>
       </div>
@@ -167,7 +192,7 @@
       </div>
       <div class="footer-links">
         <strong>Explore</strong>
-        <a href="index.html">Home</a><a href="services.html">Capabilities</a><a href="academy.html">Academy</a><a href="curriculum.html">Curriculum</a><a href="careers.html">Careers</a><a href="research.html">Research</a><a href="about.html">About &amp; Trust</a>
+        <a href="index.html">Home</a><a href="services.html">Services</a><a href="quantum-security.html">Quantum Security</a><a href="data-protection.html">Data Protection</a><a href="academy.html">Academy</a><a href="industries.html">Industries</a><a href="careers.html">Careers</a><a href="research.html">Research</a><a href="about.html">About &amp; Trust</a>
       </div>
       <div class="footer-links">
         <strong>Legal</strong>

@@ -283,39 +283,6 @@
   };
 
   /* ============================
-     Cohort countdown
-     ============================ */
-  const initCountdown = () => {
-    // ⚠️ Update this date to your actual next cohort start date
-    const cohortStartDate = "2027-01-12";
-    const out = $("#countdown");
-    if (!out) return;
-
-    const tick = () => {
-      const end = new Date(cohortStartDate + "T00:00:00");
-      const now = new Date();
-      const diff = end.getTime() - now.getTime();
-
-      if (Number.isNaN(end.getTime())) {
-        out.textContent = "Set cohort date";
-        return;
-      }
-      if (diff <= 0) {
-        out.textContent = "Cohort started";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      out.textContent = `${days}d ${hrs}h ${mins}m`;
-    };
-
-    tick();
-    setInterval(tick, 30000);
-  };
-
-  /* ============================
      Academy filter tabs (optional — only runs if .a-tab elements exist)
      ============================ */
   const initAcademyFilters = () => {
@@ -721,6 +688,39 @@
   };
 
   /* ============================
+     Academy apply: Fast-Track gate + programme prefill
+     ============================ */
+  const initAcademyApply = () => {
+    const form = $("#applyForm");
+    if (!form) return;
+    const track = form.querySelector("select[name='track']");
+    const gate = $("#ftGate");
+    const confirmBox = form.querySelector("input[name='ft_confirm']");
+
+    if (track && gate) {
+      const sync = () => {
+        const isFT = /fast-track/i.test(track.value || "");
+        gate.hidden = !isFT;
+        if (confirmBox) confirmBox.required = isFT;
+      };
+      track.addEventListener("change", sync);
+      sync();
+    }
+
+    // Course cards can prefill the programme select via data-apply="Programme Name"
+    $$("[data-apply]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (!track) return;
+        const wanted = btn.getAttribute("data-apply") || "";
+        const opt = Array.from(track.options).find(
+          (o) => o.text.trim() === wanted || o.value === wanted
+        );
+        if (opt) track.value = opt.value || opt.text;
+      });
+    });
+  };
+
+  /* ============================
      Media guard — discourage save/screenshot of media & protected pages
      ============================ */
   const initMediaGuard = () => {
@@ -752,8 +752,9 @@
     initAmbientCanvas();
     initVideoFriction();
     initUsdToggle();
-    initCountdown();
+
     initAcademyFilters();
+    initAcademyApply();
     initGroupPricingPrefill();
     initGlobe();
     initMediaGuard();
