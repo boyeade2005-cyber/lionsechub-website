@@ -416,6 +416,54 @@
   };
 
   /* ============================
+     Visitor region detection (privacy-friendly)
+     Infers nearest delivery market from timezone + locale - no permission prompt.
+     ============================ */
+  const detectVisitorCity = () => {
+    const TZ = {
+      "Africa/Lagos": "Lagos", "Africa/Porto-Novo": "Lagos", "Africa/Dakar": "Lagos",
+      "Africa/Abidjan": "Lagos", "Africa/Kinshasa": "Lagos", "Africa/Johannesburg": "Lagos",
+      "Africa/Cairo": "Cairo", "Africa/Tunis": "Cairo", "Africa/Algiers": "Cairo",
+      "Africa/Tripoli": "Cairo", "Africa/Khartoum": "Cairo",
+      "Europe/London": "London", "Europe/Dublin": "London",
+      "Europe/Rome": "Rome", "Europe/Vatican": "Rome",
+      "Asia/Dubai": "Dubai", "Asia/Muscat": "Dubai", "Asia/Riyadh": "Dubai",
+      "Asia/Qatar": "Dubai", "Asia/Bahrain": "Dubai", "Africa/Nairobi": "Dubai",
+      "Asia/Singapore": "Singapore", "Asia/Kuala_Lumpur": "Singapore",
+      "Asia/Jakarta": "Singapore", "Asia/Bangkok": "Singapore",
+      "Asia/Ho_Chi_Minh": "Singapore", "Asia/Manila": "Singapore",
+      "Australia/Perth": "Singapore", "Australia/Darwin": "Singapore",
+      "Australia/Sydney": "Sydney", "Australia/Melbourne": "Sydney",
+      "Australia/Brisbane": "Sydney", "Australia/Adelaide": "Sydney",
+      "Australia/Hobart": "Sydney", "Pacific/Auckland": "Sydney",
+      "Europe/Paris": "Paris", "Europe/Berlin": "Paris", "Europe/Madrid": "Paris",
+      "Europe/Brussels": "Paris", "Europe/Amsterdam": "Paris", "Europe/Lisbon": "Paris",
+      "Europe/Vienna": "Paris", "Europe/Zurich": "Paris", "Europe/Stockholm": "Paris",
+      "Europe/Oslo": "Paris", "Europe/Copenhagen": "Paris", "Europe/Warsaw": "Paris",
+      "Europe/Prague": "Paris", "Europe/Budapest": "Paris", "Europe/Athens": "Paris",
+      "Europe/Helsinki": "Paris", "Europe/Kyiv": "Paris", "Europe/Istanbul": "Paris",
+      "Europe/Moscow": "Paris"
+    };
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      if (TZ[tz]) return TZ[tz];
+      // Fallback: language/region tag (e.g. en-NG, fr-FR, it-IT)
+      const lang = (navigator.language || "").toLowerCase();
+      const REGION = {
+        "ng": "Lagos", "gh": "Lagos", "ke": "Dubai", "za": "Lagos", "eg": "Cairo",
+        "gb": "London", "ie": "London", "fr": "Paris", "de": "Paris", "es": "Paris",
+        "it": "Rome", "ae": "Dubai", "sa": "Dubai", "qa": "Dubai", "sg": "Singapore",
+        "my": "Singapore", "id": "Singapore", "au": "Sydney", "nz": "Sydney"
+      };
+      const parts = lang.split(/[-_]/);
+      for (const p of parts.slice(1)) if (REGION[p]) return REGION[p];
+    } catch { /* detection unavailable */ }
+    return null;
+  };
+
+  const VISITOR_CITY = detectVisitorCity();
+
+  /* ============================
      Rotating globe (Global Reach)
      Lightweight canvas dot-globe with market arcs.
      ============================ */
@@ -624,6 +672,15 @@
         ctx.lineWidth = 1;
         ctx.stroke();
 
+        // Visitor region — gold ring + YOU tag on nearest market city
+        if (VISITOR_CITY && c.name === VISITOR_CITY) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 9 + (now / 900 % 1) * 8, 0, Math.PI * 2);
+          ctx.strokeStyle = "rgba(255,214,120,.55)";
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        }
+
         // City hub
         ctx.beginPath();
         ctx.arc(p.x, p.y, c.anchor ? 3.4 : 2.4, 0, Math.PI * 2);
@@ -646,7 +703,8 @@
         if (p.z > 0.22) {
           ctx.font = "600 10px system-ui, sans-serif";
           ctx.fillStyle = c.anchor ? "rgba(255,200,87,.95)" : "rgba(232,243,255,.8)";
-          ctx.fillText(c.name.toUpperCase(), p.x + 14, p.y - 8);
+          const youTag = VISITOR_CITY && c.name === VISITOR_CITY ? " · YOU" : "";
+          ctx.fillText(c.name.toUpperCase() + youTag, p.x + 14, p.y - 8);
         }
       });
 
@@ -721,6 +779,19 @@
   };
 
   /* ============================
+     Visitor region hint — shows detected nearest market near the globe
+     ============================ */
+  const initGeoHint = () => {
+    if (!VISITOR_CITY) return;
+    const side = document.querySelector(".globe-side");
+    if (!side || side.querySelector(".geo-hint")) return;
+    const p = document.createElement("p");
+    p.className = "geo-hint muted tiny";
+    p.textContent = `Detected region: nearest delivery market — ${VISITOR_CITY}. Remote-first delivery worldwide.`;
+    side.appendChild(p);
+  };
+
+  /* ============================
      Media guard — discourage save/screenshot of media & protected pages
      ============================ */
   const initMediaGuard = () => {
@@ -757,6 +828,7 @@
     initAcademyApply();
     initGroupPricingPrefill();
     initGlobe();
+    initGeoHint();
     initMediaGuard();
 
     wireForm("quoteForm", "quoteMessage", "Request received. We'll reply shortly.");
