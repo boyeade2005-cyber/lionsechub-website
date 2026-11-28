@@ -1,4 +1,5 @@
 {
+  "cleanUrls": false,
   "routes": [
     { "src": "^/index\\.html$", "status": 308, "headers": { "Location": "/" } },
     { "src": "^/academy\\.html$", "status": 308, "headers": { "Location": "/academy" } },
