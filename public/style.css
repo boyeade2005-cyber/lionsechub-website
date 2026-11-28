@@ -2373,3 +2373,5 @@ img, video{-webkit-user-drag:none}
 .voice-card figcaption{display:flex; flex-direction:column; gap:2px; border-top:1px solid var(--border); padding-top:10px}
 .voice-card figcaption strong{font-size:.9rem}
 @media (max-width: 720px){ .voices .grid-3{grid-template-columns:1fr} }
+.voice-card blockquote p{margin:0 0 10px}
+.voice-card blockquote p:last-child{margin-bottom:0}
