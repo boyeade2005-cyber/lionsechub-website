@@ -2366,3 +2366,10 @@ img, video{-webkit-user-drag:none}
   .wa-ic{ width: 36px; height: 36px; border-radius: 12px }
   .wa-orb{ width: 8px; height: 8px; box-shadow: 0 0 0 5px rgba(110,231,183,.12) }
 }
+
+/* Student voices - why they chose us */
+.voice-card{display:flex; flex-direction:column; gap:12px}
+.voice-card blockquote{margin:0; font-size:.92rem; line-height:1.65; color:var(--text)}
+.voice-card figcaption{display:flex; flex-direction:column; gap:2px; border-top:1px solid var(--border); padding-top:10px}
+.voice-card figcaption strong{font-size:.9rem}
+@media (max-width: 720px){ .voices .grid-3{grid-template-columns:1fr} }
