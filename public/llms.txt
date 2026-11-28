@@ -7,25 +7,25 @@
 > Securing critical systems. Protecting digital economies. Preparing for the quantum era.
 > Remote-first, internationally oriented delivery from Lagos, Nigeria.
 
-## Services (nine divisions - /services.html)
-- /service-cyber-defence.html - penetration testing, SOC readiness, SIEM, detection engineering, threat hunting, DFIR readiness
-- /quantum-security.html - post-quantum cryptography (NIST FIPS 203/204/205), QKD advisory, quantum-safe architecture, cryptographic agility, PQC migration
-- /service-ai-security.html - LLM security, AI red teaming, agent security, RAG pipelines, AI governance (NIST AI RMF, OWASP LLM, ISO/IEC 42001 awareness)
-- /service-offensive-security.html - advanced offensive security, red/purple teaming, controlled exploit development, malware analysis, reverse engineering (authorised work only)
-- /service-defence.html - lawful, authorised defensive cybersecurity for defence and national-security sectors (no military contracts or classified access claimed)
-- /data-protection.html - data protection architecture, DLP, encryption & key management, privacy engineering, GDPR/NDPA advisory, ISO/IEC 27701 awareness
-- /service-financial-intelligence.html - banking/fintech security, payment API security, fraud controls, BEC defence, lawful financial-crime intelligence
-- /service-grc.html - ISMS/PIMS/AIMS advisory, ISO 27001/27701/42001 readiness, risk assessment, audit evidence preparation (LionSec does not issue certifications)
-- /service-secure-engineering.html - secure application architecture, cloud security (AWS/Azure), DevSecOps, Zero Trust, OT/ICS engineering
+## Services (nine divisions - /services)
+- /service-cyber-defence - penetration testing, SOC readiness, SIEM, detection engineering, threat hunting, DFIR readiness
+- /quantum-security - post-quantum cryptography (NIST FIPS 203/204/205), QKD advisory, quantum-safe architecture, cryptographic agility, PQC migration
+- /service-ai-security - LLM security, AI red teaming, agent security, RAG pipelines, AI governance (NIST AI RMF, OWASP LLM, ISO/IEC 42001 awareness)
+- /service-offensive-security - advanced offensive security, red/purple teaming, controlled exploit development, malware analysis, reverse engineering (authorised work only)
+- /service-defence - lawful, authorised defensive cybersecurity for defence and national-security sectors (no military contracts or classified access claimed)
+- /data-protection - data protection architecture, DLP, encryption & key management, privacy engineering, GDPR/NDPA advisory, ISO/IEC 27701 awareness
+- /service-financial-intelligence - banking/fintech security, payment API security, fraud controls, BEC defence, lawful financial-crime intelligence
+- /service-grc - ISMS/PIMS/AIMS advisory, ISO 27001/27701/42001 readiness, risk assessment, audit evidence preparation (LionSec does not issue certifications)
+- /service-secure-engineering - secure application architecture, cloud security (AWS/Azure), DevSecOps, Zero Trust, OT/ICS engineering
 
-## Industries (/industries.html)
-- /industry-banking.html - Banking & Finance
-- /industry-defence.html - Defence & National Security (authorised defensive work only)
-- /industry-government.html - Government
-- /industry-telecoms.html - Telecommunications
-- /industry-energy.html - Energy & Critical Infrastructure (OT/ICS, SCADA/PLC)
-- /industry-healthcare.html - Healthcare
-- /industry-enterprise.html - Enterprise Technology
+## Industries (/industries)
+- /industry-banking - Banking & Finance
+- /industry-defence - Defence & National Security (authorised defensive work only)
+- /industry-government - Government
+- /industry-telecoms - Telecommunications
+- /industry-energy - Energy & Critical Infrastructure (OT/ICS, SCADA/PLC)
+- /industry-healthcare - Healthcare
+- /industry-enterprise - Enterprise Technology
 
 ## Academy
 One Academy with six subject categories: Cybersecurity, AI & AI Security, Cloud &
@@ -36,7 +36,7 @@ Research Programme). Tuition in NGN (Cybersecurity Foundations ₦350,000; Cyber
 Technical Fast-Track ₦250,000); international pricing on request.
 
 ## Curriculum
-/curriculum.html - readable student curricula with locations: Nigeria, Ghana, Egypt, Rwanda.
+/curriculum - readable student curricula with locations: Nigeria, Ghana, Egypt, Rwanda.
 Personalised programmes: SOC analyst pathway, developer-to-security, IoT/AI/cloud security,
 AI security engineering & LLM red teaming, foundation recovery and advanced SOC capstone.
 
@@ -51,5 +51,5 @@ cybersecurity vacancies with original employer application links.
 ## Contact
 - Email: lionsechub@gmail.com
 - WhatsApp: +234 810 754 9232
-- Proposal requests: /proposal.html
+- Proposal requests: /proposal
 - HQ: Victoria Island, Lagos, Nigeria (remote-first international delivery)

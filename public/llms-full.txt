@@ -5,35 +5,35 @@
 > digital economies. Preparing for the quantum era."
 > HQ: Victoria Island, Lagos, Nigeria — remote-first international delivery.
 > Contact: lionsechub@gmail.com · WhatsApp +234 810 754 9232 ·
-> Proposal form: /proposal.html
+> Proposal form: /proposal
 
 ## What LionSec Hub does
-Nine professional service divisions (/services.html):
+Nine professional service divisions (/services):
 1. Cybersecurity & Cyber Defence — penetration testing, SOC readiness, SIEM, detection
-   engineering, threat hunting, DFIR readiness (/service-cyber-defence.html)
+   engineering, threat hunting, DFIR readiness (/service-cyber-defence)
 2. Quantum Technologies & Post-Quantum Security — PQC (NIST FIPS 203/204/205), QKD advisory,
-   quantum-safe architecture, cryptographic agility, migration (/quantum-security.html)
+   quantum-safe architecture, cryptographic agility, migration (/quantum-security)
 3. Artificial Intelligence & AI Security — LLM security, AI red teaming, agent security,
-   RAG pipelines, AI governance (/service-ai-security.html)
+   RAG pipelines, AI governance (/service-ai-security)
 4. Advanced Offensive Security & Adversary Simulation — red/purple teaming, controlled
    exploit development, malware analysis, reverse engineering; authorised work only
-   (/service-offensive-security.html)
+   (/service-offensive-security)
 5. Defence, Military & National Security Technology — lawful, authorised defensive
    cybersecurity and secure communications; no military contracts, classified access or
-   operational deployment claimed (/service-defence.html)
+   operational deployment claimed (/service-defence)
 6. Advanced Data Protection & Privacy Engineering — DLP, classification, encryption & key
    management, privacy engineering, anonymisation, tokenisation, GDPR/NDPA advisory
-   (/data-protection.html)
+   (/data-protection)
 7. Financial Intelligence & Fraud Security — banking/fintech security, payment APIs,
    fraud controls, BEC defence, lawful financial-crime intelligence
-   (/service-financial-intelligence.html)
+   (/service-financial-intelligence)
 8. Governance, Risk, Compliance & Standards — ISMS/PIMS/AIMS advisory, ISO 27001/27701/42001
    readiness, risk assessment, audit evidence; LionSec does not issue certifications
-   (/service-grc.html)
+   (/service-grc)
 9. Secure Engineering & Digital Infrastructure — secure architecture, cloud (AWS/Azure),
-   DevSecOps, Zero Trust, OT/ICS (/service-secure-engineering.html)
+   DevSecOps, Zero Trust, OT/ICS (/service-secure-engineering)
 
-Sectors served (/industries.html): banking & finance, defence & national security,
+Sectors served (/industries): banking & finance, defence & national security,
 government, telecommunications, energy & critical infrastructure, healthcare,
 enterprise technology — each with a dedicated industry page.
 
@@ -54,7 +54,7 @@ Fast-Track ₦250,000 (assumes networking/Linux/IT knowledge + admission assessm
 Fixed payment plans — two-part or monthly; specialist programmes 60% before
 commencement + 40% by midpoint. International pricing on request.
 
-## Real student programmes (see /curriculum.html)
+## Real student programmes (see /curriculum)
 - Damian (Nigeria): Premium Enterprise Cybersecurity, 4-month intensive, NSE 8/OSCP/CISSP targets
 - Ryan Yirenkyi Opoku (Ghana): developer → cybersecurity professional, 9-stage pathway
 - Salma Esam (Cairo, Egypt): 16-week IoT/AI/cloud security curriculum
@@ -82,19 +82,19 @@ cybersecurity vacancies with original employer application links.
 
 ## Key pages
 - / — home: services, academy, global delivery model, trust
-- /services.html — nine service divisions
-- /quantum-security.html — PQC/QKD/quantum-safe architecture flagship page
-- /data-protection.html — data protection & privacy engineering division
-- /industries.html — seven sector pages (banking, defence, government, telecoms,
+- /services — nine service divisions
+- /quantum-security — PQC/QKD/quantum-safe architecture flagship page
+- /data-protection — data protection & privacy engineering division
+- /industries — seven sector pages (banking, defence, government, telecoms,
   energy, healthcare, enterprise)
-- /academy.html — six subject categories, pricing, application
-- /curriculum.html — readable student curricula with locations and PDF documents
-- /careers.html — open roles + global vacancy intelligence
-- /research.html — quantum security lab publications
-- /about.html — corporate identity, leadership, credentials, verification
-- /proposal.html — engagement request form (org, country, industry, services,
+- /academy — six subject categories, pricing, application
+- /curriculum — readable student curricula with locations and PDF documents
+- /careers — open roles + global vacancy intelligence
+- /research — quantum security lab publications
+- /about — corporate identity, leadership, credentials, verification
+- /proposal — engagement request form (org, country, industry, services,
   technical requirements, timeline, RFP upload)
-- /trust.html — integrity & no-false-claims policy
+- /trust — integrity & no-false-claims policy
 
 ## Principles
 Authorized work only. Evidence-driven delivery. No false claims. Scope-first proposals.
