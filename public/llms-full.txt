@@ -60,8 +60,7 @@ commencement + 40% by midpoint. International pricing on request.
 - Salma Esam (Cairo, Egypt): 16-week IoT/AI/cloud security curriculum
 - Valentine, Aduragbemi: professional pathways · Ephraim: AI Security & LLM Red Teaming
 - Victor Thankgod: beginner mobile-first · Kelly (Rwanda): post-high-school career track
-- Prince: foundation recovery · BlueShield SOC: advanced capstone (28 detection rules,
-  MITRE ATT&CK mapped, Wazuh + OpenSearch + Zeek)
+- Prince: foundation recovery · BlueShield SOC: advanced capstone (training and demonstration environment, not production)
 
 ## Leadership
 Adeboye Alade — Founder / Curriculum & Training Lead. Security Operations & IT Analyst,

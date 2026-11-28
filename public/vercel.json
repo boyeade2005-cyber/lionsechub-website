@@ -28,7 +28,8 @@
     { "source": "/curriculum.html", "destination": "/curriculum", "permanent": true },
     { "source": "/trust.html", "destination": "/trust", "permanent": true },
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
-    { "source": "/terms.html", "destination": "/terms", "permanent": true }
+    { "source": "/terms.html", "destination": "/terms", "permanent": true },
+    { "source": "/student-privacy.html", "destination": "/student-privacy", "permanent": true }
   ],
   "rewrites": [
     { "source": "/academy", "destination": "/academy.html" },
@@ -57,7 +58,8 @@
     { "source": "/curriculum", "destination": "/curriculum.html" },
     { "source": "/trust", "destination": "/trust.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/terms", "destination": "/terms.html" }
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/student-privacy", "destination": "/student-privacy.html" }
   ],
   "headers": [
     {
